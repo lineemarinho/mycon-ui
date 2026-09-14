@@ -341,10 +341,10 @@
     padding: 16px 20px;
   }
   .mock-card.status-border { border-left: 8px solid var(--success); padding-left: 16px; }
-  .mock-kv { flex: 1 1 140px; min-width: 120px; border-right: 1px solid var(--line); padding-right: 16px; }
+  .mock-kv { flex: 1 1 140px; min-width: 0; border-right: 1px solid var(--line); padding-right: 16px; overflow: hidden; }
   .mock-kv:last-of-type { border-right: none; }
-  .mock-kv .kv-title { font-size: 0.72rem; color: var(--ink-soft); margin-bottom: 2px; }
-  .mock-kv .kv-value { font-weight: 700; font-size: 0.95rem; color: var(--ink); }
+  .mock-kv .kv-title { font-size: 0.72rem; color: var(--ink-soft); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mock-kv .kv-value { font-weight: 700; font-size: 0.95rem; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .mock-card-action { flex-shrink: 0; }
   .mock-details-expand { max-height: 0; overflow: hidden; transition: max-height 0.2s ease; }
   .mock-details-expand.open { max-height: 160px; }

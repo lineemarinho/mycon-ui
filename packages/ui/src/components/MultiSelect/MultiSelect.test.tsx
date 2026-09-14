@@ -23,4 +23,24 @@ describe("MultiSelect", () => {
 
     expect(onChange).toHaveBeenCalledWith(["cartao", "boleto"]);
   });
+
+  it('selects every option when "Selecionar todos" is clicked', async () => {
+    const onChange = vi.fn();
+    render(<MultiSelect label="Pagamentos" options={options} value={[]} onChange={onChange} />);
+
+    await userEvent.click(screen.getByLabelText("Pagamentos"));
+    await userEvent.click(await screen.findByText("Selecionar todos"));
+
+    expect(onChange).toHaveBeenCalledWith(["cartao", "boleto"]);
+  });
+
+  it('clears every option when "Selecionar todos" is clicked while all are selected', async () => {
+    const onChange = vi.fn();
+    render(<MultiSelect label="Pagamentos" options={options} value={["cartao", "boleto"]} onChange={onChange} />);
+
+    await userEvent.click(screen.getByLabelText("Pagamentos"));
+    await userEvent.click(await screen.findByText("Selecionar todos"));
+
+    expect(onChange).toHaveBeenCalledWith([]);
+  });
 });
