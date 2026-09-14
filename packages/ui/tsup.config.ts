@@ -7,5 +7,5 @@ export default defineConfig({
   clean: true,
   sourcemap: true,
   splitting: false,
-  external: ["react", "react-dom", "@mui/material", "@emotion/react", "@emotion/styled"],
+  external: ["react", "react-dom", "@mui/material", "@mui/icons-material", "@emotion/react", "@emotion/styled"],
 });
