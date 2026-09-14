@@ -358,6 +358,31 @@
   .icon-btn.primary { background: var(--accent); color: #fff; }
   .icon-btn.primary:hover { background: var(--accent-hover); }
 
+  [data-tooltip] { position: relative; }
+  [data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+    background: var(--ink); color: #fff; font-size: 0.72rem; font-family: "Raleway", sans-serif;
+    padding: 5px 10px; border-radius: 6px; white-space: nowrap;
+    opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.12s ease;
+    z-index: 30;
+  }
+  [data-tooltip]:hover::after, [data-tooltip]:focus-visible::after { opacity: 1; visibility: visible; }
+
+  .mock-menu-wrap { position: relative; display: inline-block; }
+  .mock-menu {
+    display: none; position: absolute; top: calc(100% + 8px); right: 0;
+    background: #fff; border: 1px solid var(--line); border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(54,52,85,0.18); min-width: 190px; overflow: hidden; z-index: 25;
+  }
+  .mock-menu.open { display: block; }
+  .mock-menu-item {
+    display: block; width: 100%; text-align: left; padding: 11px 16px; border: none; background: none;
+    font-family: "Raleway", sans-serif; font-size: 0.88rem; color: var(--ink); cursor: pointer;
+  }
+  .mock-menu-item:hover { background: var(--surface-raised); }
+  .mock-menu-item + .mock-menu-item { border-top: 1px solid var(--line); }
+
   /* ---- mock Input ---- */
   .mock-field { display: flex; flex-direction: column; gap: 6px; max-width: 260px; }
   .mock-field label { font-size: 0.78rem; color: var(--ink-soft); }
@@ -380,7 +405,10 @@
   .mock-section-head h4 { margin: 0; font-size: 1rem; color: var(--ink); }
   .mock-section-head .subtitle { font-size: 0.8rem; color: var(--ink-soft); margin-top: 2px; }
   .mock-section-toggle { width: 28px; height: 28px; border-radius: 100px; border: 1px solid var(--line); background: #fff; cursor: pointer; color: var(--ink-soft); }
-  .mock-section-body { margin-top: 14px; font-size: 0.88rem; color: var(--ink-soft); }
+  .mock-section-body { margin-top: 14px; font-size: 0.88rem; color: var(--ink-soft); overflow: hidden; max-height: 100px; transition: max-height 0.2s ease, margin 0.2s ease; }
+  .mock-section.collapsed .mock-section-body { max-height: 0; margin-top: 0; }
+  .mock-section-toggle .material-symbols-outlined { font-size: 18px; transition: transform 0.2s ease; }
+  .mock-section.collapsed .mock-section-toggle .material-symbols-outlined { transform: rotate(180deg); }
 
   /* ---- mock DetailsCard ---- */
   .mock-details { border: 1px solid var(--line); border-radius: 12px; padding: 0 18px; }
@@ -646,13 +674,20 @@
         <div class="preview">
           <div class="preview-row">
             <div class="mock-icon-action">
-              <button class="icon-btn" title="Editar" aria-label="Editar"><span class="material-symbols-outlined">edit</span></button>
+              <button class="icon-btn" data-tooltip="Editar" aria-label="Editar"><span class="material-symbols-outlined">edit</span></button>
             </div>
             <div class="mock-icon-action">
-              <button class="icon-btn primary" title="Mais ações" aria-label="Mais ações"><span class="material-symbols-outlined">menu</span></button>
+              <div class="mock-menu-wrap">
+                <button class="icon-btn primary" data-tooltip="Mais ações" aria-label="Mais ações" onclick="this.nextElementSibling.classList.toggle('open')"><span class="material-symbols-outlined">menu</span></button>
+                <div class="mock-menu">
+                  <button class="mock-menu-item">Imprimir boleto</button>
+                  <button class="mock-menu-item">Duplicar</button>
+                  <button class="mock-menu-item">Cancelar oferta</button>
+                </div>
+              </div>
             </div>
             <div class="mock-icon-action">
-              <button class="icon-btn" title="Excluir" aria-label="Excluir" disabled><span class="material-symbols-outlined">delete</span></button>
+              <button class="icon-btn" data-tooltip="Excluir" aria-label="Excluir" disabled><span class="material-symbols-outlined">delete</span></button>
             </div>
           </div>
         </div>
@@ -787,8 +822,15 @@
               <div class="mock-kv"><div class="kv-title">Status</div><div class="kv-value" style="color:var(--warning)">Pagamento Pendente</div></div>
               <div class="mock-kv"><div class="kv-title">Valor</div><div class="kv-value">R$ 70.000,00</div></div>
               <div class="mock-card-action" style="display:flex; gap:8px;">
-                <button class="icon-btn" title="Ver detalhes" aria-label="Ver detalhes" onclick="document.getElementById('demo-listitem-details').classList.toggle('open')"><span class="material-symbols-outlined">info</span></button>
-                <button class="icon-btn primary" title="Mais ações" aria-label="Mais ações"><span class="material-symbols-outlined">menu</span></button>
+                <button class="icon-btn" data-tooltip="Ver detalhes" aria-label="Ver detalhes" onclick="document.getElementById('demo-listitem-details').classList.toggle('open')"><span class="material-symbols-outlined">info</span></button>
+                <div class="mock-menu-wrap">
+                  <button class="icon-btn primary" data-tooltip="Mais ações" aria-label="Mais ações" onclick="this.nextElementSibling.classList.toggle('open')"><span class="material-symbols-outlined">menu</span></button>
+                  <div class="mock-menu">
+                    <button class="mock-menu-item">Imprimir boleto</button>
+                    <button class="mock-menu-item">Reenviar cobrança</button>
+                    <button class="mock-menu-item">Cancelar proposta</button>
+                  </div>
+                </div>
               </div>
             </div>
             <div id="demo-listitem-details" class="mock-details-expand">
@@ -844,7 +886,7 @@
                 <h4>Dados do cliente</h4>
                 <div class="subtitle">Informações de identificação</div>
               </div>
-              <button class="mock-section-toggle">︿</button>
+              <button class="mock-section-toggle" aria-label="Recolher seção" onclick="this.closest('.mock-section').classList.toggle('collapsed')"><span class="material-symbols-outlined">expand_less</span></button>
             </div>
             <div class="mock-section-body">Nome, CPF, e-mail e telefone de contato aparecem aqui dentro.</div>
           </div>
@@ -1293,6 +1335,12 @@
 </div>
 
 <script>
+  document.addEventListener("click", (event) => {
+    document.querySelectorAll(".mock-menu.open").forEach((menu) => {
+      if (!menu.parentElement.contains(event.target)) menu.classList.remove("open");
+    });
+  });
+
   const search = document.getElementById("search");
   const links = Array.from(document.querySelectorAll(".nav-link"));
   const groups = Array.from(document.querySelectorAll(".nav-group"));
