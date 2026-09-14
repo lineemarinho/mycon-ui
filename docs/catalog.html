@@ -383,6 +383,52 @@
   .mock-field .helper { font-size: 0.72rem; color: var(--ink-soft); }
   .mock-field input:disabled { background: var(--surface-raised); color: var(--ink); -webkit-text-fill-color: var(--ink); opacity: 1; }
 
+  /* ---- mock Select ---- */
+  .mock-select-wrap { max-width: 260px; }
+  .mock-select {
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: inherit; font-size: 0.9rem; padding: 10px 14px;
+    border-radius: 10px; border: 1.5px solid var(--accent); background: #fff; color: var(--ink);
+    box-shadow: 0 0 0 3px rgba(1,49,255,0.15);
+  }
+  .mock-select-panel {
+    margin-top: 6px; background: #fff; border: 1px solid var(--line); border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(54,52,85,0.12); overflow: hidden;
+  }
+  .mock-select-option { padding: 9px 14px; font-size: 0.88rem; cursor: pointer; }
+  .mock-select-option.selected { background: #EEF1FF; color: var(--accent); font-weight: 600; }
+  .mock-select-option:hover { background: var(--surface-raised); }
+
+  /* ---- mock DataTable ---- */
+  .mock-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  .mock-table th, .mock-table td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+  .mock-table th { font-family: "Montserrat", sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-soft); }
+  .mock-table th.sortable { cursor: pointer; user-select: none; }
+  .mock-table th.sortable .arrow { color: var(--accent); margin-left: 4px; }
+  .mock-table tbody tr:hover { background: var(--surface-raised); }
+  .mock-pagination { display: flex; justify-content: center; gap: 6px; margin-top: 14px; }
+  .mock-page-btn {
+    width: 30px; height: 30px; border-radius: 100px; border: 1px solid var(--line); background: #fff;
+    color: var(--ink); font-size: 0.82rem; cursor: pointer;
+  }
+  .mock-page-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* ---- mock FilterPanel (drawer) ---- */
+  .mock-drawer-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(54,52,85,0.35); z-index: 40;
+  }
+  .mock-drawer-overlay.open { display: block; }
+  .mock-drawer {
+    position: fixed; top: 0; right: 0; bottom: 0; width: min(320px, 88vw);
+    background: #fff; box-shadow: -12px 0 40px rgba(54,52,85,0.2);
+    padding: 24px; display: flex; flex-direction: column; gap: 16px;
+    transform: translateX(100%); transition: transform 0.25s ease;
+  }
+  .mock-drawer-overlay.open .mock-drawer { transform: translateX(0); }
+  .mock-drawer h3 { margin: 0; font-size: 1.05rem; color: var(--ink); }
+  .mock-drawer-fields { display: flex; flex-direction: column; gap: 14px; flex: 1; }
+  .mock-drawer-actions { display: flex; gap: 10px; }
+
   /* ---- mock ScrollArea ---- */
   .mock-scrollarea {
     height: 110px; overflow-y: auto; border: 1px dashed var(--line); border-radius: 12px;
@@ -492,9 +538,15 @@
         <a class="nav-link" data-name="listitemcard" href="#listitemcard"><span class="nav-dot" style="background:var(--ink-soft)"></span>ListItemCard</a>
         <a class="nav-link" data-name="scrollarea" href="#scrollarea"><span class="nav-dot" style="background:var(--ink-soft)"></span>ScrollArea</a>
       </div>
+      <div class="nav-group" data-group="dados">
+        <div class="nav-group-title">Dados</div>
+        <a class="nav-link" data-name="datatable" href="#datatable"><span class="nav-dot" style="background:var(--accent)"></span>DataTable</a>
+      </div>
       <div class="nav-group" data-group="formulario">
         <div class="nav-group-title">Formulário</div>
         <a class="nav-link" data-name="input" href="#input"><span class="nav-dot" style="background:var(--info)"></span>Input</a>
+        <a class="nav-link" data-name="select" href="#select"><span class="nav-dot" style="background:var(--info)"></span>Select</a>
+        <a class="nav-link" data-name="filterpanel" href="#filterpanel"><span class="nav-dot" style="background:var(--info)"></span>FilterPanel</a>
       </div>
     </nav>
 
@@ -502,7 +554,7 @@
       <div class="intro">
         <div class="eyebrow">Dicionário de componentes</div>
         <h1>@mycon/ui</h1>
-        <p>Design system compartilhado do backoffice Mycon. Os 6 componentes abaixo cobrem as duplicações de maior impacto encontradas na auditoria dos 11 repositórios <code>backoffice-*-front</code> — ver <code>AUDITORIA.md</code> e <code>DECISIONS.md</code>.</p>
+        <p>Design system compartilhado do backoffice Mycon. Os 9 componentes abaixo cobrem toda a lista de prioridade alta encontrada na auditoria dos 11 repositórios <code>backoffice-*-front</code> — ver <code>AUDITORIA.md</code> e <code>DECISIONS.md</code>.</p>
       </div>
 
       <!-- BUTTON -->
@@ -755,6 +807,68 @@
         </div>
       </section>
 
+      <!-- DATATABLE -->
+      <section class="component" id="datatable" data-name="datatable">
+        <div class="component-head">
+          <h2>DataTable</h2>
+          <span class="category-tag">Dados</span>
+        </div>
+        <p class="component-desc">Tabela com ordenação e paginação padronizadas. Fecha o maior gap da auditoria — nenhum dos 11 repos tinha componente de tabela; um deles reimplementava como função local, nem sequer um componente React exportável.</p>
+
+        <div class="usage-grid">
+          <div class="usage-card do"><strong>Usar quando</strong>Listagem com muitas colunas e necessidade de ordenar por coluna (mais de ~6 campos, ou dado tabular puro).</div>
+          <div class="usage-card dont"><strong>Evitar quando</strong>São poucos campos com uma ação por linha — nesse caso <code>ListItemCard</code> é mais legível que uma tabela densa.</div>
+        </div>
+
+        <div class="preview">
+          <table class="mock-table">
+            <thead>
+              <tr>
+                <th class="sortable">Nome <span class="arrow">↓</span></th>
+                <th>Status</th>
+                <th>Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Fulano da Silva</td><td>Ativo</td><td>R$ 1.240,00</td></tr>
+              <tr><td>Ciclano Souza</td><td>Pendente</td><td>R$ 890,00</td></tr>
+              <tr><td>Beltrano Lima</td><td>Cancelado</td><td>R$ 430,00</td></tr>
+            </tbody>
+          </table>
+          <div class="mock-pagination">
+            <button class="mock-page-btn active">1</button>
+            <button class="mock-page-btn">2</button>
+            <button class="mock-page-btn">3</button>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">columns<span class="required-mark">*</span></td><td class="prop-type">DataTableColumn&lt;T&gt;[]</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">rows<span class="required-mark">*</span></td><td class="prop-type">T[]</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">getRowId<span class="required-mark">*</span></td><td class="prop-type">(row: T) =&gt; string | number</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">sortField / sortOrder</td><td class="prop-type">string / "asc" | "desc"</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">onSortChange</td><td class="prop-type">(field: string) =&gt; void</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">page / pageCount / onPageChange</td><td class="prop-type">number / number / (page: number) =&gt; void</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">emptyMessage</td><td class="prop-type">string</td><td class="prop-default">"Nenhum registro encontrado."</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="datatable">Copiar</button>
+<span class="tag">&lt;DataTable</span>
+  <span class="attr">columns</span>={[{ <span class="attr">key</span>: <span class="str">"nome"</span>, <span class="attr">header</span>: <span class="str">"Nome"</span>, <span class="attr">sortable</span>: <span class="tag">true</span> }]}
+  <span class="attr">rows</span>={propostas}
+  <span class="attr">getRowId</span>={(row) =&gt; row.id}
+  <span class="attr">sortField</span>={sortField}
+  <span class="attr">onSortChange</span>={setSortField}
+<span class="tag">/&gt;</span>
+        </div>
+      </section>
+
       <!-- INPUT -->
       <section class="component" id="input" data-name="input">
         <div class="component-head">
@@ -801,6 +915,116 @@
         <div class="code-block">
 <button class="copy-btn" data-copy="input">Copiar</button>
 <span class="tag">&lt;Input</span> <span class="attr">label</span>=<span class="str">"CPF"</span> <span class="attr">value</span>={cpf} <span class="attr">readOnlyField</span> <span class="tag">/&gt;</span>
+        </div>
+      </section>
+
+      <!-- SELECT -->
+      <section class="component" id="select" data-name="select">
+        <div class="component-head">
+          <h2>Select</h2>
+          <span class="category-tag">Formulário</span>
+        </div>
+        <p class="component-desc">Select/autocomplete padronizado sobre <code>Autocomplete</code> do MUI. Cobre tanto o "select simples" quanto o "autocomplete assíncrono" — nenhum repo auditado tinha componente de design system para nenhum dos dois.</p>
+
+        <div class="usage-grid">
+          <div class="usage-card do"><strong>Usar quando</strong>O campo tem uma lista fechada de opções (status, unidade de negócio, categoria).</div>
+          <div class="usage-card dont"><strong>Evitar quando</strong>São só 2-3 opções mutuamente exclusivas e visíveis de uma vez — considere Radio nesse caso.</div>
+        </div>
+
+        <div class="preview">
+          <div class="mock-select-wrap">
+            <label for="demo-select" style="font-size:0.78rem;color:var(--ink-soft);display:block;margin-bottom:6px;">Status</label>
+            <div class="mock-select" id="demo-select">Pendente <span>▾</span></div>
+            <div class="mock-select-panel">
+              <div class="mock-select-option">Ativo</div>
+              <div class="mock-select-option selected">Pendente</div>
+              <div class="mock-select-option">Cancelado</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">options<span class="required-mark">*</span></td><td class="prop-type">{ value: T; label: string }[]</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">value<span class="required-mark">*</span></td><td class="prop-type">T | null</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">onChange<span class="required-mark">*</span></td><td class="prop-type">(value: T | null) =&gt; void</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">label / placeholder</td><td class="prop-type">string</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">loading</td><td class="prop-type">boolean</td><td class="prop-default">false</td></tr>
+              <tr><td class="prop-name">error / helperText</td><td class="prop-type">boolean / string</td><td class="prop-default">false / undefined</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="select">Copiar</button>
+<span class="tag">&lt;Select</span>
+  <span class="attr">label</span>=<span class="str">"Status"</span>
+  <span class="attr">options</span>={[{ <span class="attr">value</span>: <span class="str">"ativo"</span>, <span class="attr">label</span>: <span class="str">"Ativo"</span> }]}
+  <span class="attr">value</span>={status}
+  <span class="attr">onChange</span>={setStatus}
+<span class="tag">/&gt;</span>
+        </div>
+      </section>
+
+      <!-- FILTERPANEL -->
+      <section class="component" id="filterpanel" data-name="filterpanel">
+        <div class="component-head">
+          <h2>FilterPanel</h2>
+          <span class="category-tag">Formulário</span>
+        </div>
+        <p class="component-desc">Painel de filtros (Drawer) com slot de campos e rodapé Limpar/Aplicar padronizado. Unifica a estrutura repetida em pelo menos 7 dos 11 repos, cada um com um layout ligeiramente diferente.</p>
+
+        <div class="usage-grid">
+          <div class="usage-card do"><strong>Usar quando</strong>A listagem precisa de 2+ filtros combináveis (status, período, unidade) fora do fluxo principal da tela.</div>
+          <div class="usage-card dont"><strong>Evitar quando</strong>É um único campo de busca — um <code>Input</code> com ícone de busca já resolve.</div>
+        </div>
+
+        <div class="preview">
+          <div class="preview-row">
+            <button class="mock-btn outline" onclick="document.getElementById('demo-drawer-overlay').classList.add('open')">Ver filtros</button>
+          </div>
+        </div>
+
+        <div class="mock-drawer-overlay" id="demo-drawer-overlay" onclick="if(event.target===this) this.classList.remove('open')">
+          <div class="mock-drawer">
+            <h3>Filtros</h3>
+            <div class="mock-drawer-fields">
+              <div class="mock-field">
+                <label for="demo-drawer-status">Status</label>
+                <input id="demo-drawer-status" type="text" value="Ativo" readonly>
+              </div>
+              <div class="mock-field">
+                <label for="demo-drawer-periodo">Período</label>
+                <input id="demo-drawer-periodo" type="text" placeholder="Selecione o período">
+              </div>
+            </div>
+            <div class="mock-drawer-actions">
+              <button class="mock-btn outline" style="flex:1" onclick="document.getElementById('demo-drawer-overlay').classList.remove('open')">Limpar</button>
+              <button class="mock-btn primary" style="flex:1" onclick="document.getElementById('demo-drawer-overlay').classList.remove('open')">Aplicar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">open<span class="required-mark">*</span></td><td class="prop-type">boolean</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">onClose / onApply / onClear<span class="required-mark">*</span></td><td class="prop-type">() =&gt; void</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">children<span class="required-mark">*</span></td><td class="prop-type">ReactNode</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">title</td><td class="prop-type">string</td><td class="prop-default">"Filtros"</td></tr>
+              <tr><td class="prop-name">applyText / clearText</td><td class="prop-type">string</td><td class="prop-default">"Aplicar" / "Limpar"</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="filterpanel">Copiar</button>
+<span class="tag">&lt;FilterPanel</span> <span class="attr">open</span>={open} <span class="attr">onClose</span>={close} <span class="attr">onApply</span>={apply} <span class="attr">onClear</span>={clear}&gt;
+  <span class="tag">&lt;Select</span> <span class="attr">label</span>=<span class="str">"Status"</span> <span class="attr">options</span>={options} <span class="attr">value</span>={status} <span class="attr">onChange</span>={setStatus} <span class="tag">/&gt;</span>
+<span class="tag">&lt;/FilterPanel&gt;</span>
         </div>
       </section>
     </main>
