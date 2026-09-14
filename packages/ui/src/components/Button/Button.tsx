@@ -2,17 +2,22 @@ import { forwardRef } from "react";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import MuiButton, { type ButtonProps as MuiButtonProps } from "@mui/material/Button";
-import { styled } from "@mui/material/styles";
+import { darken, styled } from "@mui/material/styles";
+import { semanticColors } from "../../tokens/colors";
 
 export type ButtonVariant = "primary" | "secondary" | "tertiary" | "danger" | "link";
 export type ButtonSize = "sm" | "md" | "lg";
 export type ButtonShape = "square" | "rounded" | "pill";
 export type ButtonWidth = "auto" | "full";
 export type ButtonIconPosition = "left" | "right";
+/** Cor semântica que sobrepõe a cor padrão do `variant` (ex.: um botão "secondary" com tone="warning"). */
+export type ButtonTone = "info" | "success" | "warning" | "error";
 
 export type ButtonProps = Omit<MuiButtonProps, "variant" | "size" | "color"> & {
   variant?: ButtonVariant;
   size?: ButtonSize;
+  /** Sobrepõe a cor do `variant` com uma cor semântica, independente do estilo (contained/text/link). */
+  tone?: ButtonTone;
   isLoading?: boolean;
   icon?: React.ReactNode;
   iconPosition?: ButtonIconPosition;
@@ -32,12 +37,21 @@ const VARIANT_TO_MUI: Record<ButtonVariant, { variant: MuiButtonProps["variant"]
   link: { variant: "text" },
 };
 
-const FORWARD_BLOCKLIST = new Set(["ownerVariant", "ownerShape", "ownerWidth", "ownerIconOnly"]);
+const FORWARD_BLOCKLIST = new Set(["ownerVariant", "ownerShape", "ownerWidth", "ownerIconOnly", "ownerTone"]);
 
 const StyledButton = styled(MuiButton, {
   shouldForwardProp: (prop) => !FORWARD_BLOCKLIST.has(prop as string),
-})<{ ownerVariant: ButtonVariant; ownerShape: ButtonShape; ownerWidth: ButtonWidth; ownerIconOnly: boolean }>(
-  ({ theme, ownerVariant, ownerShape, ownerWidth, ownerIconOnly }) => ({
+})<{
+  ownerVariant: ButtonVariant;
+  ownerShape: ButtonShape;
+  ownerWidth: ButtonWidth;
+  ownerIconOnly: boolean;
+  ownerTone?: ButtonTone;
+}>(({ theme, ownerVariant, ownerShape, ownerWidth, ownerIconOnly, ownerTone }) => {
+  const isTextLike = ownerVariant === "tertiary" || ownerVariant === "link";
+  const toneColor = ownerTone ? semanticColors[ownerTone] : undefined;
+
+  return {
     position: "relative",
     borderRadius: SHAPE_RADIUS[ownerShape],
     width: ownerWidth === "full" ? "100%" : undefined,
@@ -56,8 +70,18 @@ const StyledButton = styled(MuiButton, {
       minWidth: 0,
       "&:hover": { backgroundColor: "transparent" },
     }),
-  }),
-);
+    ...(toneColor &&
+      !isTextLike && {
+        backgroundColor: toneColor,
+        color: "#fff",
+        "&:hover": { backgroundColor: darken(toneColor, 0.15) },
+      }),
+    ...(toneColor &&
+      isTextLike && {
+        color: toneColor,
+      }),
+  };
+});
 
 /**
  * Botão de ação. `variant`/`size`/`isLoading`/`disabled` espelham o que já
@@ -65,12 +89,16 @@ const StyledButton = styled(MuiButton, {
  * `iconOnly`/`width`/`shape` cobrem o restante do levantamento de props
  * (ver PROPS-SPEC.md) sem exigir um componente `IconButton` à parte para o
  * caso `iconOnly` (que ainda existe como `IconActionButton` para o caso
- * específico de ícone + tooltip embutido).
+ * específico de ícone + tooltip embutido). `tone` sobrepõe a cor semântica
+ * (info/success/warning/error) por cima de qualquer `variant`, já que cor
+ * (o que o botão significa) e estilo (contained/text/link) são dimensões
+ * independentes.
  */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
     variant = "primary",
     size = "md",
+    tone,
     isLoading,
     disabled,
     icon,
@@ -93,6 +121,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       ownerShape={shape}
       ownerWidth={width}
       ownerIconOnly={Boolean(iconOnly)}
+      ownerTone={tone}
       variant={muiVariant.variant}
       color={muiVariant.color}
       size={SIZE_TO_MUI[size]}

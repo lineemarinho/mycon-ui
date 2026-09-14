@@ -31,4 +31,15 @@ describe("Select", () => {
     );
     expect(screen.getByText("Campo obrigatório")).toBeInTheDocument();
   });
+
+  it("renders size=lg without throwing", () => {
+    render(<Select label="Status" options={options} value={null} onChange={() => {}} size="lg" />);
+    expect(screen.getByLabelText("Status")).toBeInTheDocument();
+  });
+
+  it("applies the filled variant", () => {
+    render(<Select label="Status" options={options} value={null} onChange={() => {}} variant="filled" />);
+    expect(screen.getByLabelText("Status").closest(".MuiTextField-root")).toHaveClass("MuiFormControl-root");
+    expect(document.querySelector(".MuiFilledInput-root")).toBeInTheDocument();
+  });
 });

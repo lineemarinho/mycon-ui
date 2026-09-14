@@ -3,6 +3,14 @@
   "version": "0.0.1",
   "description": "Design system compartilhado do backoffice Mycon",
   "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lineemarinho/mycon-ui.git",
+    "directory": "packages/ui"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "sideEffects": false,
   "type": "module",
   "main": "./dist/index.cjs",

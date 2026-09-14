@@ -108,6 +108,21 @@
     color: var(--ink-soft);
   }
 
+  .wordmark-logo {
+    height: 26px;
+    width: auto;
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .wordmark-logo-right {
+    height: 22px;
+    width: auto;
+    display: block;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
   .search-wrap {
     position: relative;
     flex: 1;
@@ -312,10 +327,24 @@
   .mock-btn.primary { background: var(--accent); color: #fff; }
   .mock-btn.primary:hover { background: var(--accent-hover); }
   .mock-btn.secondary { background: var(--ink); color: #fff; }
+  .mock-btn.tertiary { background: var(--surface-raised); color: var(--ink); }
+  .mock-btn.danger { background: var(--error); color: #fff; }
+  .mock-btn.link { background: transparent; color: var(--accent); text-decoration: underline; text-underline-offset: 2px; padding: 0; border-radius: 0; }
   .mock-btn.outline { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
   .mock-btn.graylight { background: var(--surface-raised); color: var(--ink); border: 1px solid var(--line); }
   .mock-btn.small { padding: 7px 16px; font-size: 0.74rem; }
   .mock-btn.large { padding: 13px 30px; font-size: 0.9rem; }
+  .mock-btn.shape-square { border-radius: 4px; }
+  .mock-btn.shape-rounded { border-radius: 8px; }
+  .mock-btn.icon-only { padding: 10px; aspect-ratio: 1 / 1; display: inline-flex; align-items: center; justify-content: center; }
+  .mock-btn.tone-info { background: var(--info); color: #fff; }
+  .mock-btn.tone-success { background: var(--success); color: #fff; }
+  .mock-btn.tone-warning { background: var(--warning); color: #fff; }
+  .mock-btn.tone-error { background: var(--error); color: #fff; }
+  .mock-btn.link.tone-info { background: transparent; color: var(--info); }
+  .mock-btn.link.tone-success { background: transparent; color: var(--success); }
+  .mock-btn.link.tone-warning { background: transparent; color: var(--warning); }
+  .mock-btn.link.tone-error { background: transparent; color: var(--error); }
   .mock-btn:disabled { opacity: 0.45; cursor: not-allowed; }
   .mock-btn.loading { position: relative; color: transparent !important; }
   .mock-btn.loading::after {
@@ -393,8 +422,12 @@
   .mock-field input:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(1,49,255,0.15); }
   .mock-field.error input { border-color: var(--error); }
   .mock-field.error .helper { color: var(--error); }
+  .mock-field.success input { border-color: var(--success); }
+  .mock-field.success .helper { color: var(--success); }
   .mock-field .helper { font-size: 0.72rem; color: var(--ink-soft); }
   .mock-field input:disabled { background: var(--surface-raised); color: var(--ink); -webkit-text-fill-color: var(--ink); opacity: 1; }
+  .mock-field.size-lg input, .mock-field.size-lg textarea { padding: 14px 16px; font-size: 1.05rem; }
+  .mock-field.size-sm input, .mock-field.size-sm textarea { padding: 7px 10px; font-size: 0.82rem; }
 
   /* ---- mock IconActionButton ---- */
   .mock-icon-action .icon-btn:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -437,6 +470,8 @@
   .mock-switch.on { background: var(--accent); }
   .mock-switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: transform 0.15s; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
   .mock-switch.on::after { transform: translateX(18px); }
+  .mock-switch.size-sm { transform: scale(0.82); transform-origin: left center; }
+  .mock-switch.size-lg { transform: scale(1.15); transform-origin: left center; }
 
   /* ---- mock Select ---- */
   .mock-select-wrap { max-width: 260px; }
@@ -453,6 +488,11 @@
   .mock-select-option { padding: 9px 14px; font-size: 0.88rem; cursor: pointer; }
   .mock-select-option.selected { background: #EEF1FF; color: var(--accent); font-weight: 600; }
   .mock-select-option:hover { background: var(--surface-raised); }
+  .mock-select.variant-demo { border: 1.5px solid var(--line); box-shadow: none; }
+  .mock-select.variant-demo.filled { border: 1.5px solid transparent; border-bottom: 1.5px solid var(--ink-soft); border-radius: 10px 10px 0 0; background: var(--surface-raised); }
+  .mock-select.variant-demo.underline { border: none; border-bottom: 1.5px solid var(--ink-soft); border-radius: 0; background: transparent; padding-left: 0; padding-right: 0; }
+  .mock-select-panel.empty { padding: 18px 14px; text-align: center; color: var(--ink-soft); font-size: 0.85rem; }
+  .mock-autocomplete-loading { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--ink-soft); }
 
   /* ---- mock DataTable ---- */
   .mock-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
@@ -508,6 +548,76 @@
   .dialog-body h3 { margin: 0 0 8px; font-size: 1.1rem; color: var(--ink); }
   .dialog-body p { margin: 0; color: var(--ink-soft); font-size: 0.9rem; }
   .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 16px 24px; border-top: 1px solid var(--line); }
+
+  /* ---- mock Alert / EmptyState ---- */
+  .mock-alert { display: flex; align-items: flex-start; gap: 10px; border-radius: 10px; padding: 12px 16px; font-size: 0.85rem; }
+  .mock-alert .material-symbols-outlined { flex-shrink: 0; }
+  .mock-alert.info { background: #E8F1FC; color: var(--info); }
+  .mock-alert.success { background: #E7FBE8; color: #0C9612; }
+  .mock-alert.warning { background: #FFF4E0; color: #A56600; }
+  .mock-alert.error { background: #FFE7DE; color: #C43A10; }
+  .mock-alert button { margin-left: auto; border: none; background: none; color: inherit; cursor: pointer; opacity: 0.7; }
+  .mock-empty { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; padding: 32px 12px; color: var(--ink-soft); }
+  .mock-empty .material-symbols-outlined { font-size: 32px; color: var(--ink-soft); }
+  .mock-empty h4 { margin: 0; color: var(--ink); font-size: 1rem; }
+
+  /* ---- mock Toast ---- */
+  .mock-toast { display: flex; align-items: center; gap: 10px; border-radius: 10px; padding: 10px 16px; font-size: 0.85rem; color: #fff; box-shadow: 0 8px 24px rgba(54,52,85,0.18); }
+  .mock-toast.info { background: var(--info); }
+  .mock-toast.success { background: var(--success); }
+  .mock-toast.error { background: var(--error); }
+  .mock-toast.warning { background: var(--warning); }
+
+  /* ---- mock ProgressBar / Skeleton / Spinner ---- */
+  .mock-progress { width: 100%; max-width: 260px; height: 8px; border-radius: 100px; background: var(--line); overflow: hidden; }
+  .mock-progress > span { display: block; height: 100%; border-radius: 100px; background: var(--accent); }
+  .mock-skeleton { background: linear-gradient(90deg, var(--line) 25%, #eef0f5 37%, var(--line) 63%); background-size: 400% 100%; animation: skeleton-wave 1.4s ease infinite; border-radius: 8px; }
+  .mock-skeleton.circular { border-radius: 50%; }
+  @keyframes skeleton-wave { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
+  .mock-spinner { border: 3px solid var(--line); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
+
+  /* ---- mock Card / Divider ---- */
+  .mock-plain-card { border-radius: 16px; padding: 20px; font-size: 0.88rem; color: var(--ink-soft); }
+  .mock-plain-card.outlined { border: 1px solid var(--line); }
+  .mock-plain-card.elevated { box-shadow: 0 4px 16px rgba(54,52,85,0.14); }
+  .mock-plain-card.filled { background: var(--surface-raised); }
+  .mock-divider { border: none; border-top: 1px solid var(--line); width: 100%; }
+  .mock-divider.dashed { border-top-style: dashed; }
+  .mock-divider-vertical { border: none; border-left: 1px solid var(--line); align-self: stretch; height: 40px; }
+
+  /* ---- mock Tabs / Breadcrumb / Pagination ---- */
+  .mock-tabs { display: flex; gap: 24px; border-bottom: 1px solid var(--line); }
+  .mock-tab { background: none; border: none; padding: 10px 2px; font-family: "Montserrat", sans-serif; font-size: 0.85rem; color: var(--ink-soft); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .mock-tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+  .mock-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--ink-soft); }
+  .mock-breadcrumb a { color: var(--ink-soft); text-decoration: none; }
+  .mock-breadcrumb a:hover { text-decoration: underline; }
+  .mock-breadcrumb .current { color: var(--ink); font-weight: 600; }
+
+  /* ---- mock Popover / Tooltip demo ---- */
+  .mock-popover-wrap { position: relative; display: inline-block; }
+  .mock-popover { display: none; position: absolute; top: calc(100% + 8px); left: 0; background: #fff; border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 12px 32px rgba(54,52,85,0.18); padding: 14px 16px; min-width: 200px; font-size: 0.85rem; color: var(--ink-soft); z-index: 25; }
+  .mock-popover.open { display: block; }
+
+  /* ---- mock Avatar / AvatarGroup / Tag ---- */
+  .mock-avatar { border-radius: 50%; background: var(--accent); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-family: "Montserrat", sans-serif; flex-shrink: 0; }
+  .mock-avatar.square { border-radius: 0; }
+  .mock-avatar.rounded { border-radius: 25%; }
+  .mock-avatar-group { display: flex; }
+  .mock-avatar-group .mock-avatar { border: 2px solid #fff; margin-left: -10px; }
+  .mock-avatar-group .mock-avatar:first-child { margin-left: 0; }
+  .mock-avatar-group .mock-avatar.more { background: var(--surface-raised); color: var(--ink-soft); }
+
+  /* ---- mock CheckboxField / RadioGroupField ---- */
+  .mock-check-row, .mock-radio-row { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; color: var(--ink); }
+  .mock-checkbox { width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; }
+  .mock-radio { width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; }
+  .mock-radio-group { display: flex; flex-direction: column; gap: 10px; }
+  .mock-radio-group.horizontal { flex-direction: row; gap: 20px; }
+  .mock-checkbox.size-sm, .mock-radio.size-sm { width: 14px; height: 14px; }
+  .mock-checkbox.size-lg, .mock-radio.size-lg { width: 22px; height: 22px; }
+  .mock-check-row.error-row { color: var(--error); }
+  .mock-check-row.error-row .mock-checkbox { accent-color: var(--error); }
 
   /* ---------- Props table ---------- */
 
@@ -574,12 +684,16 @@
 
 <div class="shell">
   <div class="topbar">
-    <div class="wordmark">Mycon UI <small>v0.0.1 · @mycon/ui</small></div>
+    <svg class="wordmark-logo" width="124" height="42" viewBox="0 0 124 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M56.3818 32.7572C55.1565 32.1102 53.9648 31.1212 53.437 29.8703C51.8373 26.0783 55.7107 12.4471 56.9587 6.05904C57.1199 5.34106 57.2124 4.91625 57.2198 4.88342C57.4763 3.68148 57.7242 1.72869 56.7064 0.790581C56.0826 0.215508 55.2677 0.0274588 54.4053 0.107323C53.436 0.219109 52.4759 0.399193 51.5321 0.646386C51.5321 0.646386 44.305 14.9888 43.5882 17.0699C43.5295 16.7691 42.9209 8.87353 42.5531 7.66473C42.0386 6.14114 41.2854 4.54272 38.9228 4.40005C38.6937 4.38628 36.0752 4.15246 34.3876 5.85436C35.394 5.84325 36.3396 6.73074 36.4825 7.27044C36.7713 8.36459 36.4367 9.19082 36.2186 10.5353C35.5449 14.693 32.5619 31.5364 32.7068 34.285C32.7865 35.8038 33.5455 40.2745 40.0615 38.2819C38.2076 36.797 38.442 34.7012 38.4653 33.8976C38.5624 30.5191 39.5052 25.1237 40.4967 19.5246C41.3448 23.7687 42.0371 26.5931 42.0371 26.5931C42.0371 26.5931 42.2496 27.5691 42.9848 27.7479C44.0898 28.0161 45.4514 27.3975 45.4514 27.3975C45.3652 26.5373 45.9649 23.8412 46.2184 22.7707C47.0343 19.3251 48.4371 15.4476 50.0246 12.826C50.0179 12.8855 50.011 12.9439 50.004 13.0047C49.6788 15.7719 49.1043 18.2568 48.6407 21.0056C48.185 23.7032 47.3978 26.4304 47.7472 29.1617C48.4463 34.6126 54.713 33.3547 56.3818 32.7572ZM77.4851 24.1459C80.1773 25.492 83.2661 24.2364 85.4555 22.5986C86.9472 21.4927 88.2199 20.1186 89.2085 18.5466C89.6947 20.0319 90.7435 21.2676 92.1297 21.9892C95.3605 23.7349 98.3961 21.8041 100.172 20.3086C100.904 19.6915 102.371 18.3052 103.339 15.7386C104.189 13.484 104.648 10.612 103.164 9.33804C102.243 8.54675 100.566 8.39636 99.5792 9.48431C101.616 9.43566 101.324 11.8774 100.792 13.2355C100.092 15.0192 97.6234 18.0542 95.4206 16.5762C93.5312 15.3082 94.8523 11.9321 95.7224 10.3827C96.3689 9.22503 97.2926 8.24596 98.4105 7.53332C99.7217 6.68716 101.7 6.79632 102.622 7.45824C102.622 7.45824 101.666 3.14001 97.7816 3.83749C97.7752 3.83889 94.5946 4.2586 91.8005 7.6473C90.3523 9.4017 89.034 12.3637 88.8386 15.2298C88.1072 16.2102 87.1007 17.0657 86.1916 17.756C84.7921 18.8194 82.5709 20.0931 80.8578 18.862C78.6393 17.2673 80.1672 12.4908 82.2462 10.3332C82.5073 10.0512 82.7998 9.8001 83.1183 9.58495C84.0951 8.97857 84.4223 9.60833 84.4223 9.99737C84.4223 10.4433 84.2695 11.3417 83.453 12.4778C83.4215 12.5222 83.388 12.5673 83.3521 12.6136L83.6024 12.6576C83.8933 12.6576 87.6067 13.0204 87.5478 8.90267C87.4818 7.62435 86.8113 6.45376 85.7423 5.74963C82.3408 3.46923 78.459 7.05053 76.7149 9.56829C73.9991 13.4857 71.9795 21.3928 77.4851 24.1459ZM121.131 28.9014C119.297 28.0745 111.478 25.6362 97.3828 26.4285C93.2198 26.662 89.2319 27.0784 85.1841 27.683C81.8138 28.1727 78.4861 28.9219 75.2313 29.9239C74.9446 30.0128 73.6755 30.4138 74.0193 32.3022C86.7922 29.8402 99.2911 29.4672 112.956 31.8157C118.129 32.7048 121.232 33.7128 121.232 33.7128C121.424 33.174 121.533 32.8595 121.542 32.833C121.901 31.7888 122.57 29.5505 121.131 28.9014ZM61.1986 41.3234C64.299 41.471 68.2724 39.7508 69.843 33.5109C71.5316 26.8055 72.5156 11.5978 72.5279 11.4053C72.5924 10.3307 72.5514 8.60546 71.5439 7.91537C70.9275 7.49233 70.183 7.38168 69.4283 7.48342C68.8955 7.55572 67.8358 7.78228 67.0119 7.99892C67.0414 8.11166 67.5834 21.9551 63.6941 25.356C63.3092 25.6926 62.2145 25.9231 62.6405 24.6714C64.888 18.0807 64.6411 14.7405 64.0002 12.5689C63.3758 10.4518 59.5438 8.39526 56.4907 12.0218C58.8169 11.9827 58.8294 13.7425 58.8473 14.0644C58.9215 15.386 58.5448 17.4903 58.1482 19.3368C57.5123 22.3062 56.4045 27.0447 57.7875 28.7439C58.9365 30.1559 60.6389 30.1038 62.2976 29.4185C63.9198 28.7483 65.5439 26.9229 66.4232 24.8481C66.4232 24.8481 65.9558 29.9552 64.8656 33.6937C64.6762 34.3424 63.8895 37.0452 61.7293 37.7461C61.2984 37.8855 59.369 38.5023 58.2044 36.5514C58.0553 37.1601 57.4896 40.6152 60.7558 41.2697C60.7931 41.276 61.0945 41.3185 61.1986 41.3234ZM120.881 24.6806H120.63V25.0847H120.876C120.956 25.0929 121.036 25.0754 121.104 25.0348C121.148 24.9932 121.17 24.934 121.165 24.8738C121.172 24.8162 121.148 24.7592 121.103 24.7225C121.034 24.6888 120.958 24.6743 120.881 24.6806ZM120.868 24.5074C121.002 24.496 121.136 24.5266 121.252 24.595C121.334 24.6635 121.377 24.7679 121.367 24.8745C121.384 25.0389 121.276 25.1898 121.115 25.2271L121.422 25.6381H121.17L120.889 25.2583H120.629V25.6381H120.431V24.5072L120.868 24.5074ZM120.871 24.1388C120.337 24.1302 119.896 24.5548 119.885 25.0888C119.896 25.6224 120.337 26.047 120.871 26.038C121.404 26.0471 121.845 25.6226 121.856 25.0888C121.845 24.555 121.405 24.1301 120.871 24.1388ZM120.871 23.9956C121.485 23.9851 121.992 24.474 122.005 25.0885C121.992 25.703 121.485 26.1916 120.871 26.181C120.256 26.1916 119.749 25.703 119.737 25.0885C119.749 24.474 120.256 23.985 120.871 23.9956ZM104.166 18.3684C103.828 19.3945 103.428 21.0765 104.228 21.984C104.718 22.54 105.413 22.8235 106.168 22.903C106.705 22.9599 107.79 22.991 108.643 22.9764C108.643 22.8593 111.649 9.31246 116.285 6.9371C116.744 6.70214 117.864 6.73818 117.131 7.85073C113.273 13.707 112.659 17.0025 112.727 19.2593C112.793 21.4588 115.982 24.3603 119.867 21.5688C117.602 21.0562 118.039 19.3471 118.104 19.0309C118.369 17.7319 119.27 15.7818 120.126 14.0859C121.499 11.3579 123.783 7.02725 122.874 5.05288C122.121 3.41177 120.457 3.05953 118.674 3.3308C117.038 3.58016 115.138 4.81631 113.77 6.45882C113.817 6.33868 113.849 6.26141 113.851 6.25732C114.179 5.55358 114.603 4.39071 114.068 3.7029C113.688 3.21822 113.13 2.90463 112.518 2.8312C109.944 2.4291 108.013 3.58373 107.151 4.61834C108.763 4.83392 108.592 6.13274 108.468 6.46267C106.263 12.3571 104.204 18.2514 104.166 18.3684Z" fill="#363455"/>
+<path d="M0.675568 12.7198C0.304962 12.7222 0.00247192 12.424 0 12.0535C0.00219727 11.6829 0.30423 11.3836 0.674713 11.3858H4.72885C5.09933 11.383 5.40176 11.6813 5.40457 12.0517V12.0528C5.40225 12.4232 5.10007 12.7219 4.72946 12.7198H0.675568ZM9.74234 18.3915C9.71335 17.5652 9.73291 16.7386 9.73206 15.9121C9.73102 15.0953 9.73102 14.2785 9.73206 13.4616H9.7374C9.7374 11.8276 9.71844 10.1939 9.74377 8.56056C9.7616 7.38612 10.7457 6.40913 11.9269 6.32646C13.3622 6.22655 14.489 7.18745 14.5812 8.5919C14.5878 8.69139 14.594 8.79069 14.594 8.89049C14.5948 11.959 14.5948 15.0272 14.594 18.0956C14.5928 19.3045 13.9489 20.194 12.8498 20.5252C12.6226 20.5939 12.3864 20.6289 12.1489 20.6289C10.9059 20.6274 9.78647 19.6701 9.74234 18.3915ZM0.223267 22.633C0.0935364 21.1991 0.173828 19.7475 0.159393 18.3032C0.155426 17.9149 0.157166 17.5263 0.159393 17.1377C0.166779 15.7389 1.19449 14.6951 2.57156 14.6871C3.89395 14.6618 4.98651 15.7135 5.01178 17.036C5.01221 17.0638 5.01233 17.0916 5.01193 17.1195C5.02554 18.5935 5.01028 20.068 5.01639 21.5419C5.04974 24.8374 7.37131 27.6661 10.5971 28.3417C15.058 29.3014 19.2696 26.0188 19.2971 21.5557C19.3062 20.0716 19.2913 18.5874 19.3023 17.1031C19.283 15.9706 20.0689 14.9832 21.1768 14.7475C22.6302 14.3995 24.1116 15.4804 24.1524 16.9405C24.1767 17.8067 24.1773 21.5557 24.0946 22.5542C23.8451 25.5511 22.5504 28.0814 20.2957 30.1247C18.3256 31.9253 15.806 33.009 13.144 33.2005C12.8014 33.2296 12.4606 33.2441 12.1219 33.2441C6.07941 33.2435 0.776276 28.7295 0.223267 22.633ZM21.7408 7.21229C20.167 7.21229 18.8911 8.45228 18.8911 9.98192C18.8911 11.5116 20.167 12.7517 21.7408 12.7517C23.3148 12.7517 24.5908 11.5116 24.5908 9.98192C24.5908 8.45228 23.3148 7.21229 21.7408 7.21229Z" fill="#363455"/>
+</svg>
     <div class="search-wrap">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
       <input id="search" type="text" placeholder="Buscar componente..." autocomplete="off">
       <span class="kbd-hint">/</span>
     </div>
+    <img class="wordmark-logo-right" src="data:image/png;base64,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" alt="Flow Time">
   </div>
 
   <div class="layout">
@@ -592,26 +706,47 @@
       <div class="nav-group" data-group="feedback">
         <div class="nav-group-title">Feedback</div>
         <a class="nav-link" data-name="statusbadge" href="#statusbadge"><span class="nav-dot" style="background:var(--success)"></span>StatusBadge</a>
+        <a class="nav-link" data-name="alert" href="#alert"><span class="nav-dot" style="background:var(--warning)"></span>Alert</a>
+        <a class="nav-link" data-name="toast" href="#toast"><span class="nav-dot" style="background:var(--warning)"></span>Toast</a>
         <a class="nav-link" data-name="confirmdialog" href="#confirmdialog"><span class="nav-dot" style="background:var(--warning)"></span>ConfirmDialog</a>
+        <a class="nav-link" data-name="modal" href="#modal"><span class="nav-dot" style="background:var(--warning)"></span>Modal</a>
+        <a class="nav-link" data-name="progressbar" href="#progressbar"><span class="nav-dot" style="background:var(--warning)"></span>ProgressBar</a>
+        <a class="nav-link" data-name="skeleton" href="#skeleton"><span class="nav-dot" style="background:var(--warning)"></span>Skeleton</a>
+        <a class="nav-link" data-name="spinner" href="#spinner"><span class="nav-dot" style="background:var(--warning)"></span>Spinner</a>
+        <a class="nav-link" data-name="emptystate" href="#emptystate"><span class="nav-dot" style="background:var(--warning)"></span>EmptyState</a>
       </div>
       <div class="nav-group" data-group="layout">
         <div class="nav-group-title">Layout</div>
+        <a class="nav-link" data-name="card" href="#card"><span class="nav-dot" style="background:var(--ink-soft)"></span>Card</a>
         <a class="nav-link" data-name="listitemcard" href="#listitemcard"><span class="nav-dot" style="background:var(--ink-soft)"></span>ListItemCard</a>
         <a class="nav-link" data-name="sectioncard" href="#sectioncard"><span class="nav-dot" style="background:var(--ink-soft)"></span>SectionCard</a>
         <a class="nav-link" data-name="detailscard" href="#detailscard"><span class="nav-dot" style="background:var(--ink-soft)"></span>DetailsCard</a>
+        <a class="nav-link" data-name="divider" href="#divider"><span class="nav-dot" style="background:var(--ink-soft)"></span>Divider</a>
         <a class="nav-link" data-name="scrollarea" href="#scrollarea"><span class="nav-dot" style="background:var(--ink-soft)"></span>ScrollArea</a>
+        <a class="nav-link" data-name="drawer" href="#drawer"><span class="nav-dot" style="background:var(--ink-soft)"></span>Drawer</a>
+        <a class="nav-link" data-name="tabs" href="#tabs"><span class="nav-dot" style="background:var(--ink-soft)"></span>Tabs</a>
+        <a class="nav-link" data-name="popover" href="#popover"><span class="nav-dot" style="background:var(--ink-soft)"></span>Popover</a>
+        <a class="nav-link" data-name="tooltip" href="#tooltip"><span class="nav-dot" style="background:var(--ink-soft)"></span>Tooltip</a>
+        <a class="nav-link" data-name="breadcrumb" href="#breadcrumb"><span class="nav-dot" style="background:var(--ink-soft)"></span>Breadcrumb</a>
+        <a class="nav-link" data-name="pagination" href="#pagination"><span class="nav-dot" style="background:var(--ink-soft)"></span>Pagination</a>
       </div>
       <div class="nav-group" data-group="dados">
         <div class="nav-group-title">Dados</div>
         <a class="nav-link" data-name="datatable" href="#datatable"><span class="nav-dot" style="background:var(--accent)"></span>DataTable</a>
+        <a class="nav-link" data-name="avatar" href="#avatar"><span class="nav-dot" style="background:var(--accent)"></span>Avatar</a>
+        <a class="nav-link" data-name="avatargroup" href="#avatargroup"><span class="nav-dot" style="background:var(--accent)"></span>AvatarGroup</a>
+        <a class="nav-link" data-name="tag" href="#tag"><span class="nav-dot" style="background:var(--accent)"></span>Tag</a>
       </div>
       <div class="nav-group" data-group="formulario">
         <div class="nav-group-title">Formulário</div>
         <a class="nav-link" data-name="input" href="#input"><span class="nav-dot" style="background:var(--info)"></span>Input</a>
         <a class="nav-link" data-name="select" href="#select"><span class="nav-dot" style="background:var(--info)"></span>Select</a>
         <a class="nav-link" data-name="multiselect" href="#multiselect"><span class="nav-dot" style="background:var(--info)"></span>MultiSelect</a>
-        <a class="nav-link" data-name="maskednumberfield" href="#maskednumberfield"><span class="nav-dot" style="background:var(--info)"></span>MaskedNumberField</a>
+        <a class="nav-link" data-name="autocomplete" href="#autocomplete"><span class="nav-dot" style="background:var(--info)"></span>Autocomplete</a>
+        <a class="nav-link" data-name="checkboxfield" href="#checkboxfield"><span class="nav-dot" style="background:var(--info)"></span>CheckboxField</a>
+        <a class="nav-link" data-name="radiogroupfield" href="#radiogroupfield"><span class="nav-dot" style="background:var(--info)"></span>RadioGroupField</a>
         <a class="nav-link" data-name="switchfield" href="#switchfield"><span class="nav-dot" style="background:var(--info)"></span>SwitchField</a>
+        <a class="nav-link" data-name="textarea" href="#textarea"><span class="nav-dot" style="background:var(--info)"></span>Textarea</a>
         <a class="nav-link" data-name="fileupload" href="#fileupload"><span class="nav-dot" style="background:var(--info)"></span>FileUpload</a>
         <a class="nav-link" data-name="filterpanel" href="#filterpanel"><span class="nav-dot" style="background:var(--info)"></span>FilterPanel</a>
       </div>
@@ -621,7 +756,6 @@
       <div class="intro">
         <div class="eyebrow">Dicionário de componentes</div>
         <h1>@mycon/ui</h1>
-        <p>Design system compartilhado do backoffice Mycon. Os 16 componentes abaixo cobrem toda a lista de prioridade alta e média encontrada na auditoria dos 11 repositórios <code>backoffice-*-front</code> — ver <code>AUDITORIA.md</code> e <code>DECISIONS.md</code>.</p>
       </div>
 
       <!-- BUTTON -->
@@ -634,16 +768,36 @@
         <div class="preview">
           <div class="preview-row">
             <span class="swatch-label">variant</span>
-            <button class="mock-btn primary">Salvar</button>
-            <button class="mock-btn secondary">Secundário</button>
-            <button class="mock-btn outline">Cancelar</button>
-            <button class="mock-btn graylight">Graylight</button>
+            <button class="mock-btn primary">Primary</button>
+            <button class="mock-btn secondary">Secondary</button>
+            <button class="mock-btn tertiary">Tertiary</button>
+            <button class="mock-btn danger">Danger</button>
+            <button class="mock-btn link">Link</button>
+          </div>
+          <div class="preview-row">
+            <span class="swatch-label">tone</span>
+            <button class="mock-btn secondary tone-info">Info</button>
+            <button class="mock-btn secondary tone-success">Success</button>
+            <button class="mock-btn secondary tone-warning">Warning</button>
+            <button class="mock-btn secondary tone-error">Error</button>
+            <button class="mock-btn link tone-warning">Link + warning</button>
           </div>
           <div class="preview-row">
             <span class="swatch-label">size</span>
-            <button class="mock-btn primary small">Small</button>
-            <button class="mock-btn primary">Medium</button>
-            <button class="mock-btn primary large">Large</button>
+            <button class="mock-btn primary small">Sm</button>
+            <button class="mock-btn primary">Md</button>
+            <button class="mock-btn primary large">Lg</button>
+          </div>
+          <div class="preview-row">
+            <span class="swatch-label">shape</span>
+            <button class="mock-btn primary shape-square">Square</button>
+            <button class="mock-btn primary shape-rounded">Rounded</button>
+            <button class="mock-btn primary">Pill</button>
+          </div>
+          <div class="preview-row">
+            <span class="swatch-label">icon</span>
+            <button class="mock-btn primary"><span class="material-symbols-outlined" style="font-size:16px">add</span>&nbsp;Adicionar</button>
+            <button class="mock-btn primary icon-only" aria-label="Adicionar"><span class="material-symbols-outlined" style="font-size:16px">add</span></button>
           </div>
           <div class="preview-row">
             <span class="swatch-label">state</span>
@@ -656,8 +810,14 @@
           <table class="props">
             <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
             <tbody>
-              <tr><td class="prop-name">variant</td><td class="prop-type">"primary" | "secondary" | "outline" | "graylight"</td><td class="prop-default">"primary"</td></tr>
-              <tr><td class="prop-name">size</td><td class="prop-type">"small" | "medium" | "large"</td><td class="prop-default">"medium"</td></tr>
+              <tr><td class="prop-name">variant</td><td class="prop-type">"primary" | "secondary" | "tertiary" | "danger" | "link"</td><td class="prop-default">"primary"</td></tr>
+              <tr><td class="prop-name">size</td><td class="prop-type">"sm" | "md" | "lg"</td><td class="prop-default">"md"</td></tr>
+              <tr><td class="prop-name">tone</td><td class="prop-type">"info" | "success" | "warning" | "error"</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">shape</td><td class="prop-type">"square" | "rounded" | "pill"</td><td class="prop-default">"rounded"</td></tr>
+              <tr><td class="prop-name">width</td><td class="prop-type">"auto" | "full"</td><td class="prop-default">"auto"</td></tr>
+              <tr><td class="prop-name">icon</td><td class="prop-type">ReactNode</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">iconPosition</td><td class="prop-type">"left" | "right"</td><td class="prop-default">"left"</td></tr>
+              <tr><td class="prop-name">iconOnly</td><td class="prop-type">boolean</td><td class="prop-default">false</td></tr>
               <tr><td class="prop-name">isLoading</td><td class="prop-type">boolean</td><td class="prop-default">false</td></tr>
               <tr><td class="prop-name">disabled</td><td class="prop-type">boolean</td><td class="prop-default">false</td></tr>
               <tr><td class="prop-name">...rest</td><td class="prop-type">MuiButtonProps (exceto variant/size/color)</td><td class="prop-default">—</td></tr>
@@ -667,8 +827,8 @@
 
         <div class="code-block">
 <button class="copy-btn" data-copy="button">Copiar</button>
-<span class="tag">&lt;Button</span> <span class="attr">variant</span>=<span class="str">"primary"</span> <span class="attr">isLoading</span>={isSaving}&gt;
-  Salvar
+<span class="tag">&lt;Button</span> <span class="attr">variant</span>=<span class="str">"secondary"</span> <span class="attr">tone</span>=<span class="str">"success"</span> <span class="attr">isLoading</span>={isSaving}&gt;
+  Confirmar
 <span class="tag">&lt;/Button&gt;</span>
         </div>
       </section>
@@ -761,6 +921,71 @@
         </div>
       </section>
 
+      <!-- ALERT -->
+      <section class="component" id="alert" data-name="alert">
+        <div class="component-head">
+          <h2>Alert</h2>
+          <span class="category-tag">Feedback</span>
+        </div>
+
+        <div class="preview" style="display:flex; flex-direction:column; gap:10px;">
+          <div class="mock-alert info"><span class="material-symbols-outlined">info</span>Informação disponível para consulta.<button aria-label="Fechar">✕</button></div>
+          <div class="mock-alert success"><span class="material-symbols-outlined">check_circle</span>Operação concluída com sucesso.<button aria-label="Fechar">✕</button></div>
+          <div class="mock-alert warning"><span class="material-symbols-outlined">warning</span>Verifique os dados antes de continuar.<button aria-label="Fechar">✕</button></div>
+          <div class="mock-alert error"><span class="material-symbols-outlined">error</span>Não foi possível concluir a operação.<button aria-label="Fechar">✕</button></div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">variant</td><td class="prop-type">"info" | "success" | "warning" | "error"</td><td class="prop-default">"info"</td></tr>
+              <tr><td class="prop-name">children<span class="required-mark">*</span></td><td class="prop-type">ReactNode</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">onClose</td><td class="prop-type">() =&gt; void</td><td class="prop-default">undefined</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="alert">Copiar</button>
+<span class="tag">&lt;Alert</span> <span class="attr">variant</span>=<span class="str">"warning"</span> <span class="attr">onClose</span>={fechar}&gt;
+  Verifique os dados antes de continuar.
+<span class="tag">&lt;/Alert&gt;</span>
+        </div>
+      </section>
+
+      <!-- TOAST -->
+      <section class="component" id="toast" data-name="toast">
+        <div class="component-head">
+          <h2>Toast</h2>
+          <span class="category-tag">Feedback</span>
+        </div>
+
+        <div class="preview" style="display:flex; flex-direction:column; gap:10px; align-items:flex-start;">
+          <div class="mock-toast info">Alterações salvas.</div>
+          <div class="mock-toast success">Proposta enviada com sucesso.</div>
+          <div class="mock-toast error">Falha ao processar o pagamento.</div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">open<span class="required-mark">*</span></td><td class="prop-type">boolean</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">onClose<span class="required-mark">*</span></td><td class="prop-type">() =&gt; void</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">message<span class="required-mark">*</span></td><td class="prop-type">string</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">variant</td><td class="prop-type">"default" | "success" | "error" | "warning" | "info"</td><td class="prop-default">"default"</td></tr>
+              <tr><td class="prop-name">autoHideDuration</td><td class="prop-type">number</td><td class="prop-default">4000</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="toast">Copiar</button>
+<span class="tag">&lt;Toast</span> <span class="attr">open</span>={open} <span class="attr">onClose</span>={() =&gt; setOpen(false)} <span class="attr">message</span>=<span class="str">"Alterações salvas."</span> <span class="attr">variant</span>=<span class="str">"success"</span> <span class="tag">/&gt;</span>
+        </div>
+      </section>
+
       <!-- CONFIRMDIALOG -->
       <section class="component" id="confirmdialog" data-name="confirmdialog">
         <div class="component-head">
@@ -812,6 +1037,218 @@
   <span class="attr">onConfirm</span>={handleConfirm}
   <span class="attr">onCancel</span>={() =&gt; setOpen(false)}
 <span class="tag">/&gt;</span>
+        </div>
+      </section>
+
+      <!-- MODAL -->
+      <section class="component" id="modal" data-name="modal">
+        <div class="component-head">
+          <h2>Modal</h2>
+          <span class="category-tag">Feedback</span>
+        </div>
+
+        <div class="preview">
+          <div class="preview-row">
+            <span class="swatch-label">demo</span>
+            <button class="mock-btn outline" onclick="document.getElementById('demo-modal').showModal()">Ver modal</button>
+          </div>
+        </div>
+
+        <dialog class="mock-dialog" id="demo-modal">
+          <div class="dialog-body">
+            <h3>Editar contato</h3>
+            <p>Conteúdo livre — formulários, textos ou qualquer outro componente pode ser passado como filho.</p>
+          </div>
+          <div class="dialog-actions">
+            <button class="mock-btn outline" onclick="document.getElementById('demo-modal').close()">Cancelar</button>
+            <button class="mock-btn primary" onclick="document.getElementById('demo-modal').close()">Salvar</button>
+          </div>
+        </dialog>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">open<span class="required-mark">*</span></td><td class="prop-type">boolean</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">onClose<span class="required-mark">*</span></td><td class="prop-type">() =&gt; void</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">children<span class="required-mark">*</span></td><td class="prop-type">ReactNode</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">title</td><td class="prop-type">string</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">actions</td><td class="prop-type">ReactNode</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">size</td><td class="prop-type">"sm" | "md" | "lg" | "xl"</td><td class="prop-default">"sm"</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="modal">Copiar</button>
+<span class="tag">&lt;Modal</span> <span class="attr">open</span>={open} <span class="attr">onClose</span>={() =&gt; setOpen(false)} <span class="attr">title</span>=<span class="str">"Editar contato"</span> <span class="attr">actions</span>={&lt;Button onClick={salvar}&gt;Salvar&lt;/Button&gt;}&gt;
+  {children}
+<span class="tag">&lt;/Modal&gt;</span>
+        </div>
+      </section>
+
+      <!-- PROGRESSBAR -->
+      <section class="component" id="progressbar" data-name="progressbar">
+        <div class="component-head">
+          <h2>ProgressBar</h2>
+          <span class="category-tag">Feedback</span>
+        </div>
+
+        <div class="preview" style="display:flex; flex-direction:column; gap:14px;">
+          <div class="mock-progress"><span style="width:35%; background:var(--accent)"></span></div>
+          <div class="mock-progress"><span style="width:70%; background:var(--success)"></span></div>
+          <div class="mock-progress"><span style="width:100%; background:var(--error)"></span></div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">value</td><td class="prop-type">number</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">variant</td><td class="prop-type">"determinate" | "indeterminate"</td><td class="prop-default">"determinate"</td></tr>
+              <tr><td class="prop-name">color</td><td class="prop-type">"primary" | "success" | "warning" | "error"</td><td class="prop-default">"primary"</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="progressbar">Copiar</button>
+<span class="tag">&lt;ProgressBar</span> <span class="attr">value</span>={70} <span class="attr">color</span>=<span class="str">"success"</span> <span class="tag">/&gt;</span>
+        </div>
+      </section>
+
+      <!-- SKELETON -->
+      <section class="component" id="skeleton" data-name="skeleton">
+        <div class="component-head">
+          <h2>Skeleton</h2>
+          <span class="category-tag">Feedback</span>
+        </div>
+
+        <div class="preview" style="display:flex; align-items:center; gap:16px;">
+          <div class="mock-skeleton circular" style="width:48px; height:48px;"></div>
+          <div style="display:flex; flex-direction:column; gap:8px; flex:1; max-width:260px;">
+            <div class="mock-skeleton" style="height:14px; width:70%;"></div>
+            <div class="mock-skeleton" style="height:14px; width:100%;"></div>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">variant</td><td class="prop-type">"text" | "circular" | "rectangular" | "rounded"</td><td class="prop-default">"text"</td></tr>
+              <tr><td class="prop-name">width</td><td class="prop-type">number | string</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">height</td><td class="prop-type">number | string</td><td class="prop-default">undefined</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="skeleton">Copiar</button>
+<span class="tag">&lt;Skeleton</span> <span class="attr">variant</span>=<span class="str">"circular"</span> <span class="attr">width</span>={48} <span class="attr">height</span>={48} <span class="tag">/&gt;</span>
+        </div>
+      </section>
+
+      <!-- SPINNER -->
+      <section class="component" id="spinner" data-name="spinner">
+        <div class="component-head">
+          <h2>Spinner</h2>
+          <span class="category-tag">Feedback</span>
+        </div>
+
+        <div class="preview" style="display:flex; align-items:center; gap:20px;">
+          <div class="mock-spinner" style="width:14px; height:14px;"></div>
+          <div class="mock-spinner" style="width:20px; height:20px;"></div>
+          <div class="mock-spinner" style="width:28px; height:28px;"></div>
+          <div class="mock-spinner" style="width:40px; height:40px;"></div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">size</td><td class="prop-type">"xs" | "sm" | "md" | "lg"</td><td class="prop-default">"md"</td></tr>
+              <tr><td class="prop-name">color</td><td class="prop-type">"primary" | "inherit"</td><td class="prop-default">"primary"</td></tr>
+              <tr><td class="prop-name">label</td><td class="prop-type">string</td><td class="prop-default">"Carregando"</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="spinner">Copiar</button>
+<span class="tag">&lt;Spinner</span> <span class="attr">size</span>=<span class="str">"lg"</span> <span class="tag">/&gt;</span>
+        </div>
+      </section>
+
+      <!-- EMPTYSTATE -->
+      <section class="component" id="emptystate" data-name="emptystate">
+        <div class="component-head">
+          <h2>EmptyState</h2>
+          <span class="category-tag">Feedback</span>
+        </div>
+
+        <div class="preview">
+          <div class="mock-empty">
+            <span class="material-symbols-outlined">inbox</span>
+            <h4>Nenhum registro encontrado</h4>
+            <p style="margin:0; font-size:0.85rem;">Ajuste os filtros ou cadastre um novo item para começar.</p>
+            <button class="mock-btn primary small">Novo cadastro</button>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">title<span class="required-mark">*</span></td><td class="prop-type">string</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">description</td><td class="prop-type">string</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">icon</td><td class="prop-type">ReactNode</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">action</td><td class="prop-type">ReactNode</td><td class="prop-default">undefined</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="emptystate">Copiar</button>
+<span class="tag">&lt;EmptyState</span>
+  <span class="attr">title</span>=<span class="str">"Nenhum registro encontrado"</span>
+  <span class="attr">description</span>=<span class="str">"Ajuste os filtros ou cadastre um novo item."</span>
+  <span class="attr">action</span>={&lt;Button&gt;Novo cadastro&lt;/Button&gt;}
+<span class="tag">/&gt;</span>
+        </div>
+      </section>
+
+      <!-- CARD -->
+      <section class="component" id="card" data-name="card">
+        <div class="component-head">
+          <h2>Card</h2>
+          <span class="category-tag">Layout</span>
+        </div>
+
+        <div class="preview">
+          <div class="preview-row">
+            <div class="mock-plain-card outlined">Outlined</div>
+            <div class="mock-plain-card elevated">Elevated</div>
+            <div class="mock-plain-card filled">Filled</div>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">variant</td><td class="prop-type">"outlined" | "elevated" | "filled"</td><td class="prop-default">"outlined"</td></tr>
+              <tr><td class="prop-name">children<span class="required-mark">*</span></td><td class="prop-type">ReactNode</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">onClick</td><td class="prop-type">() =&gt; void</td><td class="prop-default">undefined</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="card">Copiar</button>
+<span class="tag">&lt;Card</span> <span class="attr">variant</span>=<span class="str">"elevated"</span>&gt;
+  {children}
+<span class="tag">&lt;/Card&gt;</span>
         </div>
       </section>
 
@@ -953,6 +1390,36 @@
         </div>
       </section>
 
+      <!-- DIVIDER -->
+      <section class="component" id="divider" data-name="divider">
+        <div class="component-head">
+          <h2>Divider</h2>
+          <span class="category-tag">Layout</span>
+        </div>
+
+        <div class="preview" style="display:flex; flex-direction:column; gap:16px;">
+          <hr class="mock-divider">
+          <hr class="mock-divider dashed">
+          <div style="display:flex; align-items:center; gap:12px; color:var(--ink-soft); font-size:0.85rem;">Texto <hr class="mock-divider-vertical"> Valor</div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">orientation</td><td class="prop-type">"horizontal" | "vertical"</td><td class="prop-default">"horizontal"</td></tr>
+              <tr><td class="prop-name">variant</td><td class="prop-type">"solid" | "dashed"</td><td class="prop-default">"solid"</td></tr>
+              <tr><td class="prop-name">children</td><td class="prop-type">ReactNode</td><td class="prop-default">undefined</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="divider">Copiar</button>
+<span class="tag">&lt;Divider</span> <span class="attr">variant</span>=<span class="str">"dashed"</span> <span class="tag">/&gt;</span>
+        </div>
+      </section>
+
       <!-- SCROLLAREA -->
       <section class="component" id="scrollarea" data-name="scrollarea">
         <div class="component-head">
@@ -986,6 +1453,216 @@
 <span class="tag">&lt;ScrollArea</span> <span class="attr">offsetHeight</span>={140}&gt;
   {children}
 <span class="tag">&lt;/ScrollArea&gt;</span>
+        </div>
+      </section>
+
+      <!-- DRAWER -->
+      <section class="component" id="drawer" data-name="drawer">
+        <div class="component-head">
+          <h2>Drawer</h2>
+          <span class="category-tag">Layout</span>
+        </div>
+
+        <div class="preview">
+          <div class="preview-row">
+            <span class="swatch-label">demo</span>
+            <button class="mock-btn outline" onclick="document.getElementById('demo-plain-drawer-overlay').classList.add('open')">Ver drawer</button>
+          </div>
+        </div>
+
+        <div class="mock-drawer-overlay" id="demo-plain-drawer-overlay" onclick="if(event.target===this) this.classList.remove('open')">
+          <div class="mock-drawer">
+            <h3>Detalhes</h3>
+            <div class="mock-drawer-fields">
+              <p style="margin:0; font-size:0.88rem; color:var(--ink-soft);">Conteúdo livre — qualquer componente pode ser passado como filho do Drawer.</p>
+            </div>
+            <div class="mock-drawer-actions">
+              <button class="mock-btn outline" style="flex:1" onclick="document.getElementById('demo-plain-drawer-overlay').classList.remove('open')">Fechar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">open<span class="required-mark">*</span></td><td class="prop-type">boolean</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">onClose<span class="required-mark">*</span></td><td class="prop-type">() =&gt; void</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">children<span class="required-mark">*</span></td><td class="prop-type">ReactNode</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">anchor</td><td class="prop-type">"left" | "right" | "top" | "bottom"</td><td class="prop-default">"right"</td></tr>
+              <tr><td class="prop-name">width</td><td class="prop-type">number</td><td class="prop-default">320</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="drawer">Copiar</button>
+<span class="tag">&lt;Drawer</span> <span class="attr">open</span>={open} <span class="attr">onClose</span>={() =&gt; setOpen(false)} <span class="attr">anchor</span>=<span class="str">"right"</span>&gt;
+  {children}
+<span class="tag">&lt;/Drawer&gt;</span>
+        </div>
+      </section>
+
+      <!-- TABS -->
+      <section class="component" id="tabs" data-name="tabs">
+        <div class="component-head">
+          <h2>Tabs</h2>
+          <span class="category-tag">Layout</span>
+        </div>
+
+        <div class="preview">
+          <div class="mock-tabs" id="demo-tabs">
+            <button class="mock-tab active" onclick="document.querySelectorAll('#demo-tabs .mock-tab').forEach(t=>t.classList.remove('active')); this.classList.add('active')">Resumo</button>
+            <button class="mock-tab" onclick="document.querySelectorAll('#demo-tabs .mock-tab').forEach(t=>t.classList.remove('active')); this.classList.add('active')">Documentos</button>
+            <button class="mock-tab" onclick="document.querySelectorAll('#demo-tabs .mock-tab').forEach(t=>t.classList.remove('active')); this.classList.add('active')">Histórico</button>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">items<span class="required-mark">*</span></td><td class="prop-type">{ value: string; label: string }[]</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">value<span class="required-mark">*</span></td><td class="prop-type">string</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">onChange<span class="required-mark">*</span></td><td class="prop-type">(value: string) =&gt; void</td><td class="prop-default">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="tabs">Copiar</button>
+<span class="tag">&lt;Tabs</span>
+  <span class="attr">items</span>={[{ <span class="attr">value</span>: <span class="str">"resumo"</span>, <span class="attr">label</span>: <span class="str">"Resumo"</span> }]}
+  <span class="attr">value</span>={tab}
+  <span class="attr">onChange</span>={setTab}
+<span class="tag">/&gt;</span>
+        </div>
+      </section>
+
+      <!-- POPOVER -->
+      <section class="component" id="popover" data-name="popover">
+        <div class="component-head">
+          <h2>Popover</h2>
+          <span class="category-tag">Layout</span>
+        </div>
+
+        <div class="preview">
+          <div class="mock-popover-wrap">
+            <button class="mock-btn outline" onclick="this.nextElementSibling.classList.toggle('open')">Ver popover</button>
+            <div class="mock-popover">Conteúdo livre exibido próximo ao elemento âncora.</div>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">open<span class="required-mark">*</span></td><td class="prop-type">boolean</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">anchorEl<span class="required-mark">*</span></td><td class="prop-type">HTMLElement | null</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">onClose<span class="required-mark">*</span></td><td class="prop-type">() =&gt; void</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">children<span class="required-mark">*</span></td><td class="prop-type">ReactNode</td><td class="prop-default">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="popover">Copiar</button>
+<span class="tag">&lt;Popover</span> <span class="attr">open</span>={open} <span class="attr">anchorEl</span>={anchorEl} <span class="attr">onClose</span>={() =&gt; setOpen(false)}&gt;
+  {children}
+<span class="tag">&lt;/Popover&gt;</span>
+        </div>
+      </section>
+
+      <!-- TOOLTIP -->
+      <section class="component" id="tooltip" data-name="tooltip">
+        <div class="component-head">
+          <h2>Tooltip</h2>
+          <span class="category-tag">Layout</span>
+        </div>
+
+        <div class="preview">
+          <button class="mock-btn graylight" data-tooltip="Texto de apoio">Passe o mouse aqui</button>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">title<span class="required-mark">*</span></td><td class="prop-type">string</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">children<span class="required-mark">*</span></td><td class="prop-type">ReactElement</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">placement</td><td class="prop-type">"top" | "bottom" | "left" | "right"</td><td class="prop-default">"top"</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="tooltip">Copiar</button>
+<span class="tag">&lt;Tooltip</span> <span class="attr">title</span>=<span class="str">"Texto de apoio"</span>&gt;
+  <span class="tag">&lt;Button&gt;</span>Passe o mouse aqui<span class="tag">&lt;/Button&gt;</span>
+<span class="tag">&lt;/Tooltip&gt;</span>
+        </div>
+      </section>
+
+      <!-- BREADCRUMB -->
+      <section class="component" id="breadcrumb" data-name="breadcrumb">
+        <div class="component-head">
+          <h2>Breadcrumb</h2>
+          <span class="category-tag">Layout</span>
+        </div>
+
+        <div class="preview">
+          <div class="mock-breadcrumb">
+            <a href="#">Início</a><span>/</span><a href="#">Propostas</a><span>/</span><span class="current">16058444</span>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">items<span class="required-mark">*</span></td><td class="prop-type">{ label: string; href?: string }[]</td><td class="prop-default">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="breadcrumb">Copiar</button>
+<span class="tag">&lt;Breadcrumb</span> <span class="attr">items</span>={[{ <span class="attr">label</span>: <span class="str">"Início"</span>, <span class="attr">href</span>: <span class="str">"/"</span> }, { <span class="attr">label</span>: <span class="str">"16058444"</span> }]} <span class="tag">/&gt;</span>
+        </div>
+      </section>
+
+      <!-- PAGINATION -->
+      <section class="component" id="pagination" data-name="pagination">
+        <div class="component-head">
+          <h2>Pagination</h2>
+          <span class="category-tag">Layout</span>
+        </div>
+
+        <div class="preview">
+          <div class="mock-pagination">
+            <button class="mock-page-btn">‹</button>
+            <button class="mock-page-btn active">1</button>
+            <button class="mock-page-btn">2</button>
+            <button class="mock-page-btn">3</button>
+            <button class="mock-page-btn">›</button>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">page<span class="required-mark">*</span></td><td class="prop-type">number</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">count<span class="required-mark">*</span></td><td class="prop-type">number</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">onChange<span class="required-mark">*</span></td><td class="prop-type">(page: number) =&gt; void</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">size</td><td class="prop-type">"small" | "medium" | "large"</td><td class="prop-default">"medium"</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="pagination">Copiar</button>
+<span class="tag">&lt;Pagination</span> <span class="attr">page</span>={page} <span class="attr">count</span>={10} <span class="attr">onChange</span>={setPage} <span class="tag">/&gt;</span>
         </div>
       </section>
 
@@ -1045,6 +1722,115 @@
         </div>
       </section>
 
+      <!-- AVATAR -->
+      <section class="component" id="avatar" data-name="avatar">
+        <div class="component-head">
+          <h2>Avatar</h2>
+          <span class="category-tag">Dados</span>
+        </div>
+
+        <div class="preview">
+          <div class="preview-row">
+            <span class="swatch-label">size</span>
+            <span class="mock-avatar" style="width:20px;height:20px;font-size:8px;">LM</span>
+            <span class="mock-avatar" style="width:28px;height:28px;font-size:11px;">LM</span>
+            <span class="mock-avatar" style="width:36px;height:36px;font-size:14px;">LM</span>
+            <span class="mock-avatar" style="width:48px;height:48px;font-size:19px;">LM</span>
+            <span class="mock-avatar" style="width:64px;height:64px;font-size:26px;">LM</span>
+          </div>
+          <div class="preview-row">
+            <span class="swatch-label">shape</span>
+            <span class="mock-avatar" style="width:40px;height:40px;">LM</span>
+            <span class="mock-avatar rounded" style="width:40px;height:40px;">LM</span>
+            <span class="mock-avatar square" style="width:40px;height:40px;">LM</span>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">src</td><td class="prop-type">string</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">initials</td><td class="prop-type">string</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">size</td><td class="prop-type">"xs" | "sm" | "md" | "lg" | "xl"</td><td class="prop-default">"md"</td></tr>
+              <tr><td class="prop-name">shape</td><td class="prop-type">"circle" | "square" | "rounded"</td><td class="prop-default">"circle"</td></tr>
+              <tr><td class="prop-name">alt</td><td class="prop-type">string</td><td class="prop-default">undefined</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="avatar">Copiar</button>
+<span class="tag">&lt;Avatar</span> <span class="attr">initials</span>=<span class="str">"LM"</span> <span class="attr">size</span>=<span class="str">"lg"</span> <span class="tag">/&gt;</span>
+        </div>
+      </section>
+
+      <!-- AVATARGROUP -->
+      <section class="component" id="avatargroup" data-name="avatargroup">
+        <div class="component-head">
+          <h2>AvatarGroup</h2>
+          <span class="category-tag">Dados</span>
+        </div>
+
+        <div class="preview">
+          <div class="mock-avatar-group">
+            <span class="mock-avatar" style="width:36px;height:36px;font-size:14px;">LM</span>
+            <span class="mock-avatar" style="width:36px;height:36px;font-size:14px;">CS</span>
+            <span class="mock-avatar" style="width:36px;height:36px;font-size:14px;">BL</span>
+            <span class="mock-avatar more" style="width:36px;height:36px;font-size:12px;">+3</span>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">avatars<span class="required-mark">*</span></td><td class="prop-type">{ src?: string; initials?: string; alt?: string }[]</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">max</td><td class="prop-type">number</td><td class="prop-default">4</td></tr>
+              <tr><td class="prop-name">size</td><td class="prop-type">"xs" | "sm" | "md" | "lg" | "xl"</td><td class="prop-default">"md"</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="avatargroup">Copiar</button>
+<span class="tag">&lt;AvatarGroup</span> <span class="attr">avatars</span>={[{ <span class="attr">initials</span>: <span class="str">"LM"</span> }, { <span class="attr">initials</span>: <span class="str">"CS"</span> }]} <span class="attr">max</span>={3} <span class="tag">/&gt;</span>
+        </div>
+      </section>
+
+      <!-- TAG -->
+      <section class="component" id="tag" data-name="tag">
+        <div class="component-head">
+          <h2>Tag</h2>
+          <span class="category-tag">Dados</span>
+        </div>
+
+        <div class="preview">
+          <div class="preview-row">
+            <span class="mock-tag" style="background:var(--ink); color:#fff;">Consórcio</span>
+            <span class="mock-tag" style="background:transparent; color:var(--ink); border:1px solid var(--line); padding:3px 11px;">Imóvel</span>
+            <span class="mock-tag" style="background:var(--ink); color:#fff; opacity:0.5;">Desabilitada</span>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">label<span class="required-mark">*</span></td><td class="prop-type">string</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">variant</td><td class="prop-type">"filled" | "outline"</td><td class="prop-default">"filled"</td></tr>
+              <tr><td class="prop-name">onRemove</td><td class="prop-type">() =&gt; void</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">disabled</td><td class="prop-type">boolean</td><td class="prop-default">undefined</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="tag">Copiar</button>
+<span class="tag">&lt;Tag</span> <span class="attr">label</span>=<span class="str">"Consórcio"</span> <span class="attr">onRemove</span>={remover} <span class="tag">/&gt;</span>
+        </div>
+      </section>
+
       <!-- INPUT -->
       <section class="component" id="input" data-name="input">
         <div class="component-head">
@@ -1068,16 +1854,57 @@
               <input id="demo-input-readonly" type="text" value="000.000.000-00" disabled>
             </div>
           </div>
+          <div class="preview-row">
+            <span class="swatch-label">mask</span>
+            <div class="mock-field">
+              <label for="demo-input-mask-currency">Valor da parcela</label>
+              <input id="demo-input-mask-currency" type="text" value="R$ 1.240,00" inputmode="numeric">
+            </div>
+            <div class="mock-field">
+              <label for="demo-input-mask-cpf">CPF</label>
+              <input id="demo-input-mask-cpf" type="text" value="440.603.778-05" inputmode="numeric">
+            </div>
+            <div class="mock-field">
+              <label for="demo-input-mask-cartao">Cartão de crédito</label>
+              <input id="demo-input-mask-cartao" type="text" value="4111 2222 3333 4444" inputmode="numeric">
+            </div>
+          </div>
+          <div class="preview-row">
+            <span class="swatch-label">success</span>
+            <div class="mock-field success">
+              <label for="demo-input-success">CPF</label>
+              <input id="demo-input-success" type="text" value="440.603.778-05" inputmode="numeric">
+              <span class="helper">Dígito verificador válido</span>
+            </div>
+            <span class="swatch-label" style="width:auto;">size=lg</span>
+            <div class="mock-field size-lg">
+              <label for="demo-input-lg">Nome</label>
+              <input id="demo-input-lg" type="text" placeholder="Digite o nome">
+            </div>
+          </div>
         </div>
 
         <div class="table-scroll">
           <table class="props">
             <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
             <tbody>
+              <tr><td class="prop-name">mask</td><td class="prop-type">"currency" | "number" | "percent" | "cpf" | "cnpj" | "cpfCnpj" | "telefone" | "cep" | "cartaoCredito" | "data" | "hora"</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">value</td><td class="prop-type">number (mask numérico) | string (mask de documento) | TextFieldProps["value"]</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">onChange</td><td class="prop-type">(value: number) =&gt; void | (digits: string) =&gt; void | TextFieldProps["onChange"]</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">decimalScale</td><td class="prop-type">number</td><td class="prop-default">2 (currency/percent), 0 (number)</td></tr>
+              <tr><td class="prop-name">formatOnType</td><td class="prop-type">boolean</td><td class="prop-default">true</td></tr>
+              <tr><td class="prop-name">locale</td><td class="prop-type">string</td><td class="prop-default">"pt-BR"</td></tr>
+              <tr><td class="prop-name">validation</td><td class="prop-type">"digitoVerificador" (só mask="cpf"|"cnpj")</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">type</td><td class="prop-type">"text" | "email" | "tel" | "url" | "number" | "password"</td><td class="prop-default">"text"</td></tr>
+              <tr><td class="prop-name">variant</td><td class="prop-type">"outlined" | "filled" | "underline"</td><td class="prop-default">"outlined"</td></tr>
+              <tr><td class="prop-name">width</td><td class="prop-type">"auto" | "full"</td><td class="prop-default">"full"</td></tr>
+              <tr><td class="prop-name">size</td><td class="prop-type">"sm" | "md" | "lg"</td><td class="prop-default">"md"</td></tr>
+              <tr><td class="prop-name">success</td><td class="prop-type">boolean</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">loading</td><td class="prop-type">boolean</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">icon / iconPosition</td><td class="prop-type">ReactNode / "left" | "right"</td><td class="prop-default">undefined / "left"</td></tr>
+              <tr><td class="prop-name">clearable</td><td class="prop-type">boolean</td><td class="prop-default">undefined</td></tr>
               <tr><td class="prop-name">readOnlyField</td><td class="prop-type">boolean</td><td class="prop-default">false</td></tr>
-              <tr><td class="prop-name">error</td><td class="prop-type">boolean</td><td class="prop-default">false</td></tr>
-              <tr><td class="prop-name">helperText</td><td class="prop-type">ReactNode</td><td class="prop-default">undefined</td></tr>
-              <tr><td class="prop-name">...rest</td><td class="prop-type">MuiTextFieldProps (exceto variant)</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">...rest</td><td class="prop-type">MuiTextFieldProps (exceto value/onChange/variant/type/size)</td><td class="prop-default">—</td></tr>
             </tbody>
           </table>
         </div>
@@ -1085,6 +1912,70 @@
         <div class="code-block">
 <button class="copy-btn" data-copy="input">Copiar</button>
 <span class="tag">&lt;Input</span> <span class="attr">label</span>=<span class="str">"CPF"</span> <span class="attr">value</span>={cpf} <span class="attr">readOnlyField</span> <span class="tag">/&gt;</span>
+
+<span class="cmt">// com máscara numérica (substitui o antigo MaskedNumberField)</span>
+<span class="tag">&lt;Input</span> <span class="attr">label</span>=<span class="str">"Valor da parcela"</span> <span class="attr">mask</span>=<span class="str">"currency"</span> <span class="attr">value</span>={valor} <span class="attr">onChange</span>={setValor} <span class="tag">/&gt;</span>
+
+<span class="cmt">// com máscara de documento e validação de dígito verificador</span>
+<span class="tag">&lt;Input</span> <span class="attr">label</span>=<span class="str">"CPF"</span> <span class="attr">mask</span>=<span class="str">"cpf"</span> <span class="attr">validation</span>=<span class="str">"digitoVerificador"</span> <span class="attr">value</span>={cpfDigits} <span class="attr">onChange</span>={setCpfDigits} <span class="tag">/&gt;</span>
+
+<span class="cmt">// máscara de cartão de crédito</span>
+<span class="tag">&lt;Input</span> <span class="attr">label</span>=<span class="str">"Cartão de crédito"</span> <span class="attr">mask</span>=<span class="str">"cartaoCredito"</span> <span class="attr">value</span>={cartaoDigits} <span class="attr">onChange</span>={setCartaoDigits} <span class="tag">/&gt;</span>
+        </div>
+      </section>
+
+      <!-- TEXTAREA -->
+      <section class="component" id="textarea" data-name="textarea">
+        <div class="component-head">
+          <h2>Textarea</h2>
+          <span class="category-tag">Formulário</span>
+        </div>
+
+        <div class="preview">
+          <div class="preview-row">
+            <div class="mock-field" style="max-width:320px;">
+              <label for="demo-textarea">Observações</label>
+              <textarea id="demo-textarea" rows="3" style="font-family:inherit; font-size:0.9rem; padding:10px 14px; border-radius:10px; border:1.5px solid var(--line); background:#fff; color:var(--ink); resize:vertical;" placeholder="Digite uma observação">Cliente solicitou revisão do contrato antes da assinatura.</textarea>
+              <span class="helper" style="text-align:right;">64/280</span>
+            </div>
+          </div>
+          <div class="preview-row">
+            <span class="swatch-label">size</span>
+            <div class="mock-field" style="max-width:220px;">
+              <label for="demo-textarea-md">size=md</label>
+              <textarea id="demo-textarea-md" rows="2" style="font-family:inherit; font-size:0.9rem; padding:10px 14px; border-radius:10px; border:1.5px solid var(--line); background:#fff; color:var(--ink); resize:vertical;">Texto padrão</textarea>
+            </div>
+            <div class="mock-field size-lg" style="max-width:220px;">
+              <label for="demo-textarea-lg">size=lg</label>
+              <textarea id="demo-textarea-lg" rows="2" style="font-family:inherit; border-radius:10px; border:1.5px solid var(--line); background:#fff; color:var(--ink); resize:vertical;">Texto maior</textarea>
+            </div>
+            <div class="mock-field success" style="max-width:220px;">
+              <label for="demo-textarea-success">success</label>
+              <textarea id="demo-textarea-success" rows="2" style="font-family:inherit; font-size:0.9rem; padding:10px 14px; border-radius:10px; background:#fff; color:var(--ink); resize:vertical;">Validado com sucesso</textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">variant</td><td class="prop-type">"outlined" | "filled"</td><td class="prop-default">"outlined"</td></tr>
+              <tr><td class="prop-name">resize</td><td class="prop-type">"none" | "vertical" | "horizontal" | "both"</td><td class="prop-default">"vertical"</td></tr>
+              <tr><td class="prop-name">autoGrow</td><td class="prop-type">boolean</td><td class="prop-default">true</td></tr>
+              <tr><td class="prop-name">counter</td><td class="prop-type">boolean</td><td class="prop-default">false</td></tr>
+              <tr><td class="prop-name">width</td><td class="prop-type">"auto" | "full"</td><td class="prop-default">"full"</td></tr>
+              <tr><td class="prop-name">size</td><td class="prop-type">"sm" | "md" | "lg"</td><td class="prop-default">"md"</td></tr>
+              <tr><td class="prop-name">success</td><td class="prop-type">boolean</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">readOnlyField</td><td class="prop-type">boolean</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">...rest</td><td class="prop-type">MuiTextFieldProps (exceto variant/multiline/size; inclui minRows=3, maxRows, value)</td><td class="prop-default">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="textarea">Copiar</button>
+<span class="tag">&lt;Textarea</span> <span class="attr">label</span>=<span class="str">"Observações"</span> <span class="attr">value</span>={obs} <span class="attr">onChange</span>={(e) =&gt; setObs(e.target.value)} <span class="attr">counter</span> <span class="attr">inputProps</span>={{ maxLength: 280 }} <span class="tag">/&gt;</span>
         </div>
       </section>
 
@@ -1105,6 +1996,18 @@
               <div class="mock-select-option">Cancelado</div>
             </div>
           </div>
+          <div class="preview-row">
+            <span class="swatch-label">variant</span>
+            <div class="mock-select-wrap" style="max-width:150px;">
+              <div class="mock-select variant-demo">Outlined <span>▾</span></div>
+            </div>
+            <div class="mock-select-wrap" style="max-width:150px;">
+              <div class="mock-select variant-demo filled">Filled <span>▾</span></div>
+            </div>
+            <div class="mock-select-wrap" style="max-width:150px;">
+              <div class="mock-select variant-demo underline">Underline <span>▾</span></div>
+            </div>
+          </div>
         </div>
 
         <div class="table-scroll">
@@ -1116,6 +2019,11 @@
               <tr><td class="prop-name">onChange<span class="required-mark">*</span></td><td class="prop-type">(value: T | null) =&gt; void</td><td class="prop-default">—</td></tr>
               <tr><td class="prop-name">label / placeholder</td><td class="prop-type">string</td><td class="prop-default">undefined</td></tr>
               <tr><td class="prop-name">loading</td><td class="prop-type">boolean</td><td class="prop-default">false</td></tr>
+              <tr><td class="prop-name">disabled</td><td class="prop-type">boolean</td><td class="prop-default">false</td></tr>
+              <tr><td class="prop-name">clearable</td><td class="prop-type">boolean</td><td class="prop-default">true</td></tr>
+              <tr><td class="prop-name">variant</td><td class="prop-type">"outlined" | "filled" | "underline"</td><td class="prop-default">"outlined"</td></tr>
+              <tr><td class="prop-name">size</td><td class="prop-type">"sm" | "md" | "lg"</td><td class="prop-default">"md"</td></tr>
+              <tr><td class="prop-name">width</td><td class="prop-type">"auto" | "full"</td><td class="prop-default">"full"</td></tr>
               <tr><td class="prop-name">error / helperText</td><td class="prop-type">boolean / string</td><td class="prop-default">false / undefined</td></tr>
             </tbody>
           </table>
@@ -1160,6 +2068,18 @@
               <label class="mock-ms-option"><input type="checkbox" class="mock-ms-checkbox ms-item"><span>5 - One Consórcio Ltda</span></label>
             </div>
           </div>
+          <div class="preview-row">
+            <span class="swatch-label">variant</span>
+            <div class="mock-select-wrap" style="max-width:150px;">
+              <div class="mock-select variant-demo">Outlined <span>▾</span></div>
+            </div>
+            <div class="mock-select-wrap" style="max-width:150px;">
+              <div class="mock-select variant-demo filled">Filled <span>▾</span></div>
+            </div>
+            <div class="mock-select-wrap" style="max-width:150px;">
+              <div class="mock-select variant-demo underline">Underline <span>▾</span></div>
+            </div>
+          </div>
         </div>
 
         <div class="table-scroll">
@@ -1170,7 +2090,13 @@
               <tr><td class="prop-name">value<span class="required-mark">*</span></td><td class="prop-type">T[]</td><td class="prop-default">—</td></tr>
               <tr><td class="prop-name">onChange<span class="required-mark">*</span></td><td class="prop-type">(value: T[]) =&gt; void</td><td class="prop-default">—</td></tr>
               <tr><td class="prop-name">label / placeholder</td><td class="prop-type">string</td><td class="prop-default">undefined</td></tr>
-              <tr><td class="prop-name">selectAll</td><td class="prop-type">boolean</td><td class="prop-default">true</td></tr>
+              <tr><td class="prop-name">disabled</td><td class="prop-type">boolean</td><td class="prop-default">false</td></tr>
+              <tr><td class="prop-name">selectAll</td><td class="prop-type">boolean</td><td class="prop-default">true (ignorado se maxSelections definido)</td></tr>
+              <tr><td class="prop-name">display</td><td class="prop-type">"chips" | "count"</td><td class="prop-default">"chips"</td></tr>
+              <tr><td class="prop-name">maxSelections</td><td class="prop-type">number</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">variant</td><td class="prop-type">"outlined" | "filled" | "underline"</td><td class="prop-default">"outlined"</td></tr>
+              <tr><td class="prop-name">size</td><td class="prop-type">"sm" | "md" | "lg"</td><td class="prop-default">"md"</td></tr>
+              <tr><td class="prop-name">loading</td><td class="prop-type">boolean</td><td class="prop-default">undefined</td></tr>
               <tr><td class="prop-name">error / helperText</td><td class="prop-type">boolean / string</td><td class="prop-default">false / undefined</td></tr>
             </tbody>
           </table>
@@ -1187,22 +2113,38 @@
         </div>
       </section>
 
-      <!-- MASKEDNUMBERFIELD -->
-      <section class="component" id="maskednumberfield" data-name="maskednumberfield">
+      <!-- AUTOCOMPLETE -->
+      <section class="component" id="autocomplete" data-name="autocomplete">
         <div class="component-head">
-          <h2>MaskedNumberField</h2>
+          <h2>Autocomplete</h2>
           <span class="category-tag">Formulário</span>
         </div>
 
         <div class="preview">
-          <div class="preview-row">
-            <div class="mock-field">
-              <label for="demo-mask-currency">Valor da parcela</label>
-              <input id="demo-mask-currency" type="text" value="R$ 1.240,00" inputmode="numeric">
+          <div class="mock-select-wrap">
+            <label for="demo-autocomplete" style="font-size:0.78rem;color:var(--ink-soft);display:block;margin-bottom:6px;">Cliente</label>
+            <div class="mock-select" id="demo-autocomplete">Leonardo Mendes <span>▾</span></div>
+            <div class="mock-select-panel">
+              <div class="mock-select-option selected">Leonardo Mendes</div>
+              <div class="mock-select-option">Ciclano Souza</div>
+              <div class="mock-select-option">Beltrano Lima</div>
             </div>
-            <div class="mock-field">
-              <label for="demo-mask-percent">Desconto</label>
-              <input id="demo-mask-percent" type="text" value="12,50%" inputmode="numeric">
+          </div>
+          <div class="preview-row">
+            <span class="swatch-label">async</span>
+            <div class="mock-select-wrap" style="max-width:220px;">
+              <label for="demo-autocomplete-async" style="font-size:0.78rem;color:var(--ink-soft);display:block;margin-bottom:6px;">Buscar cliente</label>
+              <div class="mock-select" id="demo-autocomplete-async">
+                <span>Leo</span>
+                <span class="mock-autocomplete-loading"><span class="mock-spinner" style="width:12px;height:12px;"></span>Buscando...</span>
+              </div>
+            </div>
+          </div>
+          <div class="preview-row">
+            <span class="swatch-label">noOptionsMessage</span>
+            <div class="mock-select-wrap" style="max-width:260px;">
+              <div class="mock-select">xyz <span>▾</span></div>
+              <div class="mock-select-panel empty">Nenhuma opção encontrada</div>
             </div>
           </div>
         </div>
@@ -1211,18 +2153,140 @@
           <table class="props">
             <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
             <tbody>
-              <tr><td class="prop-name">value<span class="required-mark">*</span></td><td class="prop-type">number</td><td class="prop-default">—</td></tr>
-              <tr><td class="prop-name">onChange<span class="required-mark">*</span></td><td class="prop-type">(value: number) =&gt; void</td><td class="prop-default">—</td></tr>
-              <tr><td class="prop-name">mode</td><td class="prop-type">"currency" | "number" | "percent"</td><td class="prop-default">"currency"</td></tr>
-              <tr><td class="prop-name">decimalScale</td><td class="prop-type">number</td><td class="prop-default">2 (currency/percent), 0 (number)</td></tr>
-              <tr><td class="prop-name">...rest</td><td class="prop-type">InputProps (exceto value/onChange/type)</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">label</td><td class="prop-type">string</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">options<span class="required-mark">*</span></td><td class="prop-type">{ value: T; label: string }[]</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">value<span class="required-mark">*</span></td><td class="prop-type">T | null</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">onChange<span class="required-mark">*</span></td><td class="prop-type">(value: T | null) =&gt; void</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">placeholder</td><td class="prop-type">string</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">error</td><td class="prop-type">boolean</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">helperText</td><td class="prop-type">string</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">disabled</td><td class="prop-type">boolean</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">variant</td><td class="prop-type">"outlined" | "filled" | "underline"</td><td class="prop-default">"outlined"</td></tr>
+              <tr><td class="prop-name">size</td><td class="prop-type">"sm" | "md" | "lg"</td><td class="prop-default">"md"</td></tr>
+              <tr><td class="prop-name">width</td><td class="prop-type">"auto" | "full"</td><td class="prop-default">"full"</td></tr>
+              <tr><td class="prop-name">clearable</td><td class="prop-type">boolean</td><td class="prop-default">true</td></tr>
+              <tr><td class="prop-name">onSearch</td><td class="prop-type">(query: string) =&gt; Promise&lt;SelectOption&lt;T&gt;[]&gt;</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">debounceMs</td><td class="prop-type">number</td><td class="prop-default">300</td></tr>
+              <tr><td class="prop-name">allowCustomValue</td><td class="prop-type">boolean</td><td class="prop-default">false</td></tr>
+              <tr><td class="prop-name">noOptionsMessage</td><td class="prop-type">string</td><td class="prop-default">"Nenhuma opção encontrada"</td></tr>
             </tbody>
           </table>
         </div>
 
         <div class="code-block">
-<button class="copy-btn" data-copy="maskednumberfield">Copiar</button>
-<span class="tag">&lt;MaskedNumberField</span> <span class="attr">label</span>=<span class="str">"Valor da parcela"</span> <span class="attr">mode</span>=<span class="str">"currency"</span> <span class="attr">value</span>={valor} <span class="attr">onChange</span>={setValor} <span class="tag">/&gt;</span>
+<button class="copy-btn" data-copy="autocomplete">Copiar</button>
+<span class="cmt">// modo assíncrono: digitar dispara onSearch após o debounce</span>
+<span class="tag">&lt;Autocomplete</span>
+  <span class="attr">label</span>=<span class="str">"Cliente"</span>
+  <span class="attr">options</span>={[]}
+  <span class="attr">value</span>={clienteId}
+  <span class="attr">onChange</span>={setClienteId}
+  <span class="attr">onSearch</span>={(query) =&gt; buscarClientes(query)}
+  <span class="attr">debounceMs</span>={400}
+  <span class="attr">noOptionsMessage</span>=<span class="str">"Nenhum cliente encontrado"</span>
+<span class="tag">/&gt;</span>
+        </div>
+      </section>
+
+      <!-- CHECKBOXFIELD -->
+      <section class="component" id="checkboxfield" data-name="checkboxfield">
+        <div class="component-head">
+          <h2>CheckboxField</h2>
+          <span class="category-tag">Formulário</span>
+        </div>
+
+        <div class="preview">
+          <div class="preview-row">
+            <label class="mock-check-row"><input type="checkbox" class="mock-checkbox" checked>Aceito os termos</label>
+            <label class="mock-check-row"><input type="checkbox" class="mock-checkbox">Receber notificações</label>
+            <label class="mock-check-row"><input type="checkbox" class="mock-checkbox" disabled>Indisponível</label>
+          </div>
+          <div class="preview-row">
+            <span class="swatch-label">size</span>
+            <label class="mock-check-row"><input type="checkbox" class="mock-checkbox size-sm" checked>Small</label>
+            <label class="mock-check-row"><input type="checkbox" class="mock-checkbox" checked>Medium</label>
+            <label class="mock-check-row"><input type="checkbox" class="mock-checkbox size-lg" checked>Large</label>
+          </div>
+          <div class="preview-row">
+            <span class="swatch-label">error</span>
+            <label class="mock-check-row error-row"><input type="checkbox" class="mock-checkbox" checked>Campo obrigatório</label>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">label<span class="required-mark">*</span></td><td class="prop-type">string</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">checked<span class="required-mark">*</span></td><td class="prop-type">boolean</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">onChange<span class="required-mark">*</span></td><td class="prop-type">(checked: boolean) =&gt; void</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">indeterminate</td><td class="prop-type">boolean</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">disabled</td><td class="prop-type">boolean</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">labelPosition</td><td class="prop-type">"start" | "end"</td><td class="prop-default">"end"</td></tr>
+              <tr><td class="prop-name">size</td><td class="prop-type">"sm" | "md" | "lg"</td><td class="prop-default">"md"</td></tr>
+              <tr><td class="prop-name">error</td><td class="prop-type">boolean</td><td class="prop-default">undefined</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="checkboxfield">Copiar</button>
+<span class="tag">&lt;CheckboxField</span> <span class="attr">label</span>=<span class="str">"Aceito os termos"</span> <span class="attr">checked</span>={aceito} <span class="attr">onChange</span>={setAceito} <span class="tag">/&gt;</span>
+        </div>
+      </section>
+
+      <!-- RADIOGROUPFIELD -->
+      <section class="component" id="radiogroupfield" data-name="radiogroupfield">
+        <div class="component-head">
+          <h2>RadioGroupField</h2>
+          <span class="category-tag">Formulário</span>
+        </div>
+
+        <div class="preview">
+          <div class="preview-row">
+            <div>
+              <div style="font-size:0.78rem; color:var(--ink-soft); margin-bottom:8px;">Forma de pagamento</div>
+              <div class="mock-radio-group horizontal">
+                <label class="mock-radio-row"><input type="radio" name="demo-radio" class="mock-radio" checked>Boleto</label>
+                <label class="mock-radio-row"><input type="radio" name="demo-radio" class="mock-radio">Pix</label>
+                <label class="mock-radio-row"><input type="radio" name="demo-radio" class="mock-radio">Cartão</label>
+              </div>
+            </div>
+          </div>
+          <div class="preview-row">
+            <span class="swatch-label">size</span>
+            <label class="mock-radio-row"><input type="radio" name="demo-radio-size" class="mock-radio size-sm" checked>Small</label>
+            <label class="mock-radio-row"><input type="radio" name="demo-radio-size" class="mock-radio">Medium</label>
+            <label class="mock-radio-row"><input type="radio" name="demo-radio-size" class="mock-radio size-lg">Large</label>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">options<span class="required-mark">*</span></td><td class="prop-type">{ value: T; label: string }[]</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">value<span class="required-mark">*</span></td><td class="prop-type">T</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">onChange<span class="required-mark">*</span></td><td class="prop-type">(value: T) =&gt; void</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">label</td><td class="prop-type">string</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">orientation</td><td class="prop-type">"horizontal" | "vertical"</td><td class="prop-default">"vertical"</td></tr>
+              <tr><td class="prop-name">labelPosition</td><td class="prop-type">"start" | "end"</td><td class="prop-default">"end"</td></tr>
+              <tr><td class="prop-name">disabled</td><td class="prop-type">boolean</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">error / helperText</td><td class="prop-type">boolean / string</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">size</td><td class="prop-type">"sm" | "md" | "lg"</td><td class="prop-default">"md"</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="radiogroupfield">Copiar</button>
+<span class="tag">&lt;RadioGroupField</span>
+  <span class="attr">label</span>=<span class="str">"Forma de pagamento"</span>
+  <span class="attr">options</span>={[{ <span class="attr">value</span>: <span class="str">"boleto"</span>, <span class="attr">label</span>: <span class="str">"Boleto"</span> }, { <span class="attr">value</span>: <span class="str">"pix"</span>, <span class="attr">label</span>: <span class="str">"Pix"</span> }]}
+  <span class="attr">value</span>={forma}
+  <span class="attr">onChange</span>={setForma}
+  <span class="attr">orientation</span>=<span class="str">"horizontal"</span>
+<span class="tag">/&gt;</span>
         </div>
       </section>
 
@@ -1238,6 +2302,12 @@
             <div class="mock-switch-row"><span class="mock-switch on"></span> Ativo</div>
             <div class="mock-switch-row"><span class="mock-switch"></span> Inativo</div>
           </div>
+          <div class="preview-row">
+            <span class="swatch-label">size</span>
+            <div class="mock-switch-row"><span class="mock-switch on size-sm"></span> Small</div>
+            <div class="mock-switch-row"><span class="mock-switch on"></span> Medium</div>
+            <div class="mock-switch-row"><span class="mock-switch on size-lg"></span> Large</div>
+          </div>
         </div>
 
         <div class="table-scroll">
@@ -1248,6 +2318,10 @@
               <tr><td class="prop-name">checked<span class="required-mark">*</span></td><td class="prop-type">boolean</td><td class="prop-default">—</td></tr>
               <tr><td class="prop-name">onChange<span class="required-mark">*</span></td><td class="prop-type">(checked: boolean) =&gt; void</td><td class="prop-default">—</td></tr>
               <tr><td class="prop-name">disabled</td><td class="prop-type">boolean</td><td class="prop-default">false</td></tr>
+              <tr><td class="prop-name">tone</td><td class="prop-type">"primary" | "success" | "error"</td><td class="prop-default">"primary"</td></tr>
+              <tr><td class="prop-name">loading</td><td class="prop-type">boolean</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">labelPosition</td><td class="prop-type">"start" | "end"</td><td class="prop-default">"end"</td></tr>
+              <tr><td class="prop-name">size</td><td class="prop-type">"sm" | "md" | "lg"</td><td class="prop-default">"md"</td></tr>
             </tbody>
           </table>
         </div>

@@ -20,4 +20,18 @@ describe("RadioGroupField", () => {
     await userEvent.click(screen.getByRole("radio", { name: "Cartão" }));
     expect(onChange).toHaveBeenCalledWith("cartao");
   });
+
+  it("places the label before the radio when labelPosition=start", () => {
+    render(<RadioGroupField label="Pagamento" options={options} value="boleto" onChange={() => {}} labelPosition="start" />);
+    const label = screen.getByText("Cartão").closest(".MuiFormControlLabel-root");
+    expect(label).toHaveClass("MuiFormControlLabel-labelPlacementStart");
+  });
+
+  it("applies the small MUI size class when size=sm and drops it for size=lg", () => {
+    const { rerender } = render(<RadioGroupField label="Pagamento" options={options} value="boleto" onChange={() => {}} size="sm" />);
+    expect(document.querySelector(".MuiRadio-root")).toHaveClass("MuiRadio-sizeSmall");
+
+    rerender(<RadioGroupField label="Pagamento" options={options} value="boleto" onChange={() => {}} size="lg" />);
+    expect(document.querySelector(".MuiRadio-root")).not.toHaveClass("MuiRadio-sizeSmall");
+  });
 });

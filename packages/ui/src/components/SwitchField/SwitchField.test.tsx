@@ -15,4 +15,18 @@ describe("SwitchField", () => {
     await userEvent.click(screen.getByRole("checkbox", { name: "Ativo" }));
     expect(onChange).toHaveBeenCalledWith(true);
   });
+
+  it("shows a spinner instead of the switch when loading", () => {
+    render(<SwitchField label="Ativo" checked loading onChange={() => {}} />);
+    expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();
+    expect(screen.getByRole("progressbar")).toBeInTheDocument();
+  });
+
+  it("applies the small MUI size by default and medium for size=lg", () => {
+    const { rerender } = render(<SwitchField label="Ativo" checked onChange={() => {}} size="sm" />);
+    expect(document.querySelector(".MuiSwitch-root")).toHaveClass("MuiSwitch-sizeSmall");
+
+    rerender(<SwitchField label="Ativo" checked onChange={() => {}} size="lg" />);
+    expect(document.querySelector(".MuiSwitch-root")).toHaveClass("MuiSwitch-sizeMedium");
+  });
 });

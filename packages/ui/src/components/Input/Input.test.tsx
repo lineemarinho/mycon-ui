@@ -22,6 +22,36 @@ describe("Input (sem mask)", () => {
   });
 });
 
+describe("Input (variant/width/icon/clearable/password)", () => {
+  it("applies fullWidth by default and respects width=auto", () => {
+    const { rerender } = render(<Input label="Nome" />);
+    expect(screen.getByLabelText("Nome").closest(".MuiFormControl-root")).toHaveClass("MuiFormControl-fullWidth");
+
+    rerender(<Input label="Nome" width="auto" />);
+    expect(screen.getByLabelText("Nome").closest(".MuiFormControl-root")).not.toHaveClass("MuiFormControl-fullWidth");
+  });
+
+  it("renders the icon", () => {
+    render(<Input label="Busca" icon={<span data-testid="search-icon" />} />);
+    expect(screen.getByTestId("search-icon")).toBeInTheDocument();
+  });
+
+  it("shows a clear button when clearable and there is a value, and clears it", async () => {
+    const onChange = vi.fn();
+    render(<Input label="Busca" clearable value="algo" onChange={onChange} />);
+    await userEvent.click(screen.getByRole("button", { name: "Limpar" }));
+    expect(onChange).toHaveBeenCalled();
+  });
+
+  it("toggles password visibility", async () => {
+    render(<Input label="Senha" type="password" value="segredo" onChange={() => {}} />);
+    const field = screen.getByLabelText("Senha");
+    expect(field).toHaveAttribute("type", "password");
+    await userEvent.click(screen.getByRole("button", { name: "Mostrar senha" }));
+    expect(field).toHaveAttribute("type", "text");
+  });
+});
+
 describe("Input (mask numérica)", () => {
   it("formats the value as currency by default", () => {
     render(<Input label="Valor" mask="currency" value={1240} onChange={() => {}} />);
@@ -75,5 +105,62 @@ describe("Input (mask de documento)", () => {
     render(<Input label="CEP" mask="cep" value="" onChange={onChange} />);
     await userEvent.type(screen.getByLabelText("CEP"), "0");
     expect(onChange).toHaveBeenCalledWith("0");
+  });
+
+  it("formats a credit card", () => {
+    render(<Input label="Cartão" mask="cartaoCredito" value="1234567890123456" onChange={() => {}} />);
+    expect(screen.getByLabelText("Cartão")).toHaveValue("1234 5678 9012 3456");
+  });
+
+  it("formats a date and a time", () => {
+    render(<Input label="Data" mask="data" value="25122024" onChange={() => {}} />);
+    expect(screen.getByLabelText("Data")).toHaveValue("25/12/2024");
+
+    render(<Input label="Hora" mask="hora" value="1430" onChange={() => {}} />);
+    expect(screen.getByLabelText("Hora")).toHaveValue("14:30");
+  });
+});
+
+describe("Input (size/success/loading)", () => {
+  it("renders size=lg without throwing", () => {
+    render(<Input label="Nome" size="lg" />);
+    expect(screen.getByLabelText("Nome")).toBeInTheDocument();
+  });
+
+  it("uses the MUI small class for size=sm", () => {
+    render(<Input label="Nome" size="sm" />);
+    expect(screen.getByLabelText("Nome").closest(".MuiFormControl-root")).toHaveClass("MuiTextField-root");
+    expect(document.querySelector(".MuiInputBase-sizeSmall")).toBeInTheDocument();
+  });
+
+  it("shows a spinner when loading", () => {
+    render(<Input label="Nome" loading />);
+    expect(screen.getByRole("progressbar")).toBeInTheDocument();
+    expect(screen.getByLabelText("Nome")).toBeDisabled();
+  });
+});
+
+describe("Input (formatOnType/locale/validation)", () => {
+  it("shows raw digits while typing when formatOnType=false, then formats on blur", async () => {
+    const onChange = vi.fn();
+    render(<Input label="CEP" mask="cep" value="01310100" onChange={onChange} formatOnType={false} />);
+    const field = screen.getByLabelText("CEP") as HTMLInputElement;
+    expect(field).toHaveValue("01310-100");
+
+    await userEvent.click(field);
+    expect(field).toHaveValue("01310100");
+
+    await userEvent.tab();
+    expect(field).toHaveValue("01310-100");
+  });
+
+  it("accepts a valid CPF and rejects an invalid one with validation=digitoVerificador", () => {
+    const { rerender } = render(
+      <Input label="CPF" mask="cpf" value="52998224725" onChange={() => {}} validation="digitoVerificador" />,
+    );
+    expect(screen.queryByText("CPF inválido")).not.toBeInTheDocument();
+
+    rerender(<Input label="CPF" mask="cpf" value="11111111111" onChange={() => {}} validation="digitoVerificador" />);
+    expect(screen.getByText("CPF inválido")).toBeInTheDocument();
   });
 });

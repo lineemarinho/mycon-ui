@@ -42,4 +42,22 @@ describe("Button", () => {
       expect(screen.getByRole("button", { name: variant })).toBeInTheDocument();
     });
   });
+
+  it("applies the tone color regardless of variant", () => {
+    render(
+      <Button variant="secondary" tone="success">
+        Confirmar
+      </Button>,
+    );
+    expect(screen.getByRole("button", { name: "Confirmar" })).toHaveStyle({ backgroundColor: "#0FC718FF" });
+  });
+
+  it("applies the tone as text color for text-like variants", () => {
+    render(
+      <Button variant="link" tone="warning">
+        Atenção
+      </Button>,
+    );
+    expect(screen.getByRole("button", { name: "Atenção" })).toHaveStyle({ color: "#F5A623" });
+  });
 });

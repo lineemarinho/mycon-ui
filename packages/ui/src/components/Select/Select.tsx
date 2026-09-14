@@ -1,10 +1,14 @@
 import MuiAutocomplete from "@mui/material/Autocomplete";
-import MuiTextField from "@mui/material/TextField";
+import MuiTextField, { type TextFieldProps } from "@mui/material/TextField";
 
 export type SelectOption<T> = {
   value: T;
   label: string;
 };
+
+export type SelectWidth = "auto" | "full";
+export type SelectVariant = "outlined" | "filled" | "underline";
+export type SelectSize = "sm" | "md" | "lg";
 
 export type SelectProps<T> = {
   label?: string;
@@ -16,10 +20,30 @@ export type SelectProps<T> = {
   helperText?: string;
   loading?: boolean;
   disabled?: boolean;
+  /** Mostra o "x" para limpar a seleção. Default true (o Autocomplete do MUI já é limpável por padrão). */
+  clearable?: boolean;
+  width?: SelectWidth;
+  /** Estilo do campo de input. Default "outlined". */
+  variant?: SelectVariant;
+  /** Tamanho do campo. `lg` aplica um ajuste de padding/fonte sobre o "medium" do MUI. Default "md". */
+  size?: SelectSize;
 };
 
+const VARIANT_TO_MUI: Record<SelectVariant, TextFieldProps["variant"]> = {
+  outlined: "outlined",
+  filled: "filled",
+  underline: "standard",
+};
+const SIZE_TO_MUI: Record<SelectSize, "small" | "medium"> = { sm: "small", md: "medium", lg: "medium" };
+/** Bump de ~15-20% sobre o padding/fonte padrão do TextField "medium" do MUI, usado quando `size="lg"`. */
+const LG_SIZE_SX = {
+  "& .MuiInputBase-input": { padding: "19px 14px", fontSize: "1.05rem" },
+  "& .MuiInputLabel-root": { fontSize: "1.05rem" },
+} as const;
+
 /**
- * Select/autocomplete padronizado sobre `Autocomplete` do MUI. Cobre tanto o
+ * Select/autocomplete padronizado sobre `Autocomplete` do MUI — a busca já
+ * é inerente ao componente (digitar filtra as opções). Cobre tanto o
  * padrão "select simples" quanto o "autocomplete assíncrono" reimplementados
  * de formas divergentes em todos os 11 repos auditados (nenhum tinha
  * componente de design system para isso) — ver AUDITORIA.md §0 e §1.
@@ -34,6 +58,10 @@ export function Select<T>({
   helperText,
   loading,
   disabled,
+  clearable = true,
+  width = "full",
+  variant = "outlined",
+  size = "md",
 }: SelectProps<T>) {
   const selected = options.find((option) => option.value === value) ?? null;
 
@@ -46,13 +74,18 @@ export function Select<T>({
       isOptionEqualToValue={(a, b) => a.value === b.value}
       loading={loading}
       disabled={disabled}
+      disableClearable={!clearable}
+      fullWidth={width === "full"}
+      size={SIZE_TO_MUI[size]}
       renderInput={(params) => (
         <MuiTextField
           {...params}
+          variant={VARIANT_TO_MUI[variant]}
           label={label}
           placeholder={placeholder}
           error={error}
           helperText={helperText}
+          sx={size === "lg" ? LG_SIZE_SX : undefined}
         />
       )}
     />

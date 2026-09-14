@@ -15,4 +15,15 @@ describe("CheckboxField", () => {
     render(<CheckboxField label="Selecionar todos" checked={false} indeterminate onChange={() => {}} />);
     expect(screen.getByTestId("IndeterminateCheckBoxIcon")).toBeInTheDocument();
   });
+
+  it("renders size=lg without throwing", () => {
+    render(<CheckboxField label="Aceito os termos" checked={false} onChange={() => {}} size="lg" />);
+    expect(screen.getByRole("checkbox", { name: "Aceito os termos" })).toBeInTheDocument();
+  });
+
+  it("applies the error color to the checkbox when error is set", () => {
+    render(<CheckboxField label="Aceito os termos" checked={false} onChange={() => {}} error />);
+    const input = screen.getByRole("checkbox", { name: "Aceito os termos" });
+    expect(input.closest(".MuiCheckbox-root")).toHaveClass("MuiCheckbox-colorError");
+  });
 });

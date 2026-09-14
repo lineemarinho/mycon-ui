@@ -5,6 +5,7 @@ export * from "./components/ListItemCard";
 export * from "./components/ConfirmDialog";
 export * from "./components/Input";
 export * from "./components/Select";
+export * from "./components/Autocomplete";
 export * from "./components/DataTable";
 export * from "./components/FilterPanel";
 export * from "./components/SectionCard";
