@@ -383,6 +383,39 @@
   .mock-field .helper { font-size: 0.72rem; color: var(--ink-soft); }
   .mock-field input:disabled { background: var(--surface-raised); color: var(--ink); -webkit-text-fill-color: var(--ink); opacity: 1; }
 
+  /* ---- mock IconActionButton ---- */
+  .mock-icon-action { display: inline-flex; flex-direction: column; align-items: center; gap: 6px; }
+  .mock-icon-action .icon-btn.outline { background: #fff; border: 1.5px solid var(--accent); color: var(--accent); }
+  .mock-icon-action .icon-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .mock-icon-action .tip { font-size: 0.68rem; color: var(--ink-soft); }
+
+  /* ---- mock SectionCard ---- */
+  .mock-section { border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
+  .mock-section-head { display: flex; align-items: center; justify-content: space-between; }
+  .mock-section-head h4 { margin: 0; font-size: 1rem; color: var(--ink); }
+  .mock-section-head .subtitle { font-size: 0.8rem; color: var(--ink-soft); margin-top: 2px; }
+  .mock-section-toggle { width: 28px; height: 28px; border-radius: 100px; border: 1px solid var(--line); background: #fff; cursor: pointer; color: var(--ink-soft); }
+  .mock-section-body { margin-top: 14px; font-size: 0.88rem; color: var(--ink-soft); }
+
+  /* ---- mock DetailsCard ---- */
+  .mock-details { border: 1px solid var(--line); border-radius: 12px; padding: 0 18px; }
+  .mock-details-row { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; }
+  .mock-details-row + .mock-details-row { border-top: 1px solid var(--line); }
+  .mock-details-row .k { font-size: 0.85rem; color: var(--ink-soft); }
+  .mock-details-row .v { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+
+  /* ---- mock MultiSelect ---- */
+  .mock-multiselect { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; min-height: 44px; padding: 6px 10px; border-radius: 10px; border: 1.5px solid var(--accent); background: #fff; box-shadow: 0 0 0 3px rgba(1,49,255,0.15); }
+  .mock-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--surface-raised); border-radius: 100px; padding: 4px 6px 4px 12px; font-size: 0.8rem; color: var(--ink); }
+  .mock-chip button { border: none; background: none; color: var(--ink-soft); cursor: pointer; font-size: 0.85rem; line-height: 1; padding: 2px; }
+
+  /* ---- mock SwitchField ---- */
+  .mock-switch-row { display: flex; align-items: center; gap: 10px; }
+  .mock-switch { position: relative; width: 40px; height: 22px; border-radius: 100px; background: var(--line); flex-shrink: 0; transition: background 0.15s; }
+  .mock-switch.on { background: var(--accent); }
+  .mock-switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: transform 0.15s; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+  .mock-switch.on::after { transform: translateX(18px); }
+
   /* ---- mock Select ---- */
   .mock-select-wrap { max-width: 260px; }
   .mock-select {
@@ -435,6 +468,12 @@
     padding: 10px 14px; background: #fff;
   }
   .mock-scrollarea p { margin: 0 0 8px; font-size: 0.85rem; color: var(--ink-soft); }
+
+  /* ---- mock FileUpload ---- */
+  .mock-upload { border: 1.5px dashed var(--line); border-radius: 12px; padding: 24px; text-align: center; max-width: 280px; }
+  .mock-upload p { margin: 0 0 10px; font-size: 0.85rem; color: var(--ink-soft); }
+  .mock-upload img { max-height: 80px; border-radius: 8px; margin-bottom: 10px; }
+  .mock-upload .actions { display: flex; gap: 8px; justify-content: center; }
 
   /* ---- native dialog mock ---- */
   dialog.mock-dialog {
@@ -527,6 +566,7 @@
       <div class="nav-group" data-group="acoes">
         <div class="nav-group-title">Ações</div>
         <a class="nav-link" data-name="button" href="#button"><span class="nav-dot" style="background:var(--accent)"></span>Button</a>
+        <a class="nav-link" data-name="iconactionbutton" href="#iconactionbutton"><span class="nav-dot" style="background:var(--accent)"></span>IconActionButton</a>
       </div>
       <div class="nav-group" data-group="feedback">
         <div class="nav-group-title">Feedback</div>
@@ -536,6 +576,8 @@
       <div class="nav-group" data-group="layout">
         <div class="nav-group-title">Layout</div>
         <a class="nav-link" data-name="listitemcard" href="#listitemcard"><span class="nav-dot" style="background:var(--ink-soft)"></span>ListItemCard</a>
+        <a class="nav-link" data-name="sectioncard" href="#sectioncard"><span class="nav-dot" style="background:var(--ink-soft)"></span>SectionCard</a>
+        <a class="nav-link" data-name="detailscard" href="#detailscard"><span class="nav-dot" style="background:var(--ink-soft)"></span>DetailsCard</a>
         <a class="nav-link" data-name="scrollarea" href="#scrollarea"><span class="nav-dot" style="background:var(--ink-soft)"></span>ScrollArea</a>
       </div>
       <div class="nav-group" data-group="dados">
@@ -546,6 +588,10 @@
         <div class="nav-group-title">Formulário</div>
         <a class="nav-link" data-name="input" href="#input"><span class="nav-dot" style="background:var(--info)"></span>Input</a>
         <a class="nav-link" data-name="select" href="#select"><span class="nav-dot" style="background:var(--info)"></span>Select</a>
+        <a class="nav-link" data-name="multiselect" href="#multiselect"><span class="nav-dot" style="background:var(--info)"></span>MultiSelect</a>
+        <a class="nav-link" data-name="maskednumberfield" href="#maskednumberfield"><span class="nav-dot" style="background:var(--info)"></span>MaskedNumberField</a>
+        <a class="nav-link" data-name="switchfield" href="#switchfield"><span class="nav-dot" style="background:var(--info)"></span>SwitchField</a>
+        <a class="nav-link" data-name="fileupload" href="#fileupload"><span class="nav-dot" style="background:var(--info)"></span>FileUpload</a>
         <a class="nav-link" data-name="filterpanel" href="#filterpanel"><span class="nav-dot" style="background:var(--info)"></span>FilterPanel</a>
       </div>
     </nav>
@@ -554,7 +600,7 @@
       <div class="intro">
         <div class="eyebrow">Dicionário de componentes</div>
         <h1>@mycon/ui</h1>
-        <p>Design system compartilhado do backoffice Mycon. Os 9 componentes abaixo cobrem toda a lista de prioridade alta encontrada na auditoria dos 11 repositórios <code>backoffice-*-front</code> — ver <code>AUDITORIA.md</code> e <code>DECISIONS.md</code>.</p>
+        <p>Design system compartilhado do backoffice Mycon. Os 16 componentes abaixo cobrem toda a lista de prioridade alta e média encontrada na auditoria dos 11 repositórios <code>backoffice-*-front</code> — ver <code>AUDITORIA.md</code> e <code>DECISIONS.md</code>.</p>
       </div>
 
       <!-- BUTTON -->
@@ -609,6 +655,55 @@
 <span class="tag">&lt;Button</span> <span class="attr">variant</span>=<span class="str">"primary"</span> <span class="attr">isLoading</span>={isSaving}&gt;
   Salvar
 <span class="tag">&lt;/Button&gt;</span>
+        </div>
+      </section>
+
+      <!-- ICONACTIONBUTTON -->
+      <section class="component" id="iconactionbutton" data-name="iconactionbutton">
+        <div class="component-head">
+          <h2>IconActionButton</h2>
+          <span class="category-tag">Ações</span>
+        </div>
+        <p class="component-desc">Botão de ícone com tooltip embutido. Unifica o padrão "IconButton + Tooltip" reimplementado 15+ vezes na auditoria, inclusive o wrapper em <code>&lt;span&gt;</code> necessário para o tooltip funcionar com o botão desabilitado.</p>
+
+        <div class="usage-grid">
+          <div class="usage-card do"><strong>Usar quando</strong>A ação é um ícone isolado dentro de uma lista densa (editar, excluir, ver detalhes) e precisa de tooltip explicando o que faz.</div>
+          <div class="usage-card dont"><strong>Evitar quando</strong>A ação tem texto visível — nesse caso é um <code>Button</code> comum, não precisa de tooltip.</div>
+        </div>
+
+        <div class="preview">
+          <div class="preview-row">
+            <div class="mock-icon-action">
+              <button class="icon-btn" title="Editar" aria-label="Editar">✎</button>
+              <span class="tip">Editar</span>
+            </div>
+            <div class="mock-icon-action">
+              <button class="icon-btn outline" title="Ver detalhes" aria-label="Ver detalhes">👁</button>
+              <span class="tip">Ver detalhes</span>
+            </div>
+            <div class="mock-icon-action">
+              <button class="icon-btn" title="Excluir" aria-label="Excluir" disabled>🗑</button>
+              <span class="tip">Excluir (disabled)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">label<span class="required-mark">*</span></td><td class="prop-type">string</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">icon<span class="required-mark">*</span></td><td class="prop-type">ReactNode</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">onClick</td><td class="prop-type">() =&gt; void</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">disabled</td><td class="prop-type">boolean</td><td class="prop-default">false</td></tr>
+              <tr><td class="prop-name">color</td><td class="prop-type">"primary" | "default"</td><td class="prop-default">"default"</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="iconactionbutton">Copiar</button>
+<span class="tag">&lt;IconActionButton</span> <span class="attr">label</span>=<span class="str">"Editar"</span> <span class="attr">icon</span>={&lt;EditIcon /&gt;} <span class="attr">onClick</span>={handleEdit} <span class="tag">/&gt;</span>
         </div>
       </section>
 
@@ -762,6 +857,90 @@
 <span class="tag">&lt;ListItemCard</span> <span class="attr">status</span>=<span class="str">"success"</span> <span class="attr">action</span>={&lt;IconButton /&gt;}&gt;
   <span class="tag">&lt;KeyValueItem</span> <span class="attr">title</span>=<span class="str">"Cliente"</span> <span class="attr">value</span>=<span class="str">"Fulano"</span> <span class="tag">/&gt;</span>
 <span class="tag">&lt;/ListItemCard&gt;</span>
+        </div>
+      </section>
+
+      <!-- SECTIONCARD -->
+      <section class="component" id="sectioncard" data-name="sectioncard">
+        <div class="component-head">
+          <h2>SectionCard</h2>
+          <span class="category-tag">Layout</span>
+        </div>
+        <p class="component-desc">Card de seção com título, borda opcional e colapso opcional. Unifica o <code>Secao</code> (gerenciar-cotas, 2 versões com props divergentes — <code>expandido</code> vs <code>boxed</code>) e o <code>FormSectionCard</code> (cupom).</p>
+
+        <div class="usage-grid">
+          <div class="usage-card do"><strong>Usar quando</strong>Agrupar campos de um formulário grande em blocos com título (Dados pessoais, Endereço, Pagamento).</div>
+          <div class="usage-card dont"><strong>Evitar quando</strong>É só um título de página — use <code>Typography</code> direto, sem envolver em card.</div>
+        </div>
+
+        <div class="preview">
+          <div class="mock-section">
+            <div class="mock-section-head">
+              <div>
+                <h4>Dados do cliente</h4>
+                <div class="subtitle">Informações de identificação</div>
+              </div>
+              <button class="mock-section-toggle">︿</button>
+            </div>
+            <div class="mock-section-body">Nome, CPF, e-mail e telefone de contato aparecem aqui dentro.</div>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">title<span class="required-mark">*</span></td><td class="prop-type">string</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">subtitle</td><td class="prop-type">string</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">boxed</td><td class="prop-type">boolean</td><td class="prop-default">true</td></tr>
+              <tr><td class="prop-name">collapsible</td><td class="prop-type">boolean</td><td class="prop-default">false</td></tr>
+              <tr><td class="prop-name">defaultExpanded</td><td class="prop-type">boolean</td><td class="prop-default">true</td></tr>
+              <tr><td class="prop-name">headerAction</td><td class="prop-type">ReactNode</td><td class="prop-default">undefined</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="sectioncard">Copiar</button>
+<span class="tag">&lt;SectionCard</span> <span class="attr">title</span>=<span class="str">"Dados do cliente"</span> <span class="attr">collapsible</span>&gt;
+  {children}
+<span class="tag">&lt;/SectionCard&gt;</span>
+        </div>
+      </section>
+
+      <!-- DETAILSCARD -->
+      <section class="component" id="detailscard" data-name="detailscard">
+        <div class="component-head">
+          <h2>DetailsCard</h2>
+          <span class="category-tag">Layout</span>
+        </div>
+        <p class="component-desc">Lista vertical de pares label/valor com divisor entre linhas. Unifica o "card de detalhes" reimplementado inline em pelo menos 3 lugares em gerenciar-cotas (dialog de boleto, dialog de boleto mensal, <code>CardDetalhes</code>).</p>
+
+        <div class="usage-grid">
+          <div class="usage-card do"><strong>Usar quando</strong>Mostrar um resumo de poucos campos dentro de um modal ou painel lateral.</div>
+          <div class="usage-card dont"><strong>Evitar quando</strong>Os dados têm várias linhas/registros — nesse caso é <code>DataTable</code>, não um resumo único.</div>
+        </div>
+
+        <div class="preview">
+          <div class="mock-details">
+            <div class="mock-details-row"><span class="k">Contrato</span><span class="v">00123.4</span></div>
+            <div class="mock-details-row"><span class="k">Valor da parcela</span><span class="v">R$ 1.240,00</span></div>
+            <div class="mock-details-row"><span class="k">Vencimento</span><span class="v">10/10/2026</span></div>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">rows<span class="required-mark">*</span></td><td class="prop-type">{ label: string; value: ReactNode }[]</td><td class="prop-default">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="detailscard">Copiar</button>
+<span class="tag">&lt;DetailsCard</span> <span class="attr">rows</span>={[{ <span class="attr">label</span>: <span class="str">"Contrato"</span>, <span class="attr">value</span>: <span class="str">"00123.4"</span> }]} <span class="tag">/&gt;</span>
         </div>
       </section>
 
@@ -965,6 +1144,184 @@
   <span class="attr">value</span>={status}
   <span class="attr">onChange</span>={setStatus}
 <span class="tag">/&gt;</span>
+        </div>
+      </section>
+
+      <!-- MULTISELECT -->
+      <section class="component" id="multiselect" data-name="multiselect">
+        <div class="component-head">
+          <h2>MultiSelect</h2>
+          <span class="category-tag">Formulário</span>
+        </div>
+        <p class="component-desc">Seleção múltipla sobre <code>Autocomplete</code> do MUI. Substitui o dropdown 100% reimplementado à mão (<code>Popper</code>+<code>Paper</code>+<code>Checkbox</code> manuais) encontrado em <code>backoffice-cupom-front</code>.</p>
+
+        <div class="usage-grid">
+          <div class="usage-card do"><strong>Usar quando</strong>O usuário pode escolher mais de uma opção de uma lista fechada (formas de pagamento, categorias).</div>
+          <div class="usage-card dont"><strong>Evitar quando</strong>Há só uma opção válida por vez — use <code>Select</code>.</div>
+        </div>
+
+        <div class="preview">
+          <div class="mock-select-wrap" style="max-width:320px;">
+            <label style="font-size:0.78rem;color:var(--ink-soft);display:block;margin-bottom:6px;">Formas de pagamento</label>
+            <div class="mock-multiselect">
+              <span class="mock-chip">Cartão <button aria-label="Remover Cartão">✕</button></span>
+              <span class="mock-chip">Boleto <button aria-label="Remover Boleto">✕</button></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">options<span class="required-mark">*</span></td><td class="prop-type">{ value: T; label: string }[]</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">value<span class="required-mark">*</span></td><td class="prop-type">T[]</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">onChange<span class="required-mark">*</span></td><td class="prop-type">(value: T[]) =&gt; void</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">label / placeholder</td><td class="prop-type">string</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">error / helperText</td><td class="prop-type">boolean / string</td><td class="prop-default">false / undefined</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="multiselect">Copiar</button>
+<span class="tag">&lt;MultiSelect</span>
+  <span class="attr">label</span>=<span class="str">"Formas de pagamento"</span>
+  <span class="attr">options</span>={options}
+  <span class="attr">value</span>={formasPagamento}
+  <span class="attr">onChange</span>={setFormasPagamento}
+<span class="tag">/&gt;</span>
+        </div>
+      </section>
+
+      <!-- MASKEDNUMBERFIELD -->
+      <section class="component" id="maskednumberfield" data-name="maskednumberfield">
+        <div class="component-head">
+          <h2>MaskedNumberField</h2>
+          <span class="category-tag">Formulário</span>
+        </div>
+        <p class="component-desc">Campo numérico mascarado (moeda/número/percentual). Unifica <code>CurrencyMask</code>/<code>NumberMask</code>/<code>DescontoMask</code> — 3 implementações quase idênticas em <code>cupom-front</code>, que inclusive divergiam no separador decimal entre si.</p>
+
+        <div class="usage-grid">
+          <div class="usage-card do"><strong>Usar quando</strong>O campo representa um valor monetário, percentual ou numérico que precisa de formatação visual.</div>
+          <div class="usage-card dont"><strong>Evitar quando</strong>É um número livre sem formatação (ex.: quantidade de itens) — um <code>Input type="number"</code> comum basta.</div>
+        </div>
+
+        <div class="preview">
+          <div class="preview-row">
+            <div class="mock-field">
+              <label for="demo-mask-currency">Valor da parcela</label>
+              <input id="demo-mask-currency" type="text" value="R$ 1.240,00" inputmode="numeric">
+            </div>
+            <div class="mock-field">
+              <label for="demo-mask-percent">Desconto</label>
+              <input id="demo-mask-percent" type="text" value="12,50%" inputmode="numeric">
+            </div>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">value<span class="required-mark">*</span></td><td class="prop-type">number</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">onChange<span class="required-mark">*</span></td><td class="prop-type">(value: number) =&gt; void</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">mode</td><td class="prop-type">"currency" | "number" | "percent"</td><td class="prop-default">"currency"</td></tr>
+              <tr><td class="prop-name">decimalScale</td><td class="prop-type">number</td><td class="prop-default">2 (currency/percent), 0 (number)</td></tr>
+              <tr><td class="prop-name">...rest</td><td class="prop-type">InputProps (exceto value/onChange/type)</td><td class="prop-default">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="maskednumberfield">Copiar</button>
+<span class="tag">&lt;MaskedNumberField</span> <span class="attr">label</span>=<span class="str">"Valor da parcela"</span> <span class="attr">mode</span>=<span class="str">"currency"</span> <span class="attr">value</span>={valor} <span class="attr">onChange</span>={setValor} <span class="tag">/&gt;</span>
+        </div>
+      </section>
+
+      <!-- SWITCHFIELD -->
+      <section class="component" id="switchfield" data-name="switchfield">
+        <div class="component-head">
+          <h2>SwitchField</h2>
+          <span class="category-tag">Formulário</span>
+        </div>
+        <p class="component-desc">Toggle ativo/inativo com label. Padroniza o <code>Switch</code> do MUI usado sem wrapper em <code>AtivarInativarAction</code> (cadastro) e nas telas de <code>blacklist-front</code>.</p>
+
+        <div class="usage-grid">
+          <div class="usage-card do"><strong>Usar quando</strong>Um estado binário precisa de efeito imediato ao alternar (ativar/desativar um registro).</div>
+          <div class="usage-card dont"><strong>Evitar quando</strong>A mudança só terá efeito ao salvar um formulário inteiro — use <code>Checkbox</code> nesse caso.</div>
+        </div>
+
+        <div class="preview">
+          <div class="preview-row">
+            <div class="mock-switch-row"><span class="mock-switch on"></span> Ativo</div>
+            <div class="mock-switch-row"><span class="mock-switch"></span> Inativo</div>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">label<span class="required-mark">*</span></td><td class="prop-type">string</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">checked<span class="required-mark">*</span></td><td class="prop-type">boolean</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">onChange<span class="required-mark">*</span></td><td class="prop-type">(checked: boolean) =&gt; void</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">disabled</td><td class="prop-type">boolean</td><td class="prop-default">false</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="switchfield">Copiar</button>
+<span class="tag">&lt;SwitchField</span> <span class="attr">label</span>=<span class="str">"Ativo"</span> <span class="attr">checked</span>={ativo} <span class="attr">onChange</span>={setAtivo} <span class="tag">/&gt;</span>
+        </div>
+      </section>
+
+      <!-- FILEUPLOAD -->
+      <section class="component" id="fileupload" data-name="fileupload">
+        <div class="component-head">
+          <h2>FileUpload</h2>
+          <span class="category-tag">Formulário</span>
+        </div>
+        <p class="component-desc">Upload de arquivo com drag-and-drop, preview e ações de substituir/remover. Unifica o <code>BannerUpload</code> (cupom-front) e o dropzone inline de <code>UnidadesNegocioForm</code> (cadastro-front).</p>
+
+        <div class="usage-grid">
+          <div class="usage-card do"><strong>Usar quando</strong>O usuário precisa enviar uma imagem ou arquivo (banner, logo, comprovante).</div>
+          <div class="usage-card dont"><strong>Evitar quando</strong>É um link/URL de arquivo já hospedado — um <code>Input</code> de texto resolve.</div>
+        </div>
+
+        <div class="preview">
+          <div class="preview-row">
+            <div class="mock-upload">
+              <p>Arraste um arquivo aqui ou</p>
+              <button class="mock-btn outline small">Selecionar arquivo</button>
+            </div>
+            <div class="mock-upload">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='80'%3E%3Crect width='120' height='80' fill='%23E4E7EC'/%3E%3C/svg%3E" alt="Pré-visualização">
+              <div class="actions">
+                <button class="mock-btn outline small">Substituir</button>
+                <button class="mock-btn graylight small">Remover</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="props">
+            <thead><tr><th>Prop</th><th>Tipo</th><th>Default</th></tr></thead>
+            <tbody>
+              <tr><td class="prop-name">onChange<span class="required-mark">*</span></td><td class="prop-type">(file: File | null, previewUrl: string | null) =&gt; void</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">value</td><td class="prop-type">string | null</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">label</td><td class="prop-type">string</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">accept</td><td class="prop-type">string</td><td class="prop-default">"image/*"</td></tr>
+              <tr><td class="prop-name">error / helperText</td><td class="prop-type">boolean / string</td><td class="prop-default">false / undefined</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+<button class="copy-btn" data-copy="fileupload">Copiar</button>
+<span class="tag">&lt;FileUpload</span> <span class="attr">label</span>=<span class="str">"Banner"</span> <span class="attr">value</span>={previewUrl} <span class="attr">onChange</span>={(file, url) =&gt; setPreviewUrl(url)} <span class="tag">/&gt;</span>
         </div>
       </section>
 
