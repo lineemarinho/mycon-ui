@@ -255,6 +255,33 @@
     margin: 0;
   }
 
+  .intro-install {
+    margin-bottom: 44px;
+    padding: 24px;
+    background: var(--surface-raised);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+  }
+  .intro-install h3 {
+    margin: 0 0 12px;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+  .intro-install p {
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+    margin: 16px 0 8px;
+  }
+  .intro-install p:first-of-type { margin-top: 0; }
+  .intro-install code {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.82rem;
+  }
+  .intro-install .code-block { margin-bottom: 4px; }
+
   section.component {
     padding-top: 48px;
     border-top: 1px solid var(--line);
@@ -756,6 +783,32 @@
       <div class="intro">
         <div class="eyebrow">Dicionário de componentes</div>
         <h1>@mycon/ui</h1>
+        <p>Design system compartilhado do backoffice Mycon, publicado como pacote privado no GitHub Packages.</p>
+      </div>
+
+      <div class="intro-install">
+        <h3>Instalação</h3>
+        <p>1. Crie um <code>.npmrc</code> na raiz do seu projeto apontando o escopo <code>@mycon</code> para o GitHub Packages (o token precisa do escopo <code>read:packages</code>):</p>
+        <div class="code-block">
+<button class="copy-btn" data-copy="install-npmrc">Copiar</button>
+<span class="cmt">// .npmrc</span>
+@mycon:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+        </div>
+        <p>2. Instale o pacote e suas peer dependencies:</p>
+        <div class="code-block">
+<button class="copy-btn" data-copy="install-npm">Copiar</button>
+npm install @mycon/ui @mui/material @mui/icons-material @emotion/react @emotion/styled
+        </div>
+        <p>3. Importe os componentes direto do pacote:</p>
+        <div class="code-block">
+<button class="copy-btn" data-copy="install-usage">Copiar</button>
+<span class="tag">import</span> { Button, Input } <span class="tag">from</span> <span class="str">"@mycon/ui"</span>;
+
+<span class="tag">&lt;Button</span> <span class="attr">variant</span>=<span class="str">"secondary"</span> <span class="attr">tone</span>=<span class="str">"success"</span>&gt;
+  Confirmar
+<span class="tag">&lt;/Button&gt;</span>
+        </div>
       </div>
 
       <!-- BUTTON -->
