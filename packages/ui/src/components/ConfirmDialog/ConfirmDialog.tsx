@@ -46,7 +46,7 @@ export function ConfirmDialog({
         )}
       </DialogContent>
       <DialogActions>
-        <Button variant="outline" onClick={onCancel} disabled={loading}>
+        <Button variant="tertiary" onClick={onCancel} disabled={loading}>
           {cancelText}
         </Button>
         <Button variant="primary" onClick={onConfirm} isLoading={loading}>

@@ -38,7 +38,7 @@ export function FilterPanel({
           {children}
         </Box>
         <Box sx={{ display: "flex", gap: 1 }}>
-          <Button variant="outline" onClick={onClear} sx={{ flex: 1 }}>
+          <Button variant="tertiary" onClick={onClear} sx={{ flex: 1 }}>
             {clearText}
           </Button>
           <Button variant="primary" onClick={onApply} sx={{ flex: 1 }}>

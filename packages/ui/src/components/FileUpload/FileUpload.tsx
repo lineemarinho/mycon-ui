@@ -63,10 +63,10 @@ export function FileUpload({ label, value, onChange, accept = "image/*", error, 
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1.5 }}>
             <Box component="img" src={value} alt="Pré-visualização" sx={{ maxHeight: 120, maxWidth: "100%", borderRadius: radius.sm }} />
             <Box sx={{ display: "flex", gap: 1 }}>
-              <Button variant="outline" size="small" onClick={() => inputRef.current?.click()}>
+              <Button variant="tertiary" size="sm" onClick={() => inputRef.current?.click()}>
                 Substituir
               </Button>
-              <Button variant="graylight" size="small" onClick={() => handleFile(null)}>
+              <Button variant="tertiary" size="sm" onClick={() => handleFile(null)}>
                 Remover
               </Button>
             </Box>
@@ -76,7 +76,7 @@ export function FileUpload({ label, value, onChange, accept = "image/*", error, 
             <Typography variant="body2" color="text.secondary">
               Arraste um arquivo aqui ou
             </Typography>
-            <Button variant="outline" size="small" onClick={() => inputRef.current?.click()}>
+            <Button variant="tertiary" size="sm" onClick={() => inputRef.current?.click()}>
               Selecionar arquivo
             </Button>
           </Box>

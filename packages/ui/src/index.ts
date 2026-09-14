@@ -11,7 +11,6 @@ export * from "./components/SectionCard";
 export * from "./components/DetailsCard";
 export * from "./components/IconActionButton";
 export * from "./components/MultiSelect";
-export * from "./components/MaskedNumberField";
 export * from "./components/SwitchField";
 export * from "./components/FileUpload";
 export * from "./components/Textarea";
