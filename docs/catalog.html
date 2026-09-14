@@ -609,10 +609,6 @@
           <h2>Button</h2>
           <span class="category-tag">Ações</span>
         </div>
-        <p class="component-desc">Botão de ação primária, secundária ou de baixa ênfase. Espelha a API já adotada via <code>MyconButtons</code> nos 11 repos (variant/size/isLoading) para minimizar esforço de migração.</p>
-
-        <div class="usage-grid">
-          <div class="usage-card do"><strong>Usar quando</strong>Toda ação de submit, navegação primária ou ação secundária num formulário/modal.</div>
           <div class="usage-card dont"><strong>Evitar quando</strong>A ação é apenas um ícone dentro de uma lista densa — nesse caso, use um botão de ícone dedicado com Tooltip.</div>
         </div>
 
@@ -664,10 +660,6 @@
           <h2>IconActionButton</h2>
           <span class="category-tag">Ações</span>
         </div>
-        <p class="component-desc">Botão de ícone com tooltip embutido. Unifica o padrão "IconButton + Tooltip" reimplementado 15+ vezes na auditoria, inclusive o wrapper em <code>&lt;span&gt;</code> necessário para o tooltip funcionar com o botão desabilitado.</p>
-
-        <div class="usage-grid">
-          <div class="usage-card do"><strong>Usar quando</strong>A ação é um ícone isolado dentro de uma lista densa (editar, excluir, ver detalhes) e precisa de tooltip explicando o que faz.</div>
           <div class="usage-card dont"><strong>Evitar quando</strong>A ação tem texto visível — nesse caso é um <code>Button</code> comum, não precisa de tooltip.</div>
         </div>
 
@@ -713,10 +705,6 @@
           <h2>StatusBadge</h2>
           <span class="category-tag">Feedback</span>
         </div>
-        <p class="component-desc">Indicador de status por semântica de cor. Substitui os 3 padrões concorrentes achados na auditoria (StatusBadge/StatusChip custom, StatusTag, "dot" inline com hex divergente entre repos).</p>
-
-        <div class="usage-grid">
-          <div class="usage-card do"><strong>Usar quando</strong>Precisar indicar um estado (ativo, pendente, erro) por cor + label, em lista ou legenda.</div>
           <div class="usage-card dont"><strong>Evitar quando</strong>A cor não representa um dos 5 status semânticos — nesse caso, o status provavelmente precisa ser remapeado, não um novo hex criado.</div>
         </div>
 
@@ -760,10 +748,6 @@
           <h2>ConfirmDialog</h2>
           <span class="category-tag">Feedback</span>
         </div>
-        <p class="component-desc">Modal de confirmação genérico sobre <code>Dialog</code> do MUI. Substitui as 4+ reimplementações manuais do shell de modal (posicionamento via <code>transform</code>) encontradas na auditoria.</p>
-
-        <div class="usage-grid">
-          <div class="usage-card do"><strong>Usar quando</strong>Uma ação destrutiva ou irreversível precisa de confirmação explícita (cancelar, excluir, encerrar).</div>
           <div class="usage-card dont"><strong>Evitar quando</strong>O conteúdo do modal tem múltiplos campos de formulário — nesse caso é um modal de formulário, não uma confirmação.</div>
         </div>
 
@@ -820,10 +804,6 @@
           <h2>ListItemCard</h2>
           <span class="category-tag">Layout</span>
         </div>
-        <p class="component-desc">Card de item de lista com barra lateral de status e colunas <code>KeyValueItem</code>. Unifica o "row card" (fundo <code>#F9F9FB</code>, radius 12px, boxShadow) duplicado em pelo menos 7 dos 11 repos.</p>
-
-        <div class="usage-grid">
-          <div class="usage-card do"><strong>Usar quando</strong>Renderizar uma linha de listagem (proposta, apólice, cupom) com colunas de dado + uma ação.</div>
           <div class="usage-card dont"><strong>Evitar quando</strong>A lista tem mais de ~6 colunas ou precisa de ordenação por coluna — nesse caso use <code>DataTable</code> (Fase 4, próximo).</div>
         </div>
 
@@ -866,10 +846,6 @@
           <h2>SectionCard</h2>
           <span class="category-tag">Layout</span>
         </div>
-        <p class="component-desc">Card de seção com título, borda opcional e colapso opcional. Unifica o <code>Secao</code> (gerenciar-cotas, 2 versões com props divergentes — <code>expandido</code> vs <code>boxed</code>) e o <code>FormSectionCard</code> (cupom).</p>
-
-        <div class="usage-grid">
-          <div class="usage-card do"><strong>Usar quando</strong>Agrupar campos de um formulário grande em blocos com título (Dados pessoais, Endereço, Pagamento).</div>
           <div class="usage-card dont"><strong>Evitar quando</strong>É só um título de página — use <code>Typography</code> direto, sem envolver em card.</div>
         </div>
 
@@ -914,10 +890,6 @@
           <h2>DetailsCard</h2>
           <span class="category-tag">Layout</span>
         </div>
-        <p class="component-desc">Lista vertical de pares label/valor com divisor entre linhas. Unifica o "card de detalhes" reimplementado inline em pelo menos 3 lugares em gerenciar-cotas (dialog de boleto, dialog de boleto mensal, <code>CardDetalhes</code>).</p>
-
-        <div class="usage-grid">
-          <div class="usage-card do"><strong>Usar quando</strong>Mostrar um resumo de poucos campos dentro de um modal ou painel lateral.</div>
           <div class="usage-card dont"><strong>Evitar quando</strong>Os dados têm várias linhas/registros — nesse caso é <code>DataTable</code>, não um resumo único.</div>
         </div>
 
@@ -950,10 +922,6 @@
           <h2>ScrollArea</h2>
           <span class="category-tag">Layout</span>
         </div>
-        <p class="component-desc">Container de scroll com altura calculada a partir da viewport. Unifica o <code>ScrollableBox</code> — código idêntico copiado nos 11 repos auditados, a duplicação mais direta encontrada.</p>
-
-        <div class="usage-grid">
-          <div class="usage-card do"><strong>Usar quando</strong>Uma área de conteúdo precisa ocupar a altura restante da tela abaixo de um header fixo.</div>
           <div class="usage-card dont"><strong>Evitar quando</strong>O conteúdo já tem altura previsível — um <code>Box</code> comum basta.</div>
         </div>
 
@@ -992,10 +960,6 @@
           <h2>DataTable</h2>
           <span class="category-tag">Dados</span>
         </div>
-        <p class="component-desc">Tabela com ordenação e paginação padronizadas. Fecha o maior gap da auditoria — nenhum dos 11 repos tinha componente de tabela; um deles reimplementava como função local, nem sequer um componente React exportável.</p>
-
-        <div class="usage-grid">
-          <div class="usage-card do"><strong>Usar quando</strong>Listagem com muitas colunas e necessidade de ordenar por coluna (mais de ~6 campos, ou dado tabular puro).</div>
           <div class="usage-card dont"><strong>Evitar quando</strong>São poucos campos com uma ação por linha — nesse caso <code>ListItemCard</code> é mais legível que uma tabela densa.</div>
         </div>
 
@@ -1054,10 +1018,6 @@
           <h2>Input</h2>
           <span class="category-tag">Formulário</span>
         </div>
-        <p class="component-desc">Wrapper padronizado sobre <code>TextField</code> do MUI, com um modo <code>readOnlyField</code> legível. Fecha o gap de "input de texto sem componente de design system" encontrado em todos os 11 repos.</p>
-
-        <div class="usage-grid">
-          <div class="usage-card do"><strong>Usar quando</strong>Qualquer campo de texto livre em formulário, incluindo campos apenas para exibição.</div>
           <div class="usage-card dont"><strong>Evitar quando</strong>O campo tem opções fixas — use <code>Select</code> (Fase 4, próximo) em vez de simular com texto.</div>
         </div>
 
@@ -1103,10 +1063,6 @@
           <h2>Select</h2>
           <span class="category-tag">Formulário</span>
         </div>
-        <p class="component-desc">Select/autocomplete padronizado sobre <code>Autocomplete</code> do MUI. Cobre tanto o "select simples" quanto o "autocomplete assíncrono" — nenhum repo auditado tinha componente de design system para nenhum dos dois.</p>
-
-        <div class="usage-grid">
-          <div class="usage-card do"><strong>Usar quando</strong>O campo tem uma lista fechada de opções (status, unidade de negócio, categoria).</div>
           <div class="usage-card dont"><strong>Evitar quando</strong>São só 2-3 opções mutuamente exclusivas e visíveis de uma vez — considere Radio nesse caso.</div>
         </div>
 
@@ -1153,10 +1109,6 @@
           <h2>MultiSelect</h2>
           <span class="category-tag">Formulário</span>
         </div>
-        <p class="component-desc">Seleção múltipla sobre <code>Autocomplete</code> do MUI. Substitui o dropdown 100% reimplementado à mão (<code>Popper</code>+<code>Paper</code>+<code>Checkbox</code> manuais) encontrado em <code>backoffice-cupom-front</code>.</p>
-
-        <div class="usage-grid">
-          <div class="usage-card do"><strong>Usar quando</strong>O usuário pode escolher mais de uma opção de uma lista fechada (formas de pagamento, categorias).</div>
           <div class="usage-card dont"><strong>Evitar quando</strong>Há só uma opção válida por vez — use <code>Select</code>.</div>
         </div>
 
@@ -1200,10 +1152,6 @@
           <h2>MaskedNumberField</h2>
           <span class="category-tag">Formulário</span>
         </div>
-        <p class="component-desc">Campo numérico mascarado (moeda/número/percentual). Unifica <code>CurrencyMask</code>/<code>NumberMask</code>/<code>DescontoMask</code> — 3 implementações quase idênticas em <code>cupom-front</code>, que inclusive divergiam no separador decimal entre si.</p>
-
-        <div class="usage-grid">
-          <div class="usage-card do"><strong>Usar quando</strong>O campo representa um valor monetário, percentual ou numérico que precisa de formatação visual.</div>
           <div class="usage-card dont"><strong>Evitar quando</strong>É um número livre sem formatação (ex.: quantidade de itens) — um <code>Input type="number"</code> comum basta.</div>
         </div>
 
@@ -1245,10 +1193,6 @@
           <h2>SwitchField</h2>
           <span class="category-tag">Formulário</span>
         </div>
-        <p class="component-desc">Toggle ativo/inativo com label. Padroniza o <code>Switch</code> do MUI usado sem wrapper em <code>AtivarInativarAction</code> (cadastro) e nas telas de <code>blacklist-front</code>.</p>
-
-        <div class="usage-grid">
-          <div class="usage-card do"><strong>Usar quando</strong>Um estado binário precisa de efeito imediato ao alternar (ativar/desativar um registro).</div>
           <div class="usage-card dont"><strong>Evitar quando</strong>A mudança só terá efeito ao salvar um formulário inteiro — use <code>Checkbox</code> nesse caso.</div>
         </div>
 
@@ -1283,10 +1227,6 @@
           <h2>FileUpload</h2>
           <span class="category-tag">Formulário</span>
         </div>
-        <p class="component-desc">Upload de arquivo com drag-and-drop, preview e ações de substituir/remover. Unifica o <code>BannerUpload</code> (cupom-front) e o dropzone inline de <code>UnidadesNegocioForm</code> (cadastro-front).</p>
-
-        <div class="usage-grid">
-          <div class="usage-card do"><strong>Usar quando</strong>O usuário precisa enviar uma imagem ou arquivo (banner, logo, comprovante).</div>
           <div class="usage-card dont"><strong>Evitar quando</strong>É um link/URL de arquivo já hospedado — um <code>Input</code> de texto resolve.</div>
         </div>
 
@@ -1331,10 +1271,6 @@
           <h2>FilterPanel</h2>
           <span class="category-tag">Formulário</span>
         </div>
-        <p class="component-desc">Painel de filtros (Drawer) com slot de campos e rodapé Limpar/Aplicar padronizado. Unifica a estrutura repetida em pelo menos 7 dos 11 repos, cada um com um layout ligeiramente diferente.</p>
-
-        <div class="usage-grid">
-          <div class="usage-card do"><strong>Usar quando</strong>A listagem precisa de 2+ filtros combináveis (status, período, unidade) fora do fluxo principal da tela.</div>
           <div class="usage-card dont"><strong>Evitar quando</strong>É um único campo de busca — um <code>Input</code> com ícone de busca já resolve.</div>
         </div>
 
