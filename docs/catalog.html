@@ -418,9 +418,18 @@
   .mock-details-row .v { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
 
   /* ---- mock MultiSelect ---- */
-  .mock-multiselect { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; min-height: 44px; padding: 6px 10px; border-radius: 10px; border: 1.5px solid var(--accent); background: #fff; box-shadow: 0 0 0 3px rgba(1,49,255,0.15); }
   .mock-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--surface-raised); border-radius: 100px; padding: 4px 6px 4px 12px; font-size: 0.8rem; color: var(--ink); }
   .mock-chip button { border: none; background: none; color: var(--ink-soft); cursor: pointer; font-size: 0.85rem; line-height: 1; padding: 2px; }
+
+  .mock-multiselect-field { border: 1.5px solid var(--accent); border-radius: 10px; padding: 12px 14px; box-shadow: 0 0 0 3px rgba(1,49,255,0.15); background: #fff; position: relative; }
+  .mock-multiselect-label { position: absolute; top: -9px; left: 10px; background: #fff; padding: 0 6px; font-size: 0.72rem; color: var(--accent); font-family: "Montserrat", sans-serif; }
+  .mock-multiselect-trigger { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--ink); font-size: 0.9rem; }
+  .mock-multiselect-trigger .material-symbols-outlined { color: var(--ink-soft); flex-shrink: 0; }
+  .mock-multiselect-panel { margin-top: 8px; border: 1px solid var(--line); border-radius: 10px; background: #fff; box-shadow: 0 12px 32px rgba(54,52,85,0.15); max-height: 220px; overflow-y: auto; }
+  .mock-ms-option { display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 0.88rem; color: var(--ink); cursor: pointer; }
+  .mock-ms-option:hover { background: var(--surface-raised); }
+  .mock-ms-option.select-all { border-bottom: 1px solid var(--line); font-weight: 600; }
+  .mock-ms-checkbox { width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; }
 
   /* ---- mock SwitchField ---- */
   .mock-switch-row { display: flex; align-items: center; gap: 10px; }
@@ -1132,10 +1141,23 @@
 
         <div class="preview">
           <div class="mock-select-wrap" style="max-width:320px;">
-            <label style="font-size:0.78rem;color:var(--ink-soft);display:block;margin-bottom:6px;">Formas de pagamento</label>
-            <div class="mock-multiselect">
-              <span class="mock-chip">Cartão <button aria-label="Remover Cartão">✕</button></span>
-              <span class="mock-chip">Boleto <button aria-label="Remover Boleto">✕</button></span>
+            <div class="mock-multiselect-field">
+              <span class="mock-multiselect-label">Unidade de Negócio</span>
+              <div class="mock-multiselect-trigger">
+                <span id="ms-trigger-text">Mycon, Incorporadora Bahiana</span>
+                <span class="material-symbols-outlined">expand_less</span>
+              </div>
+            </div>
+            <div class="mock-multiselect-panel" id="ms-panel">
+              <label class="mock-ms-option select-all">
+                <input type="checkbox" class="mock-ms-checkbox" id="ms-select-all">
+                <span>Selecionar todos</span>
+              </label>
+              <label class="mock-ms-option"><input type="checkbox" class="mock-ms-checkbox ms-item" checked><span>1 - Mycon</span></label>
+              <label class="mock-ms-option"><input type="checkbox" class="mock-ms-checkbox ms-item" checked><span>2 - Incorporadora Bahiana Ltda</span></label>
+              <label class="mock-ms-option"><input type="checkbox" class="mock-ms-checkbox ms-item"><span>3 - Bevicred Informações Cadastrais</span></label>
+              <label class="mock-ms-option"><input type="checkbox" class="mock-ms-checkbox ms-item"><span>4 - Hitech Electric Ltda</span></label>
+              <label class="mock-ms-option"><input type="checkbox" class="mock-ms-checkbox ms-item"><span>5 - One Consórcio Ltda</span></label>
             </div>
           </div>
         </div>
@@ -1148,6 +1170,7 @@
               <tr><td class="prop-name">value<span class="required-mark">*</span></td><td class="prop-type">T[]</td><td class="prop-default">—</td></tr>
               <tr><td class="prop-name">onChange<span class="required-mark">*</span></td><td class="prop-type">(value: T[]) =&gt; void</td><td class="prop-default">—</td></tr>
               <tr><td class="prop-name">label / placeholder</td><td class="prop-type">string</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">selectAll</td><td class="prop-type">boolean</td><td class="prop-default">true</td></tr>
               <tr><td class="prop-name">error / helperText</td><td class="prop-type">boolean / string</td><td class="prop-default">false / undefined</td></tr>
             </tbody>
           </table>
@@ -1156,10 +1179,10 @@
         <div class="code-block">
 <button class="copy-btn" data-copy="multiselect">Copiar</button>
 <span class="tag">&lt;MultiSelect</span>
-  <span class="attr">label</span>=<span class="str">"Formas de pagamento"</span>
-  <span class="attr">options</span>={options}
-  <span class="attr">value</span>={formasPagamento}
-  <span class="attr">onChange</span>={setFormasPagamento}
+  <span class="attr">label</span>=<span class="str">"Unidade de Negócio"</span>
+  <span class="attr">options</span>={unidades}
+  <span class="attr">value</span>={unidadesSelecionadas}
+  <span class="attr">onChange</span>={setUnidadesSelecionadas}
 <span class="tag">/&gt;</span>
         </div>
       </section>
@@ -1335,6 +1358,22 @@
 </div>
 
 <script>
+  const msPanel = document.getElementById("ms-panel");
+  if (msPanel) {
+    const selectAll = document.getElementById("ms-select-all");
+    const items = msPanel.querySelectorAll(".ms-item");
+    const syncSelectAll = () => {
+      const checkedCount = Array.from(items).filter((i) => i.checked).length;
+      selectAll.checked = checkedCount === items.length;
+      selectAll.indeterminate = checkedCount > 0 && checkedCount < items.length;
+    };
+    selectAll.addEventListener("change", () => {
+      items.forEach((item) => { item.checked = selectAll.checked; });
+    });
+    items.forEach((item) => item.addEventListener("change", syncSelectAll));
+    syncSelectAll();
+  }
+
   document.addEventListener("click", (event) => {
     document.querySelectorAll(".mock-menu.open").forEach((menu) => {
       if (!menu.parentElement.contains(event.target)) menu.classList.remove("open");
