@@ -6,7 +6,7 @@ export type IconActionButtonProps = {
   /** Usado como aria-label e como texto do tooltip. */
   label: string;
   icon: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   color?: "primary" | "default";
 };
@@ -21,7 +21,20 @@ export function IconActionButton({ label, icon, onClick, disabled, color = "defa
   return (
     <Tooltip title={label}>
       <Box component="span" sx={{ display: "inline-block" }}>
-        <IconButton onClick={onClick} disabled={disabled} aria-label={label} color={color}>
+        <IconButton
+          onClick={onClick}
+          disabled={disabled}
+          aria-label={label}
+          color={color}
+          sx={{
+            borderRadius: "10px",
+            backgroundColor: color === "primary" ? "primary.main" : "action.hover",
+            color: color === "primary" ? "primary.contrastText" : "text.primary",
+            "&:hover": {
+              backgroundColor: color === "primary" ? "primary.dark" : "action.selected",
+            },
+          }}
+        >
           {icon}
         </IconButton>
       </Box>

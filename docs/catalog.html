@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Raleway:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" rel="stylesheet">
 <style>
   /* Paleta e tipografia herdadas do site institucional mycon.com.br
      (--mycon-blue #0131FF, --mycon-dark-primary #363455, Raleway/Montserrat) —
@@ -32,6 +33,21 @@
 
   * { box-sizing: border-box; }
 
+  .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    vertical-align: middle;
+  }
+
   body {
     background: var(--paper);
     color: var(--ink);
@@ -42,7 +58,7 @@
     margin: 0;
   }
 
-  h1, h2, h3, .wordmark, .nav-group-title, .swatch-label, th, .category-tag, .mock-btn, .usage-card strong {
+  h1, h2, h3, .wordmark, .nav-group-title, .swatch-label, th, .category-tag, .mock-btn {
     font-family: "Montserrat", ui-sans-serif, system-ui, sans-serif;
     text-wrap: balance;
   }
@@ -257,41 +273,6 @@
     padding: 2px 10px;
   }
 
-  .component-desc {
-    color: var(--ink-soft);
-    max-width: 62ch;
-    margin: 0 0 22px;
-  }
-
-  .usage-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 26px;
-  }
-
-  .usage-card {
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 12px 14px;
-    font-size: 0.85rem;
-    color: var(--ink);
-  }
-
-  .usage-card.do { border-left: 3px solid var(--success); }
-  .usage-card.dont { border-left: 3px solid var(--error); }
-
-  .usage-card strong {
-    display: block;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin-bottom: 4px;
-  }
-
-  .usage-card.do strong { color: var(--success); }
-  .usage-card.dont strong { color: var(--error); }
-
   .preview {
     background: var(--surface-raised);
     border: 1px solid var(--line);
@@ -365,10 +346,17 @@
   .mock-kv .kv-title { font-size: 0.72rem; color: var(--ink-soft); margin-bottom: 2px; }
   .mock-kv .kv-value { font-weight: 700; font-size: 0.95rem; color: var(--ink); }
   .mock-card-action { flex-shrink: 0; }
+  .mock-details-expand { max-height: 0; overflow: hidden; transition: max-height 0.2s ease; }
+  .mock-details-expand.open { max-height: 160px; }
+  .mock-details-expand-inner { display: flex; gap: 32px; padding: 16px 0 4px; border-top: 1px solid var(--line); margin-top: 12px; font-size: 0.85rem; color: var(--ink-soft); }
+  .mock-details-expand-inner strong { color: var(--ink); font-family: "Montserrat", sans-serif; font-size: 0.8rem; }
   .icon-btn {
-    width: 36px; height: 36px; border-radius: 100px; border: none; background: var(--accent);
-    color: #fff; display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+    width: 36px; height: 36px; border-radius: 10px; border: none; background: var(--surface-raised);
+    color: var(--ink); display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
   }
+  .icon-btn:hover { background: var(--line); }
+  .icon-btn.primary { background: var(--accent); color: #fff; }
+  .icon-btn.primary:hover { background: var(--accent-hover); }
 
   /* ---- mock Input ---- */
   .mock-field { display: flex; flex-direction: column; gap: 6px; max-width: 260px; }
@@ -384,10 +372,7 @@
   .mock-field input:disabled { background: var(--surface-raised); color: var(--ink); -webkit-text-fill-color: var(--ink); opacity: 1; }
 
   /* ---- mock IconActionButton ---- */
-  .mock-icon-action { display: inline-flex; flex-direction: column; align-items: center; gap: 6px; }
-  .mock-icon-action .icon-btn.outline { background: #fff; border: 1.5px solid var(--accent); color: var(--accent); }
   .mock-icon-action .icon-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-  .mock-icon-action .tip { font-size: 0.68rem; color: var(--ink-soft); }
 
   /* ---- mock SectionCard ---- */
   .mock-section { border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
@@ -544,7 +529,6 @@
     .nav-group + .nav-group { margin-top: 0; }
     .layout { flex-direction: column; }
     main { padding: 28px 16px 80px; max-width: 100%; }
-    .usage-grid { grid-template-columns: 1fr; }
     .topbar { flex-wrap: wrap; }
   }
 </style>
@@ -609,8 +593,6 @@
           <h2>Button</h2>
           <span class="category-tag">Ações</span>
         </div>
-          <div class="usage-card dont"><strong>Evitar quando</strong>A ação é apenas um ícone dentro de uma lista densa — nesse caso, use um botão de ícone dedicado com Tooltip.</div>
-        </div>
 
         <div class="preview">
           <div class="preview-row">
@@ -660,22 +642,17 @@
           <h2>IconActionButton</h2>
           <span class="category-tag">Ações</span>
         </div>
-          <div class="usage-card dont"><strong>Evitar quando</strong>A ação tem texto visível — nesse caso é um <code>Button</code> comum, não precisa de tooltip.</div>
-        </div>
 
         <div class="preview">
           <div class="preview-row">
             <div class="mock-icon-action">
-              <button class="icon-btn" title="Editar" aria-label="Editar">✎</button>
-              <span class="tip">Editar</span>
+              <button class="icon-btn" title="Editar" aria-label="Editar"><span class="material-symbols-outlined">edit</span></button>
             </div>
             <div class="mock-icon-action">
-              <button class="icon-btn outline" title="Ver detalhes" aria-label="Ver detalhes">👁</button>
-              <span class="tip">Ver detalhes</span>
+              <button class="icon-btn primary" title="Mais ações" aria-label="Mais ações"><span class="material-symbols-outlined">menu</span></button>
             </div>
             <div class="mock-icon-action">
-              <button class="icon-btn" title="Excluir" aria-label="Excluir" disabled>🗑</button>
-              <span class="tip">Excluir (disabled)</span>
+              <button class="icon-btn" title="Excluir" aria-label="Excluir" disabled><span class="material-symbols-outlined">delete</span></button>
             </div>
           </div>
         </div>
@@ -704,8 +681,6 @@
         <div class="component-head">
           <h2>StatusBadge</h2>
           <span class="category-tag">Feedback</span>
-        </div>
-          <div class="usage-card dont"><strong>Evitar quando</strong>A cor não representa um dos 5 status semânticos — nesse caso, o status provavelmente precisa ser remapeado, não um novo hex criado.</div>
         </div>
 
         <div class="preview">
@@ -747,8 +722,6 @@
         <div class="component-head">
           <h2>ConfirmDialog</h2>
           <span class="category-tag">Feedback</span>
-        </div>
-          <div class="usage-card dont"><strong>Evitar quando</strong>O conteúdo do modal tem múltiplos campos de formulário — nesse caso é um modal de formulário, não uma confirmação.</div>
         </div>
 
         <div class="preview">
@@ -804,15 +777,26 @@
           <h2>ListItemCard</h2>
           <span class="category-tag">Layout</span>
         </div>
-          <div class="usage-card dont"><strong>Evitar quando</strong>A lista tem mais de ~6 colunas ou precisa de ordenação por coluna — nesse caso use <code>DataTable</code> (Fase 4, próximo).</div>
-        </div>
 
         <div class="preview">
-          <div class="mock-card status-border">
-            <div class="mock-kv"><div class="kv-title">Contrato</div><div class="kv-value">00123.4</div></div>
-            <div class="mock-kv"><div class="kv-title">Cliente</div><div class="kv-value">Fulano da Silva</div></div>
-            <div class="mock-kv"><div class="kv-title">Status</div><div class="kv-value" style="color:var(--success)">Ativo</div></div>
-            <div class="mock-card-action"><button class="icon-btn" aria-label="Editar">✎</button></div>
+          <div class="mock-card" style="flex-direction:column; align-items:stretch; gap:0; border-left:8px solid var(--warning); padding-left:16px;">
+            <div style="display:flex; align-items:center; gap:20px; padding:4px 0;">
+              <div class="mock-kv"><div class="kv-title">Contrato</div><div class="kv-value">16058444</div></div>
+              <div class="mock-kv"><div class="kv-title">Cliente</div><div class="kv-value">Leonardo Mendes</div></div>
+              <div class="mock-kv"><div class="kv-title">Bem</div><div class="kv-value">Automotores</div></div>
+              <div class="mock-kv"><div class="kv-title">Status</div><div class="kv-value" style="color:var(--warning)">Pagamento Pendente</div></div>
+              <div class="mock-kv"><div class="kv-title">Valor</div><div class="kv-value">R$ 70.000,00</div></div>
+              <div class="mock-card-action" style="display:flex; gap:8px;">
+                <button class="icon-btn" title="Ver detalhes" aria-label="Ver detalhes" onclick="document.getElementById('demo-listitem-details').classList.toggle('open')"><span class="material-symbols-outlined">info</span></button>
+                <button class="icon-btn primary" title="Mais ações" aria-label="Mais ações"><span class="material-symbols-outlined">menu</span></button>
+              </div>
+            </div>
+            <div id="demo-listitem-details" class="mock-details-expand">
+              <div class="mock-details-expand-inner">
+                <div><strong>Pagamento</strong><br>Pago: Não<br>Forma: Boleto</div>
+                <div><strong>Identificação</strong><br>CPF: 440.603.778-05<br>E-mail: leonardo@email.com</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -822,8 +806,10 @@
             <tbody>
               <tr><td class="prop-name" colspan="3" style="color:var(--ink); font-family:'Montserrat',sans-serif; font-weight:700;">ListItemCard</td></tr>
               <tr><td class="prop-name">status</td><td class="prop-type">SemanticColor</td><td class="prop-default">undefined</td></tr>
-              <tr><td class="prop-name">children<span class="required-mark">*</span></td><td class="prop-type">ReactNode</td><td class="prop-default">—</td></tr>
-              <tr><td class="prop-name">action</td><td class="prop-type">ReactNode</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">children<span class="required-mark">*</span></td><td class="prop-type">ReactNode (KeyValueItem, máx. 6)</td><td class="prop-default">—</td></tr>
+              <tr><td class="prop-name">actions</td><td class="prop-type">ReactNode[]</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">expandedContent</td><td class="prop-type">ReactNode</td><td class="prop-default">undefined</td></tr>
+              <tr><td class="prop-name">menuItems</td><td class="prop-type">{ label, onClick, disabled? }[]</td><td class="prop-default">undefined</td></tr>
               <tr><td class="prop-name" colspan="3" style="color:var(--ink); font-family:'Montserrat',sans-serif; font-weight:700; padding-top:16px;">KeyValueItem</td></tr>
               <tr><td class="prop-name">title<span class="required-mark">*</span></td><td class="prop-type">string</td><td class="prop-default">—</td></tr>
               <tr><td class="prop-name">value<span class="required-mark">*</span></td><td class="prop-type">ReactNode</td><td class="prop-default">—</td></tr>
@@ -834,8 +820,12 @@
 
         <div class="code-block">
 <button class="copy-btn" data-copy="listitemcard">Copiar</button>
-<span class="tag">&lt;ListItemCard</span> <span class="attr">status</span>=<span class="str">"success"</span> <span class="attr">action</span>={&lt;IconButton /&gt;}&gt;
-  <span class="tag">&lt;KeyValueItem</span> <span class="attr">title</span>=<span class="str">"Cliente"</span> <span class="attr">value</span>=<span class="str">"Fulano"</span> <span class="tag">/&gt;</span>
+<span class="tag">&lt;ListItemCard</span>
+  <span class="attr">status</span>=<span class="str">"warning"</span>
+  <span class="attr">expandedContent</span>={&lt;DetailsCard <span class="attr">rows</span>={detalhes} /&gt;}
+  <span class="attr">menuItems</span>={[{ <span class="attr">label</span>: <span class="str">"Imprimir boleto"</span>, <span class="attr">onClick</span>: imprimir }]}
+&gt;
+  <span class="tag">&lt;KeyValueItem</span> <span class="attr">title</span>=<span class="str">"Cliente"</span> <span class="attr">value</span>=<span class="str">"Leonardo"</span> <span class="tag">/&gt;</span>
 <span class="tag">&lt;/ListItemCard&gt;</span>
         </div>
       </section>
@@ -845,8 +835,6 @@
         <div class="component-head">
           <h2>SectionCard</h2>
           <span class="category-tag">Layout</span>
-        </div>
-          <div class="usage-card dont"><strong>Evitar quando</strong>É só um título de página — use <code>Typography</code> direto, sem envolver em card.</div>
         </div>
 
         <div class="preview">
@@ -890,8 +878,6 @@
           <h2>DetailsCard</h2>
           <span class="category-tag">Layout</span>
         </div>
-          <div class="usage-card dont"><strong>Evitar quando</strong>Os dados têm várias linhas/registros — nesse caso é <code>DataTable</code>, não um resumo único.</div>
-        </div>
 
         <div class="preview">
           <div class="mock-details">
@@ -921,8 +907,6 @@
         <div class="component-head">
           <h2>ScrollArea</h2>
           <span class="category-tag">Layout</span>
-        </div>
-          <div class="usage-card dont"><strong>Evitar quando</strong>O conteúdo já tem altura previsível — um <code>Box</code> comum basta.</div>
         </div>
 
         <div class="preview">
@@ -959,8 +943,6 @@
         <div class="component-head">
           <h2>DataTable</h2>
           <span class="category-tag">Dados</span>
-        </div>
-          <div class="usage-card dont"><strong>Evitar quando</strong>São poucos campos com uma ação por linha — nesse caso <code>ListItemCard</code> é mais legível que uma tabela densa.</div>
         </div>
 
         <div class="preview">
@@ -1018,8 +1000,6 @@
           <h2>Input</h2>
           <span class="category-tag">Formulário</span>
         </div>
-          <div class="usage-card dont"><strong>Evitar quando</strong>O campo tem opções fixas — use <code>Select</code> (Fase 4, próximo) em vez de simular com texto.</div>
-        </div>
 
         <div class="preview">
           <div class="preview-row">
@@ -1062,8 +1042,6 @@
         <div class="component-head">
           <h2>Select</h2>
           <span class="category-tag">Formulário</span>
-        </div>
-          <div class="usage-card dont"><strong>Evitar quando</strong>São só 2-3 opções mutuamente exclusivas e visíveis de uma vez — considere Radio nesse caso.</div>
         </div>
 
         <div class="preview">
@@ -1109,8 +1087,6 @@
           <h2>MultiSelect</h2>
           <span class="category-tag">Formulário</span>
         </div>
-          <div class="usage-card dont"><strong>Evitar quando</strong>Há só uma opção válida por vez — use <code>Select</code>.</div>
-        </div>
 
         <div class="preview">
           <div class="mock-select-wrap" style="max-width:320px;">
@@ -1152,8 +1128,6 @@
           <h2>MaskedNumberField</h2>
           <span class="category-tag">Formulário</span>
         </div>
-          <div class="usage-card dont"><strong>Evitar quando</strong>É um número livre sem formatação (ex.: quantidade de itens) — um <code>Input type="number"</code> comum basta.</div>
-        </div>
 
         <div class="preview">
           <div class="preview-row">
@@ -1193,8 +1167,6 @@
           <h2>SwitchField</h2>
           <span class="category-tag">Formulário</span>
         </div>
-          <div class="usage-card dont"><strong>Evitar quando</strong>A mudança só terá efeito ao salvar um formulário inteiro — use <code>Checkbox</code> nesse caso.</div>
-        </div>
 
         <div class="preview">
           <div class="preview-row">
@@ -1226,8 +1198,6 @@
         <div class="component-head">
           <h2>FileUpload</h2>
           <span class="category-tag">Formulário</span>
-        </div>
-          <div class="usage-card dont"><strong>Evitar quando</strong>É um link/URL de arquivo já hospedado — um <code>Input</code> de texto resolve.</div>
         </div>
 
         <div class="preview">
@@ -1270,8 +1240,6 @@
         <div class="component-head">
           <h2>FilterPanel</h2>
           <span class="category-tag">Formulário</span>
-        </div>
-          <div class="usage-card dont"><strong>Evitar quando</strong>É um único campo de busca — um <code>Input</code> com ícone de busca já resolve.</div>
         </div>
 
         <div class="preview">
