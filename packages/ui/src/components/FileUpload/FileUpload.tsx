@@ -24,13 +24,15 @@ export function FileUpload({ label, value, onChange, accept = "image/*", error, 
   const inputId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
+  /** Última URL de preview criada por este componente — revogada ao substituir/remover para não vazar memória. */
+  const ownedPreviewUrl = useRef<string | null>(null);
 
   const handleFile = (file: File | null) => {
-    if (!file) {
-      onChange(null, null);
-      return;
-    }
-    onChange(file, URL.createObjectURL(file));
+    if (ownedPreviewUrl.current) URL.revokeObjectURL(ownedPreviewUrl.current);
+    ownedPreviewUrl.current = file ? URL.createObjectURL(file) : null;
+    // Limpa o <input> para que escolher o mesmo arquivo de novo dispare `change`.
+    if (inputRef.current) inputRef.current.value = "";
+    onChange(file, ownedPreviewUrl.current);
   };
 
   return (

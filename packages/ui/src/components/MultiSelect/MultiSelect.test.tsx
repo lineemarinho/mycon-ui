@@ -78,4 +78,31 @@ describe("MultiSelect", () => {
     await userEvent.click(screen.getByLabelText("Pagamentos"));
     expect(screen.getByText("Loading…")).toBeInTheDocument();
   });
+
+  it('reaches "Selecionar todos" with the keyboard', async () => {
+    const onChange = vi.fn();
+    render(<MultiSelect label="Pagamentos" options={options} value={[]} onChange={onChange} />);
+
+    await userEvent.click(screen.getByLabelText("Pagamentos"));
+    await userEvent.keyboard("{ArrowDown}{Enter}");
+
+    expect(onChange).toHaveBeenCalledWith(["cartao", "boleto"]);
+  });
+
+  it("keeps the listbox mounted across re-renders (no flicker/scroll reset on select)", async () => {
+    const { rerender } = render(<MultiSelect label="Pagamentos" options={options} value={[]} onChange={() => {}} />);
+    await userEvent.click(screen.getByLabelText("Pagamentos"));
+    const listbox = screen.getByRole("listbox");
+
+    rerender(<MultiSelect label="Pagamentos" options={options} value={["cartao"]} onChange={() => {}} />);
+
+    expect(screen.getByRole("listbox")).toBe(listbox);
+  });
+
+  it('keeps "Selecionar todos" visible while searching', async () => {
+    render(<MultiSelect label="Pagamentos" options={options} value={[]} onChange={() => {}} />);
+    await userEvent.type(screen.getByLabelText("Pagamentos"), "bol");
+    expect(screen.getByText("Selecionar todos")).toBeInTheDocument();
+    expect(screen.queryByText("Cartão")).not.toBeInTheDocument();
+  });
 });

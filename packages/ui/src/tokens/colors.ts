@@ -17,7 +17,7 @@ export const brandColors = {
  * para fundos de alerta/banner (ver `alertTintColors` para esse caso).
  */
 export const semanticColors = {
-  success: "#0FC718FF",
+  success: "#0FC718",
   warning: "#F5A623",
   error: "#FF501B",
   neutral: "#9E9E9E",

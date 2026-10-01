@@ -4,6 +4,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import MuiButton, { type ButtonProps as MuiButtonProps } from "@mui/material/Button";
 import { darken, styled } from "@mui/material/styles";
 import { semanticColors } from "../../tokens/colors";
+import { contrastTextFor } from "../../utils/contrastText";
 
 export type ButtonVariant = "primary" | "secondary" | "tertiary" | "danger" | "link";
 export type ButtonSize = "sm" | "md" | "lg";
@@ -73,7 +74,7 @@ const StyledButton = styled(MuiButton, {
     ...(toneColor &&
       !isTextLike && {
         backgroundColor: toneColor,
-        color: "#fff",
+        color: contrastTextFor(toneColor),
         "&:hover": { backgroundColor: darken(toneColor, 0.15) },
       }),
     ...(toneColor &&

@@ -49,7 +49,7 @@ describe("Button", () => {
         Confirmar
       </Button>,
     );
-    expect(screen.getByRole("button", { name: "Confirmar" })).toHaveStyle({ backgroundColor: "#0FC718FF" });
+    expect(screen.getByRole("button", { name: "Confirmar" })).toHaveStyle({ backgroundColor: "#0FC718" });
   });
 
   it("applies the tone as text color for text-like variants", () => {
@@ -59,5 +59,14 @@ describe("Button", () => {
       </Button>,
     );
     expect(screen.getByRole("button", { name: "Atenção" })).toHaveStyle({ color: "#F5A623" });
+  });
+
+  it("picks a legible text color for the tone background", () => {
+    render(
+      <Button tone="success" variant="primary">
+        Aprovar
+      </Button>,
+    );
+    expect(screen.getByRole("button", { name: "Aprovar" })).toHaveStyle({ color: "rgba(0, 0, 0, 0.87)" });
   });
 });

@@ -1,10 +1,8 @@
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import Chip from "@mui/material/Chip";
-import MuiAutocomplete from "@mui/material/Autocomplete";
+import MuiAutocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import MuiTextField from "@mui/material/TextField";
-import Paper, { type PaperProps } from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import type { SelectOption } from "../Select/Select";
@@ -35,6 +33,14 @@ export type MultiSelectProps<T> = {
   /** Repassado ao `loading` nativo do `Autocomplete` do MUI (já renderiza um indicador de carregamento). */
   loading?: boolean;
 };
+
+/**
+ * Opção sentinela "Selecionar todos", renderizada como item real da lista
+ * (navegável por teclado) e interceptada no `onChange`. Comparada por
+ * referência — nunca chega ao `value` do chamador.
+ */
+const SELECT_ALL_OPTION: SelectOption<never> = { value: Symbol("selectAll") as never, label: "Selecionar todos" };
+const defaultFilterOptions = createFilterOptions<SelectOption<unknown>>();
 
 const uncheckedIcon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -74,58 +80,41 @@ export function MultiSelect<T>({
   loading,
 }: MultiSelectProps<T>) {
   const selected = options.filter((option) => value.includes(option.value));
-  const allSelected = options.length > 0 && value.length === options.length;
-  const someSelected = value.length > 0 && !allSelected;
-  const showSelectAll = selectAll && !maxSelections;
+  const allSelected = options.length > 0 && selected.length === options.length;
+  const someSelected = selected.length > 0 && !allSelected;
+  const showSelectAll = selectAll && !maxSelections && options.length > 0;
   const limitReached = maxSelections !== undefined && value.length >= maxSelections;
-
-  const SelectAllPaper = ({ children, ...paperProps }: PaperProps) => (
-    <Paper {...paperProps}>
-      {showSelectAll && options.length > 0 && (
-        <Box
-          onMouseDown={(event) => event.preventDefault()}
-          onClick={() => onChange(allSelected ? [] : options.map((option) => option.value))}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            px: 2,
-            py: 0.5,
-            borderBottom: "1px solid",
-            borderColor: "divider",
-            cursor: "pointer",
-          }}
-        >
-          <Checkbox
-            checked={allSelected}
-            indeterminate={someSelected}
-            icon={uncheckedIcon}
-            checkedIcon={checkedIcon}
-            size="small"
-          />
-          <Typography variant="body2">Selecionar todos</Typography>
-        </Box>
-      )}
-      {children}
-    </Paper>
-  );
 
   return (
     <MuiAutocomplete
       multiple
       disableCloseOnSelect
-      options={options}
+      options={showSelectAll ? [SELECT_ALL_OPTION, ...options] : options}
       value={selected}
-      onChange={(_, next) => {
+      onChange={(_, next, _reason, details) => {
+        if (details?.option === SELECT_ALL_OPTION) {
+          onChange(allSelected ? [] : options.map((option) => option.value));
+          return;
+        }
         if (maxSelections !== undefined && next.length > maxSelections) return;
         onChange(next.map((option) => option.value));
       }}
+      filterOptions={(opts, state) => {
+        // "Selecionar todos" fica sempre visível, mesmo com texto de busca.
+        const filtered = defaultFilterOptions(
+          opts.filter((option) => option !== SELECT_ALL_OPTION),
+          state as Parameters<typeof defaultFilterOptions>[1],
+        ) as SelectOption<T>[];
+        return showSelectAll && filtered.length > 0 ? [SELECT_ALL_OPTION, ...filtered] : filtered;
+      }}
       getOptionLabel={(option) => option.label}
       isOptionEqualToValue={(a, b) => a.value === b.value}
-      getOptionDisabled={(option) => (limitReached ? !value.includes(option.value) : false)}
+      getOptionDisabled={(option) =>
+        limitReached && option !== SELECT_ALL_OPTION ? !value.includes(option.value) : false
+      }
       disabled={disabled}
       loading={loading}
       size={SIZE_TO_MUI[size]}
-      PaperComponent={SelectAllPaper}
       renderTags={
         display === "count"
           ? (tagValue) =>
@@ -134,6 +123,21 @@ export function MultiSelect<T>({
       }
       renderOption={(props, option, { selected: isSelected }) => {
         const { key, ...optionProps } = props;
+        if (option === SELECT_ALL_OPTION) {
+          return (
+            <Box component="li" key={key} {...optionProps} sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <Checkbox
+                checked={allSelected}
+                indeterminate={someSelected}
+                icon={uncheckedIcon}
+                checkedIcon={checkedIcon}
+                size="small"
+                sx={{ mr: 1 }}
+              />
+              {option.label}
+            </Box>
+          );
+        }
         return (
           <li key={key} {...optionProps}>
             <Checkbox checked={isSelected} icon={uncheckedIcon} checkedIcon={checkedIcon} size="small" sx={{ mr: 1 }} />

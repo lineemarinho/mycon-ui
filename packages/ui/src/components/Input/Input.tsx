@@ -45,6 +45,47 @@ const LG_SIZE_SX = {
   "& .MuiInputBase-input": { padding: "19px 14px", fontSize: "1.05rem" },
   "& .MuiInputLabel-root": { fontSize: "1.05rem" },
 } as const;
+const READONLY_SX = { "& .Mui-disabled": { color: "text.primary", WebkitTextFillColor: "unset" } } as const;
+const SUCCESS_SX = {
+  "& .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
+  "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
+  "& .Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
+  "& .MuiInputLabel-root.Mui-focused": { color: "success.main" },
+} as const;
+
+/** Combina os estilos internos com o `sx` do chamador usando a forma de array do MUI (aceita `sx` objeto, array ou função). */
+function buildSx(
+  sx: TextFieldProps["sx"],
+  { readOnly, success, size }: { readOnly?: boolean; success?: boolean; size: InputSize },
+): TextFieldProps["sx"] {
+  return [
+    Boolean(readOnly) && READONLY_SX,
+    Boolean(success) && SUCCESS_SX,
+    size === "lg" && LG_SIZE_SX,
+    ...(Array.isArray(sx) ? sx : [sx]),
+  ];
+}
+
+/** Mescla props internas num slot do `slotProps` do chamador (objeto ou função de ownerState) sem descartar as dele. */
+function mergeSlot(slot: unknown, defaults: object, overrides: object) {
+  if (typeof slot === "function") {
+    return (ownerState: unknown) => ({ ...defaults, ...slot(ownerState), ...overrides });
+  }
+  return { ...defaults, ...(slot as object | undefined), ...overrides };
+}
+
+function buildSlotProps(
+  slotProps: TextFieldProps["slotProps"],
+  adornments: { startAdornment?: React.ReactNode; endAdornment?: React.ReactNode },
+  htmlInputDefaults: object = {},
+): TextFieldProps["slotProps"] {
+  const definedAdornments = Object.fromEntries(Object.entries(adornments).filter(([, node]) => node !== undefined));
+  return {
+    ...slotProps,
+    input: mergeSlot(slotProps?.input, {}, definedAdornments),
+    htmlInput: mergeSlot(slotProps?.htmlInput, htmlInputDefaults, {}),
+  } as TextFieldProps["slotProps"];
+}
 
 function formatNumericMask(value: number, mode: NumericMaskType, decimalScale: number, locale: string): string {
   const formatted = new Intl.NumberFormat(locale, {
@@ -282,6 +323,7 @@ export const Input = forwardRef<HTMLDivElement, InputProps>(function Input(props
       readOnlyField,
       disabled,
       sx,
+      slotProps,
       variant = "outlined",
       width = "full",
       icon,
@@ -317,7 +359,6 @@ export const Input = forwardRef<HTMLDivElement, InputProps>(function Input(props
         variant={VARIANT_TO_MUI[variant]}
         size={SIZE_TO_MUI[size]}
         fullWidth={width === "full"}
-        inputMode="numeric"
         disabled={effectiveReadOnly ? true : disabled}
         error={error}
         value={display}
@@ -333,18 +374,8 @@ export const Input = forwardRef<HTMLDivElement, InputProps>(function Input(props
           const digits = event.target.value.replace(/\D/g, "");
           onChange(digits ? Number(digits) / 10 ** scale : 0);
         }}
-        slotProps={{ input: { startAdornment, endAdornment } }}
-        sx={{
-          ...(effectiveReadOnly && { "& .Mui-disabled": { color: "text.primary", WebkitTextFillColor: "unset" } }),
-          ...(success && !error && {
-            "& .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
-            "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
-            "& .Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
-            "& .MuiInputLabel-root.Mui-focused": { color: "success.main" },
-          }),
-          ...(size === "lg" && LG_SIZE_SX),
-          ...sx,
-        }}
+        slotProps={buildSlotProps(slotProps, { startAdornment, endAdornment }, { inputMode: "numeric" })}
+        sx={buildSx(sx, { readOnly: effectiveReadOnly, success: success && !error, size })}
         {...fieldRest}
       />
     );
@@ -367,6 +398,7 @@ export const Input = forwardRef<HTMLDivElement, InputProps>(function Input(props
       readOnlyField,
       disabled,
       sx,
+      slotProps,
       variant = "outlined",
       width = "full",
       icon,
@@ -420,7 +452,6 @@ export const Input = forwardRef<HTMLDivElement, InputProps>(function Input(props
         variant={VARIANT_TO_MUI[variant]}
         size={SIZE_TO_MUI[size]}
         fullWidth={width === "full"}
-        inputMode="numeric"
         disabled={effectiveReadOnly ? true : disabled}
         error={finalError}
         helperText={finalHelperText}
@@ -437,18 +468,8 @@ export const Input = forwardRef<HTMLDivElement, InputProps>(function Input(props
           const nextDigits = event.target.value.replace(/\D/g, "").slice(0, DOCUMENT_MAX_DIGITS[mask]);
           onChange(nextDigits);
         }}
-        slotProps={{ input: { startAdornment, endAdornment } }}
-        sx={{
-          ...(effectiveReadOnly && { "& .Mui-disabled": { color: "text.primary", WebkitTextFillColor: "unset" } }),
-          ...(success && !finalError && {
-            "& .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
-            "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
-            "& .Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
-            "& .MuiInputLabel-root.Mui-focused": { color: "success.main" },
-          }),
-          ...(size === "lg" && LG_SIZE_SX),
-          ...sx,
-        }}
+        slotProps={buildSlotProps(slotProps, { startAdornment, endAdornment }, { inputMode: "numeric" })}
+        sx={buildSx(sx, { readOnly: effectiveReadOnly, success: success && !finalError, size })}
         {...fieldRest}
       />
     );
@@ -461,6 +482,7 @@ export const Input = forwardRef<HTMLDivElement, InputProps>(function Input(props
     readOnlyField,
     disabled,
     sx,
+    slotProps,
     variant = "outlined",
     width = "full",
     icon,
@@ -481,7 +503,11 @@ export const Input = forwardRef<HTMLDivElement, InputProps>(function Input(props
     iconPosition,
     clearable,
     hasValue,
-    onClear: () => onChange?.({ target: { value: "" } } as React.ChangeEvent<HTMLInputElement>),
+    // `name` no target é o que `register` do react-hook-form usa para saber qual campo atualizar.
+    onClear: () => {
+      const target = { value: "", name: fieldRest.name };
+      onChange?.({ target, currentTarget: target } as React.ChangeEvent<HTMLInputElement>);
+    },
     isPassword,
     showPassword,
     onTogglePassword: () => setShowPassword((prev) => !prev),
@@ -500,18 +526,8 @@ export const Input = forwardRef<HTMLDivElement, InputProps>(function Input(props
       error={error}
       value={value}
       onChange={onChange}
-      slotProps={{ input: { startAdornment, endAdornment } }}
-      sx={{
-        ...(effectiveReadOnly && { "& .Mui-disabled": { color: "text.primary", WebkitTextFillColor: "unset" } }),
-        ...(success && !error && {
-          "& .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
-          "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
-          "& .Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
-          "& .MuiInputLabel-root.Mui-focused": { color: "success.main" },
-        }),
-        ...(size === "lg" && LG_SIZE_SX),
-        ...sx,
-      }}
+      slotProps={buildSlotProps(slotProps, { startAdornment, endAdornment })}
+      sx={buildSx(sx, { readOnly: effectiveReadOnly, success: success && !error, size })}
       {...fieldRest}
     />
   );

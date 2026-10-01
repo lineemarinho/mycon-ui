@@ -30,4 +30,12 @@ describe("Textarea", () => {
     render(<Textarea label="Motivo" readOnlyField value="Texto" onChange={() => {}} />);
     expect(screen.getByLabelText("Motivo")).toBeDisabled();
   });
+
+  it("forwards slotProps to the field (maxLength is enforced, not only counted)", async () => {
+    render(<Textarea label="Motivo" counter slotProps={{ htmlInput: { maxLength: 3 } }} />);
+    const field = screen.getByLabelText("Motivo");
+    expect(field).toHaveAttribute("maxlength", "3");
+    await userEvent.type(field, "abcdef");
+    expect(field).toHaveValue("abc");
+  });
 });

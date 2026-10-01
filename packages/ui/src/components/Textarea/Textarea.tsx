@@ -79,18 +79,19 @@ export const Textarea = forwardRef<HTMLDivElement, TextareaProps>(function Texta
         error={error}
         value={value}
         inputProps={inputProps}
-        sx={{
-          "& textarea": { resize },
-          ...(effectiveReadOnly && { "& .Mui-disabled": { color: "text.primary", WebkitTextFillColor: "unset" } }),
-          ...(success && !error && {
+        slotProps={slotProps}
+        sx={[
+          { "& textarea": { resize } },
+          Boolean(effectiveReadOnly) && { "& .Mui-disabled": { color: "text.primary", WebkitTextFillColor: "unset" } },
+          Boolean(success && !error) && {
             "& .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
             "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
             "& .Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
             "& .MuiInputLabel-root.Mui-focused": { color: "success.main" },
-          }),
-          ...(size === "lg" && LG_SIZE_SX),
-          ...sx,
-        }}
+          },
+          size === "lg" && LG_SIZE_SX,
+          ...(Array.isArray(sx) ? sx : [sx]),
+        ]}
         {...rest}
       />
       {counter && maxLength !== undefined && (

@@ -164,3 +164,40 @@ describe("Input (formatOnType/locale/validation)", () => {
     expect(screen.getByText("CPF inválido")).toBeInTheDocument();
   });
 });
+
+describe("Input (regressões)", () => {
+  it("puts inputMode=numeric on the <input> itself for masked fields (mobile numeric keyboard)", () => {
+    render(<Input label="Valor" mask="currency" value={1} onChange={() => {}} />);
+    expect(screen.getByLabelText("Valor")).toHaveAttribute("inputmode", "numeric");
+
+    render(<Input label="CPF" mask="cpf" value="" onChange={() => {}} />);
+    expect(screen.getByLabelText("CPF")).toHaveAttribute("inputmode", "numeric");
+  });
+
+  it("keeps internal adornments when the caller also passes slotProps", () => {
+    render(
+      <Input
+        label="Valor"
+        mask="currency"
+        value={1}
+        onChange={() => {}}
+        clearable
+        slotProps={{ htmlInput: { "data-testid": "campo" } }}
+      />,
+    );
+    expect(screen.getByRole("button", { name: "Limpar" })).toBeInTheDocument();
+    expect(screen.getByTestId("campo")).toHaveAttribute("inputmode", "numeric");
+  });
+
+  it("accepts sx as an array", () => {
+    render(<Input label="Nome" size="lg" sx={[{ marginTop: "7px" }]} />);
+    expect(screen.getByLabelText("Nome").closest(".MuiFormControl-root")).toHaveStyle({ marginTop: "7px" });
+  });
+
+  it("includes the field name in the clear event (react-hook-form register)", async () => {
+    const onChange = vi.fn();
+    render(<Input label="Busca" name="busca" clearable value="algo" onChange={onChange} />);
+    await userEvent.click(screen.getByRole("button", { name: "Limpar" }));
+    expect(onChange.mock.calls[0][0].target).toEqual({ value: "", name: "busca" });
+  });
+});

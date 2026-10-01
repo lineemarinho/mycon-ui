@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { semanticColors, type SemanticColor } from "../../tokens/colors";
 import { radius } from "../../tokens/radius";
+import { contrastTextFor } from "../../utils/contrastText";
 
 export type StatusBadgeProps = {
   /** Semântica do status — determina a cor, nunca um hex direto. */
@@ -30,7 +31,7 @@ export function StatusBadge({ status, label, variant = "dot" }: StatusBadgeProps
           py: 0.5,
           borderRadius: radius.sm,
           backgroundColor: color,
-          color: "#fff",
+          color: contrastTextFor(color),
           fontSize: "0.75rem",
           fontWeight: 600,
           lineHeight: 1.4,
