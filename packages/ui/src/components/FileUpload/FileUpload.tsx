@@ -2,7 +2,6 @@ import { useId, useRef, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Button } from "../Button/Button";
-import { surfaceColors, semanticColors, brandColors } from "../../tokens/colors";
 import { radius } from "../../tokens/radius";
 
 export type FileUploadProps = {
@@ -54,7 +53,8 @@ export function FileUpload({ label, value, onChange, accept = "image/*", error, 
           handleFile(event.dataTransfer.files[0] ?? null);
         }}
         sx={{
-          border: `1.5px dashed ${error ? semanticColors.error : isDragging ? brandColors.primary : surfaceColors.border}`,
+          border: "1.5px dashed",
+          borderColor: error ? "error.main" : isDragging ? "primary.main" : "divider",
           borderRadius: radius.md,
           p: 3,
           maxWidth: 280,
@@ -73,7 +73,7 @@ export function FileUpload({ label, value, onChange, accept = "image/*", error, 
                 variant="tertiary"
                 size="sm"
                 onClick={() => handleFile(null)}
-                sx={{ border: `1px solid ${surfaceColors.border}`, py: "6px", px: "15px" }}
+                sx={{ border: 1, borderColor: "divider", py: "6px", px: "15px" }}
               >
                 Remover
               </Button>

@@ -27,6 +27,16 @@ import { myconTheme } from "mycon-ui";
 
 O tema aplica Raleway no texto e Montserrat em títulos e botões. Sem ele, os componentes usam a fonte padrão do MUI (Roboto).
 
+### Modo escuro
+
+```tsx
+import { myconDarkTheme, myconTheme } from "mycon-ui";
+
+<ThemeProvider theme={modoEscuro ? myconDarkTheme : myconTheme}>
+```
+
+Os dois temas são testados automaticamente para contraste mínimo de 4.5:1 (WCAG AA) em todo texto.
+
 Se o app já tem um tema próprio, combine com `myconThemeOptions`:
 
 ```ts
@@ -50,7 +60,7 @@ O catálogo com todos os componentes, props e exemplos fica em `apps/catalog` (`
 
 ## Tokens
 
-- `brandColors`, `semanticColors`, `alertTintColors`, `surfaceColors` — cores
+- `brandColors`, `semanticColors` (tons vivos, para indicadores), `semanticStrongColors` (tons AA, para texto e fundos com texto branco), `alertTintColors`, `surfaceColors` — cores
 - `radius` — raios de borda
 - `textColors` — texto principal e secundário
 - `fontFamilies` — `body` (Raleway), `heading` (Montserrat), `mono` (IBM Plex Mono)

@@ -1,7 +1,8 @@
 import Box from "@mui/material/Box";
-import { surfaceColors } from "../../tokens/colors";
 import { radius } from "../../tokens/radius";
 import { useThemeCheck } from "../../theme/useThemeCheck";
+import { alpha } from "@mui/material/styles";
+import { myconColors } from "../../theme/palette";
 
 export type CardProps = {
   variant?: "outlined" | "elevated" | "filled";
@@ -21,9 +22,11 @@ export function Card({ variant = "outlined", children, onClick }: CardProps) {
         cursor: onClick ? "pointer" : "default",
         fontSize: "0.88rem",
         color: "text.secondary",
-        border: variant === "outlined" ? `1px solid ${surfaceColors.border}` : "none",
-        backgroundColor: variant === "filled" ? surfaceColors.raised : "transparent",
-        boxShadow: variant === "elevated" ? "0 4px 16px rgba(54,52,85,0.14)" : "none",
+        border: variant === "outlined" ? 1 : 0,
+        borderColor: "divider",
+        backgroundColor: variant === "filled" ? "background.raised" : "transparent",
+        boxShadow: (theme) =>
+          variant === "elevated" ? `0 4px 16px ${alpha(myconColors(theme).shadow, theme.palette.mode === "dark" ? 0.4 : 0.14)}` : "none",
       }}
     >
       {children}

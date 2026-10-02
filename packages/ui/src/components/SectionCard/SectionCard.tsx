@@ -5,7 +5,6 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { surfaceColors } from "../../tokens/colors";
 import { radius } from "../../tokens/radius";
 
 export type SectionCardProps = {
@@ -39,7 +38,8 @@ export function SectionCard({
   return (
     <Box
       sx={{
-        border: boxed ? `1px solid ${surfaceColors.border}` : "none",
+        border: boxed ? 1 : 0,
+        borderColor: "divider",
         borderRadius: boxed ? radius.lg : 0,
         p: boxed ? 2.5 : 0,
       }}
@@ -64,7 +64,8 @@ export function SectionCard({
               sx={{
                 width: 28,
                 height: 28,
-                border: `1px solid ${surfaceColors.border}`,
+                border: 1,
+                borderColor: "divider",
                 backgroundColor: "background.paper",
                 color: "text.secondary",
                 "& .MuiSvgIcon-root": { fontSize: 18 },

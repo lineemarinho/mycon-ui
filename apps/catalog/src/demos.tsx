@@ -44,7 +44,6 @@ import {
   Textarea,
   Toast,
   Tooltip,
-  semanticColors,
 } from "mycon-ui";
 
 /** Linha de exemplos com rótulo opcional à esquerda (`.preview-row` + `.swatch-label`). */
@@ -326,7 +325,7 @@ function ListItemCardDemo() {
       <KeyValueItem title="Contrato" value="16058444" />
       <KeyValueItem title="Cliente" value="Leonardo Mendes" />
       <KeyValueItem title="Bem" value="Automotores" />
-      <KeyValueItem title="Status" value={<span style={{ color: semanticColors.warning }}>Pagamento Pendente</span>} />
+      <KeyValueItem title="Status" value={<Box component="span" sx={{ color: "warning.main" }}>Pagamento Pendente</Box>} />
       <KeyValueItem title="Valor" value="R$ 70.000,00" />
     </ListItemCard>
   );

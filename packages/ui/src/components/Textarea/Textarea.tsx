@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import MuiTextField, { type TextFieldProps } from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { semanticColors } from "../../tokens/colors";
+import { alpha, type Theme } from "@mui/material/styles";
 
 export type TextareaVariant = "outlined" | "filled";
 export type TextareaResize = "none" | "vertical" | "horizontal" | "both";
@@ -84,11 +84,12 @@ export const Textarea = forwardRef<HTMLDivElement, TextareaProps>(function Texta
         sx={[
           { "& textarea": { resize } },
           Boolean(effectiveReadOnly) && { "& .MuiInputBase-input.Mui-disabled": { color: "text.primary", WebkitTextFillColor: "unset" } },
-          Boolean(success && !error) && {
-            "& .MuiOutlinedInput-notchedOutline": { borderColor: `${semanticColors.success} !important` },
-            "& .MuiOutlinedInput-root.Mui-focused": { boxShadow: "0 0 0 3px rgba(15,199,24,0.15)" },
-            "& .MuiFormHelperText-root": { color: "success.main" },
-          },
+          Boolean(success && !error) &&
+            ((theme: Theme) => ({
+              "& .MuiOutlinedInput-notchedOutline": { borderColor: `${theme.palette.success.main} !important` },
+              "& .MuiOutlinedInput-root.Mui-focused": { boxShadow: `0 0 0 3px ${alpha(theme.palette.success.main, 0.2)}` },
+              "& .MuiFormHelperText-root": { color: theme.palette.success.main },
+            })),
           size === "lg" && LG_SIZE_SX,
           ...(Array.isArray(sx) ? sx : [sx]),
         ]}

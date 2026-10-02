@@ -1,6 +1,5 @@
 import MuiAvatarGroup from "@mui/material/AvatarGroup";
 import { Avatar, type AvatarSize } from "../Avatar/Avatar";
-import { surfaceColors } from "../../tokens/colors";
 
 export type AvatarGroupItem = {
   src?: string;
@@ -21,7 +20,7 @@ export function AvatarGroup({ avatars, max = 4, size = "md" }: AvatarGroupProps)
       spacing={10}
       // O MUI monta o grupo em row-reverse: sem isso ele fica alinhado à direita.
       sx={{ display: "inline-flex", justifyContent: "flex-end", "& .MuiAvatar-root": { boxSizing: "border-box" } }}
-      slotProps={{ surplus: { sx: { bgcolor: surfaceColors.raised, color: "text.secondary", fontSize: 12 } } }}
+      slotProps={{ surplus: { sx: { bgcolor: "background.raised", color: "text.secondary", fontSize: 12 } } }}
     >
       {avatars.map((avatar, index) => (
         <Avatar key={avatar.alt ?? index} src={avatar.src} initials={avatar.initials} alt={avatar.alt} size={size} />

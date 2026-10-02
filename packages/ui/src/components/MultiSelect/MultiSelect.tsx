@@ -7,9 +7,10 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import type { SelectOption } from "../Select/Select";
-import { surfaceColors } from "../../tokens/colors";
 import { fontFamilies } from "../../tokens/typography";
 import { useThemeCheck } from "../../theme/useThemeCheck";
+import { alpha } from "@mui/material/styles";
+import { myconColors } from "../../theme/palette";
 
 export type MultiSelectDisplay = "text" | "chips" | "count";
 export type MultiSelectVariant = "outlined" | "filled" | "underline";
@@ -167,7 +168,7 @@ export function MultiSelect<T>({
         paper: {
           sx: {
             mt: 1,
-            boxShadow: "0 12px 32px rgba(54,52,85,0.15)",
+            boxShadow: (theme) => `0 12px 32px ${alpha(myconColors(theme).shadow, theme.palette.mode === "dark" ? 0.45 : 0.15)}`,
             "& .MuiAutocomplete-listbox": { maxHeight: 220 },
             // Sem o destaque azul de "selecionado" do Select: aqui o checkbox já indica a seleção.
             "& .MuiAutocomplete-listbox.MuiAutocomplete-listbox .MuiAutocomplete-option.MuiAutocomplete-option": {
@@ -176,7 +177,7 @@ export function MultiSelect<T>({
               fontWeight: 400,
               color: "text.primary",
               backgroundColor: "transparent",
-              "&.Mui-focused": { backgroundColor: surfaceColors.raised },
+              "&.Mui-focused": { backgroundColor: "background.raised" },
             },
           },
         },

@@ -6,8 +6,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import MuiTextField, { type TextFieldProps } from "@mui/material/TextField";
-import { semanticColors } from "../../tokens/colors";
 import { useThemeCheck } from "../../theme/useThemeCheck";
+import { alpha, type Theme } from "@mui/material/styles";
 
 export type NumericMaskType = "currency" | "number" | "percent";
 export type DocumentMaskType =
@@ -47,11 +47,11 @@ const LG_SIZE_SX = {
   "& .MuiInputBase-input": { padding: "14px 16px", fontSize: "1.05rem" },
 } as const;
 const READONLY_SX = { "& .MuiInputBase-input.Mui-disabled": { color: "text.primary", WebkitTextFillColor: "unset" } } as const;
-const SUCCESS_SX = {
-  "& .MuiOutlinedInput-notchedOutline": { borderColor: `${semanticColors.success} !important` },
-  "& .MuiOutlinedInput-root.Mui-focused": { boxShadow: "0 0 0 3px rgba(15,199,24,0.15)" },
-  "& .MuiFormHelperText-root": { color: "success.main" },
-} as const;
+const SUCCESS_SX = (theme: Theme) => ({
+  "& .MuiOutlinedInput-notchedOutline": { borderColor: `${theme.palette.success.main} !important` },
+  "& .MuiOutlinedInput-root.Mui-focused": { boxShadow: `0 0 0 3px ${alpha(theme.palette.success.main, 0.2)}` },
+  "& .MuiFormHelperText-root": { color: theme.palette.success.main },
+});
 
 /** Combina os estilos internos com o `sx` do chamador usando a forma de array do MUI (aceita `sx` objeto, array ou função). */
 function buildSx(

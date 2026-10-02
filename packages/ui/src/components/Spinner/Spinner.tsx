@@ -1,6 +1,5 @@
 import Box from "@mui/material/Box";
 import { keyframes } from "@mui/material/styles";
-import { brandColors, surfaceColors } from "../../tokens/colors";
 
 export type SpinnerSize = "xs" | "sm" | "md" | "lg";
 
@@ -30,8 +29,8 @@ export function Spinner({ size = "md", color = "primary", label = "Carregando" }
         height: px,
         boxSizing: "border-box",
         border: "3px solid",
-        borderColor: isPrimary ? surfaceColors.border : "rgba(255,255,255,0.4)",
-        borderTopColor: isPrimary ? brandColors.primary : "currentColor",
+        borderColor: isPrimary ? "divider" : "color-mix(in srgb, currentColor 35%, transparent)",
+        borderTopColor: isPrimary ? "primary.main" : "currentColor",
         borderRadius: "50%",
         animation: `${spin} 0.7s linear infinite`,
       }}

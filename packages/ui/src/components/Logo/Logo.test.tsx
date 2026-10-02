@@ -8,8 +8,9 @@ describe("Logo", () => {
     expect(screen.getByRole("img", { name: "Mycon" })).toBeInTheDocument();
   });
 
-  it("aplica a cor escolhida aos paths", () => {
+  it("aplica a cor escolhida ao logotipo", () => {
     const { container } = render(<Logo color="white" />);
-    container.querySelectorAll("path").forEach((path) => expect(path.getAttribute("fill")).toBe("#FFFFFF"));
+    expect(container.querySelector("svg")).toHaveStyle({ color: "#FFFFFF" });
+    container.querySelectorAll("path").forEach((path) => expect(path.getAttribute("fill")).toBe("currentColor"));
   });
 });

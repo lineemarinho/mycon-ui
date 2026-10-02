@@ -1,7 +1,6 @@
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
-import { surfaceColors } from "../../tokens/colors";
 
 export type IconActionButtonProps = {
   /** Usado como aria-label e como texto do tooltip. */
@@ -33,16 +32,16 @@ export function IconActionButton({ label, icon, onClick, disabled, color = "defa
             height: 36,
             padding: 0,
             borderRadius: "10px",
-            backgroundColor: color === "primary" ? "primary.main" : surfaceColors.raised,
-            color: color === "primary" ? "primary.contrastText" : "text.primary",
+            backgroundColor: color === "primary" ? "mycon.brand" : "background.raised",
+            color: color === "primary" ? "#FFFFFF" : "text.primary",
             "& .MuiSvgIcon-root": { fontSize: 20 },
             "&:hover": {
-              backgroundColor: color === "primary" ? "primary.dark" : surfaceColors.border,
+              backgroundColor: color === "primary" ? "mycon.brandHover" : "divider",
             },
             "&.Mui-disabled": {
               opacity: 0.4,
-              backgroundColor: color === "primary" ? "primary.main" : surfaceColors.raised,
-              color: color === "primary" ? "primary.contrastText" : "text.primary",
+              backgroundColor: color === "primary" ? "mycon.brand" : "background.raised",
+              color: color === "primary" ? "#FFFFFF" : "text.primary",
             },
           }}
         >

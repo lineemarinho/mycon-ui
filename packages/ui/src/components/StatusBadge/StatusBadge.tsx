@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { semanticColors, type SemanticColor } from "../../tokens/colors";
+import { semanticColors, semanticStrongColors, type SemanticColor } from "../../tokens/colors";
 import { fontFamilies } from "../../tokens/typography";
 
 export type StatusBadgeProps = {
@@ -17,7 +17,9 @@ export type StatusBadgeProps = {
  * MyconTag, "dot" inline) — ver AUDITORIA.md §1 e §3.
  */
 export function StatusBadge({ status, label, variant = "dot" }: StatusBadgeProps) {
+  // Bolinha: tom vivo (indicador). Tag com texto branco: tom AA.
   const color = semanticColors[status];
+  const fill = semanticStrongColors[status];
 
   if (variant === "tag") {
     return (
@@ -29,7 +31,7 @@ export function StatusBadge({ status, label, variant = "dot" }: StatusBadgeProps
           px: 1.5,
           py: 0.5,
           borderRadius: "100px",
-          backgroundColor: color,
+          backgroundColor: fill,
           color: "#FFFFFF",
           fontFamily: fontFamilies.heading,
           fontSize: "0.72rem",

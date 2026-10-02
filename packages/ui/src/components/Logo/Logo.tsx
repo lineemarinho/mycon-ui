@@ -1,5 +1,4 @@
 import Box from "@mui/material/Box";
-import { brandColors, textColors } from "../../tokens/colors";
 
 export type LogoColor = "default" | "brand" | "white";
 
@@ -12,9 +11,10 @@ export type LogoProps = {
   title?: string;
 };
 
+/** Caminhos de cor do tema: no modo escuro, "default" e "brand" clareiam sozinhos. */
 const COLOR: Record<LogoColor, string> = {
-  default: textColors.primary,
-  brand: brandColors.primary,
+  default: "text.primary",
+  brand: "primary.main",
   white: "#FFFFFF",
 };
 
@@ -26,7 +26,7 @@ const PATH_1 =
 
 /** Logotipo da Mycon em SVG — nítido em qualquer tamanho e sem arquivo externo. */
 export function Logo({ height = 26, color = "default", title = "Mycon" }: LogoProps) {
-  const fill = COLOR[color];
+  const fill = "currentColor";
   return (
     <Box
       component="svg"
@@ -35,7 +35,7 @@ export function Logo({ height = 26, color = "default", title = "Mycon" }: LogoPr
       viewBox="0 0 124 42"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      sx={{ height, width: "auto", display: "block", flexShrink: 0 }}
+      sx={{ height, width: "auto", display: "block", flexShrink: 0, color: COLOR[color] }}
     >
       <title>{title}</title>
       <path d={PATH_0} fill={fill} />

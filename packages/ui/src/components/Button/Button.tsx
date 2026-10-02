@@ -1,10 +1,10 @@
 import { forwardRef } from "react";
 import Box from "@mui/material/Box";
 import MuiButton, { type ButtonProps as MuiButtonProps } from "@mui/material/Button";
-import { alpha, darken, keyframes, styled } from "@mui/material/styles";
-import { brandColors, semanticColors, surfaceColors, textColors } from "../../tokens/colors";
+import { alpha, darken, keyframes, styled, type Theme } from "@mui/material/styles";
 import { fontFamilies } from "../../tokens/typography";
 import { useThemeCheck } from "../../theme/useThemeCheck";
+import { myconColors } from "../../theme/palette";
 
 export type ButtonVariant = "primary" | "secondary" | "tertiary" | "outline" | "danger" | "link";
 export type ButtonSize = "sm" | "md" | "lg";
@@ -43,13 +43,23 @@ const FORWARD_BLOCKLIST = new Set(["ownerVariant", "ownerSize", "ownerShape", "o
 
 const spin = keyframes`to { transform: rotate(360deg); }`;
 
-/** Fundo/texto sólidos de cada variante, conforme o catálogo. */
-const VARIANT_COLORS: Record<Exclude<ButtonVariant, "link" | "outline">, { bg: string; fg: string; hover: string }> = {
-  primary: { bg: brandColors.primary, fg: "#FFFFFF", hover: "#001ECC" },
-  secondary: { bg: textColors.primary, fg: "#FFFFFF", hover: darken(textColors.primary, 0.2) },
-  tertiary: { bg: surfaceColors.raised, fg: textColors.primary, hover: surfaceColors.border },
-  danger: { bg: semanticColors.error, fg: "#FFFFFF", hover: darken(semanticColors.error, 0.15) },
-};
+type SolidColors = { bg: string; fg: string; hover: string };
+
+/** Fundo/texto sólidos de cada variante, a partir do tema (claro ou escuro). */
+function variantColors(theme: Theme, variant: Exclude<ButtonVariant, "link" | "outline">): SolidColors {
+  const { text, background, divider } = theme.palette;
+  const mycon = myconColors(theme);
+  switch (variant) {
+    case "primary":
+      return { bg: mycon.brand, fg: "#FFFFFF", hover: mycon.brandHover };
+    case "secondary":
+      return { bg: text.primary, fg: background.paper, hover: alpha(text.primary, 0.85) };
+    case "tertiary":
+      return { bg: mycon.raised, fg: text.primary, hover: divider };
+    case "danger":
+      return { bg: mycon.statusFill.error, fg: "#FFFFFF", hover: darken(mycon.statusFill.error, 0.15) };
+  }
+}
 
 const SIZE_STYLE: Record<ButtonSize, { padding: string; fontSize: string }> = {
   sm: { padding: "7px 16px", fontSize: "0.74rem" },
@@ -67,16 +77,17 @@ const StyledButton = styled(MuiButton, {
   ownerIconOnly: boolean;
   ownerTone?: ButtonTone;
   ownerLoading: boolean;
-}>(({ ownerVariant, ownerSize, ownerShape, ownerWidth, ownerIconOnly, ownerTone, ownerLoading }) => {
-  const toneColor = ownerTone ? semanticColors[ownerTone] : undefined;
+}>(({ theme, ownerVariant, ownerSize, ownerShape, ownerWidth, ownerIconOnly, ownerTone, ownerLoading }) => {
+  // Fundo com texto branco: tom AA. Texto/borda colorida: cor de status do tema.
+  const toneFill = ownerTone ? myconColors(theme).statusFill[ownerTone] : undefined;
   const isLink = ownerVariant === "link";
   const isOutline = ownerVariant === "outline";
   const solid = isLink || isOutline
     ? undefined
-    : toneColor
-      ? { bg: toneColor, fg: "#FFFFFF", hover: darken(toneColor, 0.15) }
-      : VARIANT_COLORS[ownerVariant];
-  const linkColor = toneColor ?? brandColors.primary;
+    : toneFill
+      ? { bg: toneFill, fg: "#FFFFFF", hover: darken(toneFill, 0.15) }
+      : variantColors(theme, ownerVariant);
+  const linkColor = ownerTone ? theme.palette[ownerTone].main : theme.palette.primary.main;
   const sizeStyle = SIZE_STYLE[ownerSize];
 
   return {
@@ -93,7 +104,7 @@ const StyledButton = styled(MuiButton, {
     width: ownerWidth === "full" ? "100%" : undefined,
     ...sizeStyle,
     "&:hover, &:active": { boxShadow: "none" },
-    "&.Mui-focusVisible": { boxShadow: "none", outline: `2px solid ${brandColors.primary}`, outlineOffset: 2 },
+    "&.Mui-focusVisible": { boxShadow: "none", outline: `2px solid ${theme.palette.primary.main}`, outlineOffset: 2 },
     "&.Mui-disabled": { opacity: 0.45 },
     ...(solid && {
       backgroundColor: solid.bg,
@@ -193,8 +204,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
             m: "auto",
             width: 14,
             height: 14,
-            border: "2px solid rgba(255,255,255,0.5)",
-            borderTopColor: "#FFFFFF",
+            // Na cor do texto do botão: aparece tanto nos botões escuros quanto nos claros.
+            border: "2px solid color-mix(in srgb, currentColor 45%, transparent)",
+            borderTopColor: "currentColor",
             borderRadius: "50%",
             animation: `${spin} 0.7s linear infinite`,
           }}

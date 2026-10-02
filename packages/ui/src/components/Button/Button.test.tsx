@@ -1,6 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import { ThemeProvider } from "@mui/material/styles";
 import { Button } from "./Button";
+import { myconTheme } from "../../theme/theme";
+import { semanticStrongColors } from "../../tokens/colors";
 
 describe("Button", () => {
   it("renders children", () => {
@@ -43,22 +46,24 @@ describe("Button", () => {
     });
   });
 
-  it("applies the tone color regardless of variant", () => {
+  it("fills the tone with the AA-contrast shade regardless of variant", () => {
     render(
       <Button variant="secondary" tone="success">
         Confirmar
       </Button>,
     );
-    expect(screen.getByRole("button", { name: "Confirmar" })).toHaveStyle({ backgroundColor: "#0FC718" });
+    expect(screen.getByRole("button", { name: "Confirmar" })).toHaveStyle({ backgroundColor: semanticStrongColors.success });
   });
 
   it("applies the tone as text color for text-like variants", () => {
     render(
-      <Button variant="link" tone="warning">
-        Atenção
-      </Button>,
+      <ThemeProvider theme={myconTheme}>
+        <Button variant="link" tone="warning">
+          Atenção
+        </Button>
+      </ThemeProvider>,
     );
-    expect(screen.getByRole("button", { name: "Atenção" })).toHaveStyle({ color: "#F5A623" });
+    expect(screen.getByRole("button", { name: "Atenção" })).toHaveStyle({ color: semanticStrongColors.warning });
   });
 
   it("uses white text on the tone background, as in the catalog", () => {

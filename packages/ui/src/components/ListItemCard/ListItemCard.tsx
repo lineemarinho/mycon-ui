@@ -7,9 +7,11 @@ import Typography from "@mui/material/Typography";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import { IconActionButton } from "../IconActionButton/IconActionButton";
-import { semanticColors, surfaceColors, type SemanticColor } from "../../tokens/colors";
+import { semanticColors, type SemanticColor } from "../../tokens/colors";
 import { radius } from "../../tokens/radius";
 import { useThemeCheck } from "../../theme/useThemeCheck";
+import { alpha } from "@mui/material/styles";
+import { myconColors } from "../../theme/palette";
 
 /** Nº recomendado de colunas `KeyValueItem` por linha antes de precisar de `expandedContent`. */
 export const LIST_ITEM_CARD_MAX_COLUMNS = 6;
@@ -54,7 +56,8 @@ export function KeyValueItem({ title, value, showBorder = true, minWidth = 0, fl
         flex,
         minWidth,
         overflow: "hidden",
-        borderRight: showBorder ? `1px solid ${surfaceColors.border}` : "none",
+        borderRight: showBorder ? 1 : 0,
+        borderColor: "divider",
         pr: showBorder ? 2 : 0,
       }}
     >
@@ -100,10 +103,12 @@ export function ListItemCard({ status, children, actions, expandedContent, menuI
     <Box
       sx={{
         backgroundColor: "background.paper",
-        border: `1px solid ${surfaceColors.border}`,
+        border: 1,
+        borderColor: "divider",
         borderRadius: radius.lg,
-        borderLeft: status ? `8px solid ${semanticColors[status]}` : `1px solid ${surfaceColors.border}`,
-        boxShadow: "0 1px 2px rgba(54,52,85,0.06)",
+        // Barra lateral no tom vivo: é um indicador visual, sem texto em cima.
+        borderLeft: status ? `8px solid ${semanticColors[status]}` : undefined,
+        boxShadow: (theme) => `0 1px 2px ${alpha(myconColors(theme).shadow, theme.palette.mode === "dark" ? 0.3 : 0.06)}`,
         py: 2,
         pr: 2.5,
         pl: status ? 2 : 2.5,
@@ -170,7 +175,8 @@ export function ListItemCard({ status, children, actions, expandedContent, menuI
         <Collapse in={expanded}>
           <Box
             sx={{
-              borderTop: `1px solid ${surfaceColors.border}`,
+              borderTop: 1,
+              borderColor: "divider",
               mt: 1.5,
               pt: 2,
               pb: 0.5,

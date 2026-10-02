@@ -25,6 +25,20 @@ export const semanticColors = {
 } as const;
 
 /**
+ * Versões escuras das cores semânticas, para fundos com texto branco e para
+ * texto colorido sobre fundo claro — todas com contraste ≥ 4.5:1 (WCAG AA).
+ * Os tons vivos de `semanticColors` continuam nos indicadores sem texto
+ * (bolinha de status, barra lateral do card, barra de progresso).
+ */
+export const semanticStrongColors = {
+  success: "#0A8710",
+  warning: "#A36807",
+  error: "#DD3300",
+  neutral: "#757575",
+  info: "#1976D2",
+} as const;
+
+/**
  * Tons pastéis oficiais de mycon.com.br para fundo de alerta/banner
  * (--base-color-system--*), distintos dos tons sólidos de `semanticColors`.
  */

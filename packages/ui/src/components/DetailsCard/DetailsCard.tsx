@@ -1,6 +1,5 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { surfaceColors } from "../../tokens/colors";
 import { radius } from "../../tokens/radius";
 
 export type DetailRow = {
@@ -22,7 +21,8 @@ export function DetailsCard({ rows }: DetailsCardProps) {
   return (
     <Box
       sx={{
-        border: `1px solid ${surfaceColors.border}`,
+        border: 1,
+        borderColor: "divider",
         borderRadius: radius.md,
         px: "18px",
       }}
@@ -35,7 +35,8 @@ export function DetailsCard({ rows }: DetailsCardProps) {
             justifyContent: "space-between",
             gap: 2,
             py: 1.5,
-            borderTop: index === 0 ? "none" : `1px solid ${surfaceColors.border}`,
+            borderTop: index === 0 ? 0 : 1,
+            borderColor: "divider",
           }}
         >
           <Typography variant="body2" color="text.secondary" sx={{ fontSize: "0.85rem" }}>

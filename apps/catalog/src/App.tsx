@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Logo } from "mycon-ui";
+import { Logo, type MyconThemeMode } from "mycon-ui";
 import { navGroups, sections, type SectionContent } from "./content";
 import { demos } from "./demos";
 
@@ -88,7 +88,9 @@ const USAGE = `<span class="tag">import</span> { Button, Input } <span class="ta
   Confirmar
 <span class="tag">&lt;/Button&gt;</span>`;
 
-export default function App() {
+type AppProps = { mode: MyconThemeMode; onToggleMode: () => void };
+
+export default function App({ mode, onToggleMode }: AppProps) {
   const [query, setQuery] = useState("");
   const [active, setActive] = useState<string | null>(null);
   const searchRef = useRef<HTMLInputElement>(null);
@@ -148,6 +150,10 @@ export default function App() {
           />
           <span className="kbd-hint">/</span>
         </div>
+        <button type="button" className="theme-toggle" onClick={onToggleMode} aria-pressed={mode === "dark"}>
+          <span aria-hidden>{mode === "dark" ? "☀︎" : "☾"}</span>
+          {mode === "dark" ? "Tema claro" : "Tema escuro"}
+        </button>
         <img className="wordmark-logo-right" src={`${import.meta.env.BASE_URL}flow-logo.png`} alt="Flow Time" />
       </div>
 

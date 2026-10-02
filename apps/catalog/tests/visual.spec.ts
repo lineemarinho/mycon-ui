@@ -3,22 +3,24 @@ import { navGroups } from "../src/content";
 
 const sectionIds = navGroups.flatMap((group) => group.items.map((item) => item.id));
 
-async function openCatalog(page: Page) {
-  await page.goto("/");
+async function openCatalog(page: Page, tema: "claro" | "escuro" = "claro") {
+  await page.goto(`/?tema=${tema}`);
   // Espera as fontes do pacote: sem isso o print pode sair com a fonte do sistema.
   await page.evaluate(() => document.fonts.ready);
 }
 
-test.describe("prévias do catálogo", () => {
-  for (const id of sectionIds) {
-    test(id, async ({ page }) => {
-      await openCatalog(page);
-      const preview = page.locator(`section#${id} .preview`);
-      await preview.scrollIntoViewIfNeeded();
-      await expect(preview).toHaveScreenshot(`${id}.png`);
-    });
-  }
-});
+for (const tema of ["claro", "escuro"] as const) {
+  test.describe(`prévias do catálogo (tema ${tema})`, () => {
+    for (const id of sectionIds) {
+      test(id, async ({ page }) => {
+        await openCatalog(page, tema);
+        const preview = page.locator(`section#${id} .preview`);
+        await preview.scrollIntoViewIfNeeded();
+        await expect(preview).toHaveScreenshot(tema === "claro" ? `${id}.png` : `${id}-escuro.png`);
+      });
+    }
+  });
+}
 
 test.describe("estados abertos", () => {
   for (const id of ["confirmdialog", "modal", "drawer", "filterpanel"]) {

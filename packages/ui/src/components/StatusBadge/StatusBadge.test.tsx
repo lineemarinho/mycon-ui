@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { StatusBadge } from "./StatusBadge";
-import { semanticColors } from "../../tokens/colors";
+import { semanticStrongColors } from "../../tokens/colors";
 
 describe("StatusBadge", () => {
   it("renders the label", () => {
@@ -9,9 +9,9 @@ describe("StatusBadge", () => {
     expect(screen.getByText("Ativo")).toBeInTheDocument();
   });
 
-  it("uses the semantic color for the tag variant", () => {
+  it("fills the tag with the AA-contrast shade of the status", () => {
     render(<StatusBadge status="error" label="Cancelado" variant="tag" />);
-    expect(screen.getByText("Cancelado")).toHaveStyle({ backgroundColor: semanticColors.error });
+    expect(screen.getByText("Cancelado")).toHaveStyle({ backgroundColor: semanticStrongColors.error });
   });
 
   it("uses white text on the tag, as in the catalog", () => {

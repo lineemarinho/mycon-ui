@@ -18,6 +18,24 @@
     --code-bg: #363455;
     --code-ink: #E8E9F7;
     --focus-ring: #0131FF;
+    --selected-bg: #EEF1FF;
+  }
+
+  /* Modo escuro: mesmas cores do myconDarkTheme. */
+  :root[data-theme="dark"] {
+    --accent: #7A90FF;
+    --accent-hover: #9DAEFF;
+    --ink: #F1F1F7;
+    --ink-soft: #A9A8C6;
+    --paper: #15142A;
+    --surface: #1E1D36;
+    --surface-raised: #28274A;
+    --line: #3A3960;
+    --code-bg: #0E0D1F;
+    --code-ink: #E8E9F7;
+    --focus-ring: #7A90FF;
+    --selected-bg: rgba(122, 144, 255, 0.18);
+    color-scheme: dark;
   }
 
   * { box-sizing: border-box; }
@@ -200,7 +218,7 @@
   }
 
   .nav-link:hover { background: var(--surface-raised); }
-  .nav-link.active { background: #EEF1FF; color: var(--accent); font-weight: 600; }
+  .nav-link.active { background: var(--selected-bg); color: var(--accent); font-weight: 600; }
   .nav-link[hidden] { display: none; }
 
   .nav-dot {
@@ -299,7 +317,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--accent);
-    background: #EEF1FF;
+    background: var(--selected-bg);
     border-radius: 100px;
     padding: 2px 10px;
   }
@@ -391,3 +409,14 @@
     main { padding: 28px 16px 80px; max-width: 100%; }
     .topbar { flex-wrap: wrap; }
   }
+
+/* ---------- Alternar tema ---------- */
+.theme-toggle {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-left: auto; padding: 7px 12px; border-radius: 100px;
+  border: 1px solid var(--line); background: var(--surface-raised); color: var(--ink);
+  font-family: inherit; font-size: 0.8rem; cursor: pointer; flex-shrink: 0;
+}
+.theme-toggle:hover { border-color: var(--ink-soft); }
+.theme-toggle + .wordmark-logo-right { margin-left: 16px; }
+:root[data-theme="dark"] .wordmark-logo-right { filter: invert(1) hue-rotate(180deg); }

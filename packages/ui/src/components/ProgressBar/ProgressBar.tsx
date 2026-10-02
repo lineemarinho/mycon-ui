@@ -1,4 +1,5 @@
 import MuiLinearProgress from "@mui/material/LinearProgress";
+import { semanticColors } from "../../tokens/colors";
 
 export type ProgressBarProps = {
   value?: number;
@@ -13,6 +14,8 @@ export function ProgressBar({ value, variant = "determinate", color = "primary" 
       value={value}
       color={color}
       aria-valuenow={value}
+      // Barra sem texto: mantém os tons vivos de status (o contraste AA vale para texto).
+      sx={color === "primary" ? undefined : { "& .MuiLinearProgress-bar": { backgroundColor: semanticColors[color] } }}
     />
   );
 }
