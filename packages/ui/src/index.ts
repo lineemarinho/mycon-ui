@@ -1,3 +1,4 @@
+import "./fonts";
 export * from "./components/Button";
 export * from "./components/ScrollArea";
 export * from "./components/StatusBadge";
@@ -36,3 +37,4 @@ export * from "./components/Toast";
 export * from "./components/Alert";
 export * from "./components/Popover";
 export * from "./tokens";
+export * from "./theme";

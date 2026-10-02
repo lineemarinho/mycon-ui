@@ -6,10 +6,10 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build --workspace=@mycon/ui",
-    "dev": "npm run dev --workspace=@mycon/ui",
-    "test": "npm run test --workspace=@mycon/ui",
-    "typecheck": "npm run typecheck --workspace=@mycon/ui",
+    "build": "npm run build --workspace=mycon-ui",
+    "dev": "npm run dev --workspace=mycon-ui",
+    "test": "npm run test --workspace=mycon-ui",
+    "typecheck": "npm run typecheck --workspace=mycon-ui",
     "changeset": "changeset",
     "release": "npm run build && changeset publish"
   },

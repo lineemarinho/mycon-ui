@@ -1,12 +1,12 @@
 # mycon-ui
 
-Monorepo do design system compartilhado do backoffice Mycon (`@mycon/ui`).
+Monorepo do design system compartilhado do backoffice Mycon (`mycon-ui`).
 
 ## Estrutura
 
 ```
 packages/
-  ui/       pacote publicável @mycon/ui (componentes + tokens)
+  ui/       pacote publicável mycon-ui (componentes + tokens)
 ```
 
 ## Decisões de arquitetura
@@ -17,8 +17,8 @@ Ver `DECISIONS.md` no repositório `backoffice-gerenciar-cotas-front` para o his
 
 ```bash
 npm install
-npm run build --workspace=@mycon/ui
-npm run test --workspace=@mycon/ui
+npm run build --workspace=mycon-ui
+npm run test --workspace=mycon-ui
 ```
 
 ## Status

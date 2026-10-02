@@ -1,5 +1,5 @@
 ---
-"@mycon/ui": minor
+"mycon-ui": minor
 ---
 
 Correções de bugs:
