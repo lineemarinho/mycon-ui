@@ -1,5 +1,5 @@
 /**
- * Famílias tipográficas oficiais (as mesmas do catálogo em docs/catalog.html).
+ * Famílias tipográficas oficiais do design system.
  * Os arquivos de fonte vêm embutidos no pacote (ver src/fonts.ts).
  */
 export const fontFamilies = {

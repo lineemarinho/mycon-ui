@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import MuiTextField, { type TextFieldProps } from "@mui/material/TextField";
 import { semanticColors } from "../../tokens/colors";
+import { useThemeCheck } from "../../theme/useThemeCheck";
 
 export type NumericMaskType = "currency" | "number" | "percent";
 export type DocumentMaskType =
@@ -310,6 +311,7 @@ export type InputProps = NumericMaskInputProps | DocumentMaskInputProps | PlainI
  * chamador já tenha passado os seus).
  */
 export const Input = forwardRef<HTMLDivElement, InputProps>(function Input(props, ref) {
+  useThemeCheck();
   const [showPassword, setShowPassword] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
 

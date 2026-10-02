@@ -7,6 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import Typography from "@mui/material/Typography";
+import { useThemeCheck } from "../../theme/useThemeCheck";
 
 export type DataTableColumn<T> = {
   key: string;
@@ -47,6 +48,7 @@ export function DataTable<T>({
   onPageChange,
   emptyMessage = "Nenhum registro encontrado.",
 }: DataTableProps<T>) {
+  useThemeCheck();
   return (
     <Box>
       <Table>

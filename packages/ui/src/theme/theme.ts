@@ -3,11 +3,12 @@ import { alpha, createTheme, type ThemeOptions } from "@mui/material/styles";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { brandColors, semanticColors, surfaceColors, textColors } from "../tokens/colors";
 import { fontFamilies } from "../tokens/typography";
+import "./useThemeCheck";
 
 /** Como no catálogo: Montserrat só em h1–h3, botões e overline; h4–h6 seguem em Raleway. */
 const headingVariants = ["h1", "h2", "h3", "button", "overline"] as const;
 
-/** Valores do catálogo (docs/catalog.html) — fonte da verdade do visual. */
+/** Cores e medidas do design system (visual de referência: catálogo em apps/catalog). */
 const ink = textColors.primary;
 const inkSoft = textColors.secondary;
 const line = surfaceColors.border;
@@ -24,6 +25,7 @@ const backdrop = alpha(ink, 0.35);
  * tiver um tema próprio, ou use `myconTheme` diretamente.
  */
 export const myconThemeOptions: ThemeOptions = {
+  mycon: { version: 1 },
   palette: {
     primary: { main: brandColors.primary, dark: accentHover, contrastText: "#FFFFFF" },
     secondary: { main: brandColors.darkPrimary, contrastText: "#FFFFFF" },
@@ -173,15 +175,19 @@ export const myconThemeOptions: ThemeOptions = {
     // ---- Seleção ----
     MuiCheckbox: {
       defaultProps: { disableRipple: true },
-      styleOverrides: { root: { color: inkSoft, padding: 6 } },
+      styleOverrides: { root: { color: inkSoft, padding: 3 } },
     },
     MuiRadio: {
       defaultProps: { disableRipple: true },
-      styleOverrides: { root: { color: inkSoft, padding: 6 } },
+      styleOverrides: {
+        // Círculo visível de ~18px (sm ~14px), como os radios do catálogo.
+        root: { color: inkSoft, padding: 3, "& .MuiSvgIcon-root": { fontSize: 21 } },
+        sizeSmall: { "& .MuiSvgIcon-root": { fontSize: 17 } },
+      },
     },
     MuiFormControlLabel: {
       styleOverrides: {
-        root: { marginLeft: -6, marginRight: 0, gap: 2 },
+        root: { marginLeft: -3, marginRight: 0, gap: 2 },
         label: { fontSize: "0.88rem", color: ink, "&.Mui-disabled": { color: ink } },
       },
     },

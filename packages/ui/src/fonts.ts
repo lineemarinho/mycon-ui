@@ -1,7 +1,7 @@
 /**
  * Fontes do design system embutidas no pacote via @fontsource: o bundler do
  * app consumidor copia os .woff2 junto do build, sem depender de CDN.
- * Pesos alinhados aos usados em docs/catalog.html.
+ * Pesos alinhados aos usados no catálogo (apps/catalog).
  */
 import "@fontsource/raleway/400.css";
 import "@fontsource/raleway/500.css";

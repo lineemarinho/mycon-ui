@@ -29,7 +29,7 @@ export type RadioGroupFieldProps<T extends string> = {
 
 const SIZE_TO_MUI: Record<RadioGroupFieldSize, "small" | "medium"> = { sm: "small", md: "medium", lg: "medium" };
 /** ~20% maior que o ícone padrão (24px) do Radio "medium" do MUI, usado quando `size="lg"`. */
-const LG_ICON_SX = { "& .MuiSvgIcon-root": { fontSize: "1.75rem" } } as const;
+const LG_ICON_SX = { "& .MuiSvgIcon-root": { fontSize: 26 } } as const;
 
 /** Grupo de radio buttons com label e mensagem de erro/ajuda integradas. */
 export function RadioGroupField<T extends string>({

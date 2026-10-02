@@ -9,6 +9,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { IconActionButton } from "../IconActionButton/IconActionButton";
 import { semanticColors, surfaceColors, type SemanticColor } from "../../tokens/colors";
 import { radius } from "../../tokens/radius";
+import { useThemeCheck } from "../../theme/useThemeCheck";
 
 /** Nº recomendado de colunas `KeyValueItem` por linha antes de precisar de `expandedContent`. */
 export const LIST_ITEM_CARD_MAX_COLUMNS = 6;
@@ -80,6 +81,7 @@ export function KeyValueItem({ title, value, showBorder = true, minWidth = 0, fl
  * info. Em dev, um aviso no console sinaliza se esse limite for excedido.
  */
 export function ListItemCard({ status, children, actions, expandedContent, menuItems }: ListItemCardProps) {
+  useThemeCheck();
   const [expanded, setExpanded] = useState(false);
   const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
 

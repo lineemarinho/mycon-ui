@@ -4,6 +4,7 @@ import MuiButton, { type ButtonProps as MuiButtonProps } from "@mui/material/But
 import { alpha, darken, keyframes, styled } from "@mui/material/styles";
 import { brandColors, semanticColors, surfaceColors, textColors } from "../../tokens/colors";
 import { fontFamilies } from "../../tokens/typography";
+import { useThemeCheck } from "../../theme/useThemeCheck";
 
 export type ButtonVariant = "primary" | "secondary" | "tertiary" | "outline" | "danger" | "link";
 export type ButtonSize = "sm" | "md" | "lg";
@@ -42,7 +43,7 @@ const FORWARD_BLOCKLIST = new Set(["ownerVariant", "ownerSize", "ownerShape", "o
 
 const spin = keyframes`to { transform: rotate(360deg); }`;
 
-/** Fundo/texto sólidos de cada variante (docs/catalog.html, `.mock-btn`). */
+/** Fundo/texto sólidos de cada variante, conforme o catálogo. */
 const VARIANT_COLORS: Record<Exclude<ButtonVariant, "link" | "outline">, { bg: string; fg: string; hover: string }> = {
   primary: { bg: brandColors.primary, fg: "#FFFFFF", hover: "#001ECC" },
   secondary: { bg: textColors.primary, fg: "#FFFFFF", hover: darken(textColors.primary, 0.2) },
@@ -144,6 +145,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   },
   ref,
 ) {
+  useThemeCheck();
   const muiVariant = VARIANT_TO_MUI[variant];
   const isDisabled = disabled || isLoading;
 

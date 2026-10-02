@@ -46,7 +46,7 @@ import { Button, Input, Logo, brandColors } from "mycon-ui";
 <Button variant="outline">Cancelar</Button>
 ```
 
-O visual de cada componente segue o catálogo em `docs/catalog.html` — use o `myconTheme` para que fique idêntico.
+O catálogo com todos os componentes, props e exemplos fica em `apps/catalog` (`npm run catalog` na raiz do repositório). Use o `myconTheme` para que o visual fique idêntico ao catálogo.
 
 ## Tokens
 

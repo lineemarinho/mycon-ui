@@ -1,5 +1,6 @@
 import MuiAutocomplete from "@mui/material/Autocomplete";
 import MuiTextField, { type TextFieldProps } from "@mui/material/TextField";
+import { useThemeCheck } from "../../theme/useThemeCheck";
 
 export type SelectOption<T> = {
   value: T;
@@ -63,6 +64,7 @@ export function Select<T>({
   variant = "outlined",
   size = "md",
 }: SelectProps<T>) {
+  useThemeCheck();
   const selected = options.find((option) => option.value === value) ?? null;
 
   return (

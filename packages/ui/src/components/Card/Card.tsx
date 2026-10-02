@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import { surfaceColors } from "../../tokens/colors";
 import { radius } from "../../tokens/radius";
+import { useThemeCheck } from "../../theme/useThemeCheck";
 
 export type CardProps = {
   variant?: "outlined" | "elevated" | "filled";
@@ -10,6 +11,7 @@ export type CardProps = {
 
 /** Container genérico de card — bloco de construção para telas específicas. */
 export function Card({ variant = "outlined", children, onClick }: CardProps) {
+  useThemeCheck();
   return (
     <Box
       onClick={onClick}

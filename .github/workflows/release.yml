@@ -1,0 +1,38 @@
+name: Release
+
+# A cada push na main: se houver changesets pendentes, abre/atualiza o PR "Versionar pacotes";
+# quando esse PR é mergeado, publica a nova versão no npm.
+on:
+  push:
+    branches: [main]
+
+concurrency: release
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write # publicação no npm via Trusted Publishing (sem token salvo)
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          registry-url: https://registry.npmjs.org
+      # Trusted Publishing exige npm 11.5.1 ou mais novo.
+      - run: npm install -g npm@latest
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - uses: changesets/action@v1
+        with:
+          version: npx changeset version
+          publish: npm run release
+          commit: Versionar pacotes
+          title: Versionar pacotes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -37,13 +37,13 @@ export const alertTintColors = {
   errorText: "#3B0B0B",
 } as const;
 
-/** Superfícies e bordas do catálogo (docs/catalog.html: --surface-raised, --line). */
+/** Superfícies e bordas do design system. */
 export const surfaceColors = {
   raised: "#F5F6FC",
   border: "#E4E7EC",
 } as const;
 
-/** Cores de texto do catálogo (docs/catalog.html: --ink, --ink-soft). */
+/** Cores de texto do design system (principal e secundária). */
 export const textColors = {
   primary: "#363455",
   secondary: "#6B6A8A",

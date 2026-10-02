@@ -9,6 +9,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import type { SelectOption } from "../Select/Select";
 import { surfaceColors } from "../../tokens/colors";
 import { fontFamilies } from "../../tokens/typography";
+import { useThemeCheck } from "../../theme/useThemeCheck";
 
 export type MultiSelectDisplay = "text" | "chips" | "count";
 export type MultiSelectVariant = "outlined" | "filled" | "underline";
@@ -49,7 +50,7 @@ const uncheckedIcon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 const CHECKBOX_SX = { p: 0, "& .MuiSvgIcon-root": { fontSize: 20 } } as const;
 /**
- * Label flutuante sobre a borda (docs/catalog.html, `.mock-multiselect-label`) —
+ * Label flutuante sobre a borda, como no catálogo —
  * diferente dos demais campos, que usam o label acima do campo (ver tema).
  */
 const FLOATING_LABEL_SX = {
@@ -108,6 +109,7 @@ export function MultiSelect<T>({
   size = "md",
   loading,
 }: MultiSelectProps<T>) {
+  useThemeCheck();
   const selected = options.filter((option) => value.includes(option.value));
   const allSelected = options.length > 0 && selected.length === options.length;
   const someSelected = selected.length > 0 && !allSelected;

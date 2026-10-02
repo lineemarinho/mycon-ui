@@ -19,6 +19,8 @@ export function AvatarGroup({ avatars, max = 4, size = "md" }: AvatarGroupProps)
     <MuiAvatarGroup
       max={max}
       spacing={10}
+      // O MUI monta o grupo em row-reverse: sem isso ele fica alinhado à direita.
+      sx={{ display: "inline-flex", justifyContent: "flex-end", "& .MuiAvatar-root": { boxSizing: "border-box" } }}
       slotProps={{ surplus: { sx: { bgcolor: surfaceColors.raised, color: "text.secondary", fontSize: 12 } } }}
     >
       {avatars.map((avatar, index) => (

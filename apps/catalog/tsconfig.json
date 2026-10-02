@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "types": ["vite/client"],
+    "paths": { "mycon-ui": ["../../packages/ui/src/index.ts"] }
+  },
+  "include": ["src", "tests", "vite.config.ts", "playwright.config.ts"]
+}

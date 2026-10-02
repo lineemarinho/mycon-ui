@@ -3,13 +3,18 @@
   "private": true,
   "version": "0.0.0",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "apps/*"
   ],
   "scripts": {
     "build": "npm run build --workspace=mycon-ui",
     "dev": "npm run dev --workspace=mycon-ui",
     "test": "npm run test --workspace=mycon-ui",
-    "typecheck": "npm run typecheck --workspace=mycon-ui",
+    "typecheck": "npm run typecheck --workspace=mycon-ui && npm run typecheck --workspace=mycon-catalog",
+    "catalog": "npm run dev --workspace=mycon-catalog",
+    "catalog:build": "npm run build --workspace=mycon-catalog",
+    "test:visual": "bash scripts/visual-tests.sh",
+    "test:visual:update": "bash scripts/visual-tests.sh --update-snapshots",
     "changeset": "changeset",
     "release": "npm run build && changeset publish"
   },
