@@ -14,7 +14,7 @@ export function Drawer({ open, onClose, anchor = "right", children, width = 320 
   const isHorizontal = anchor === "left" || anchor === "right";
   return (
     <MuiDrawer anchor={anchor} open={open} onClose={onClose}>
-      <Box sx={{ width: isHorizontal ? width : "auto", p: 3 }}>{children}</Box>
+      <Box sx={{ width: isHorizontal ? `min(${width}px, 88vw)` : "auto", p: 3 }}>{children}</Box>
     </MuiDrawer>
   );
 }

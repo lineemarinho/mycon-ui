@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 import MuiTextField, { type TextFieldProps } from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import { semanticColors } from "../../tokens/colors";
 
 export type TextareaVariant = "outlined" | "filled";
 export type TextareaResize = "none" | "vertical" | "horizontal" | "both";
@@ -32,10 +33,10 @@ const VARIANT_TO_MUI: Record<TextareaVariant, TextFieldProps["variant"]> = {
   filled: "filled",
 };
 const SIZE_TO_MUI: Record<TextareaSize, "small" | "medium"> = { sm: "small", md: "medium", lg: "medium" };
-/** Bump de ~15-20% sobre o padding/fonte padrão do TextField "medium" do MUI, usado quando `size="lg"`. */
+/** `size="lg"` do catálogo: padding 14px 16px e fonte 1.05rem (o label não muda). */
 const LG_SIZE_SX = {
-  "& .MuiInputBase-input": { padding: "19px 14px", fontSize: "1.05rem" },
-  "& .MuiInputLabel-root": { fontSize: "1.05rem" },
+  "& .MuiInputBase-multiline": { padding: "14px 16px" },
+  "& .MuiInputBase-input": { fontSize: "1.05rem" },
 } as const;
 
 /** Área de texto multi-linha, wrapper sobre `TextField` (`multiline`) do MUI. */
@@ -82,12 +83,11 @@ export const Textarea = forwardRef<HTMLDivElement, TextareaProps>(function Texta
         slotProps={slotProps}
         sx={[
           { "& textarea": { resize } },
-          Boolean(effectiveReadOnly) && { "& .Mui-disabled": { color: "text.primary", WebkitTextFillColor: "unset" } },
+          Boolean(effectiveReadOnly) && { "& .MuiInputBase-input.Mui-disabled": { color: "text.primary", WebkitTextFillColor: "unset" } },
           Boolean(success && !error) && {
-            "& .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
-            "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
-            "& .Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
-            "& .MuiInputLabel-root.Mui-focused": { color: "success.main" },
+            "& .MuiOutlinedInput-notchedOutline": { borderColor: `${semanticColors.success} !important` },
+            "& .MuiOutlinedInput-root.Mui-focused": { boxShadow: "0 0 0 3px rgba(15,199,24,0.15)" },
+            "& .MuiFormHelperText-root": { color: "success.main" },
           },
           size === "lg" && LG_SIZE_SX,
           ...(Array.isArray(sx) ? sx : [sx]),
@@ -95,7 +95,7 @@ export const Textarea = forwardRef<HTMLDivElement, TextareaProps>(function Texta
         {...rest}
       />
       {counter && maxLength !== undefined && (
-        <Typography variant="caption" color="text.secondary" sx={{ display: "block", textAlign: "right", mt: 0.5 }}>
+        <Typography variant="caption" color="text.secondary" sx={{ display: "block", textAlign: "right", mt: "6px", fontSize: "0.72rem" }}>
           {currentLength}/{maxLength}
         </Typography>
       )}

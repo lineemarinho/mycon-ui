@@ -1,12 +1,11 @@
 import { forwardRef } from "react";
 import Box from "@mui/material/Box";
-import CircularProgress from "@mui/material/CircularProgress";
 import MuiButton, { type ButtonProps as MuiButtonProps } from "@mui/material/Button";
-import { darken, styled } from "@mui/material/styles";
-import { semanticColors } from "../../tokens/colors";
-import { contrastTextFor } from "../../utils/contrastText";
+import { alpha, darken, keyframes, styled } from "@mui/material/styles";
+import { brandColors, semanticColors, surfaceColors, textColors } from "../../tokens/colors";
+import { fontFamilies } from "../../tokens/typography";
 
-export type ButtonVariant = "primary" | "secondary" | "tertiary" | "danger" | "link";
+export type ButtonVariant = "primary" | "secondary" | "tertiary" | "outline" | "danger" | "link";
 export type ButtonSize = "sm" | "md" | "lg";
 export type ButtonShape = "square" | "rounded" | "pill";
 export type ButtonWidth = "auto" | "full";
@@ -29,72 +28,105 @@ export type ButtonProps = Omit<MuiButtonProps, "variant" | "size" | "color"> & {
 };
 
 const SIZE_TO_MUI: Record<ButtonSize, MuiButtonProps["size"]> = { sm: "small", md: "medium", lg: "large" };
-const SHAPE_RADIUS: Record<ButtonShape, string> = { square: "4px", rounded: "8px", pill: "999px" };
+const SHAPE_RADIUS: Record<ButtonShape, string> = { square: "4px", rounded: "8px", pill: "500rem" };
 const VARIANT_TO_MUI: Record<ButtonVariant, { variant: MuiButtonProps["variant"]; color?: MuiButtonProps["color"] }> = {
   primary: { variant: "contained", color: "primary" },
   secondary: { variant: "contained", color: "secondary" },
   tertiary: { variant: "text" },
+  outline: { variant: "outlined" },
   danger: { variant: "contained", color: "error" },
   link: { variant: "text" },
 };
 
-const FORWARD_BLOCKLIST = new Set(["ownerVariant", "ownerShape", "ownerWidth", "ownerIconOnly", "ownerTone"]);
+const FORWARD_BLOCKLIST = new Set(["ownerVariant", "ownerSize", "ownerShape", "ownerWidth", "ownerIconOnly", "ownerTone", "ownerLoading"]);
+
+const spin = keyframes`to { transform: rotate(360deg); }`;
+
+/** Fundo/texto sólidos de cada variante (docs/catalog.html, `.mock-btn`). */
+const VARIANT_COLORS: Record<Exclude<ButtonVariant, "link" | "outline">, { bg: string; fg: string; hover: string }> = {
+  primary: { bg: brandColors.primary, fg: "#FFFFFF", hover: "#001ECC" },
+  secondary: { bg: textColors.primary, fg: "#FFFFFF", hover: darken(textColors.primary, 0.2) },
+  tertiary: { bg: surfaceColors.raised, fg: textColors.primary, hover: surfaceColors.border },
+  danger: { bg: semanticColors.error, fg: "#FFFFFF", hover: darken(semanticColors.error, 0.15) },
+};
+
+const SIZE_STYLE: Record<ButtonSize, { padding: string; fontSize: string }> = {
+  sm: { padding: "7px 16px", fontSize: "0.74rem" },
+  md: { padding: "10px 24px", fontSize: "0.82rem" },
+  lg: { padding: "13px 30px", fontSize: "0.9rem" },
+};
 
 const StyledButton = styled(MuiButton, {
   shouldForwardProp: (prop) => !FORWARD_BLOCKLIST.has(prop as string),
 })<{
   ownerVariant: ButtonVariant;
+  ownerSize: ButtonSize;
   ownerShape: ButtonShape;
   ownerWidth: ButtonWidth;
   ownerIconOnly: boolean;
   ownerTone?: ButtonTone;
-}>(({ theme, ownerVariant, ownerShape, ownerWidth, ownerIconOnly, ownerTone }) => {
-  const isTextLike = ownerVariant === "tertiary" || ownerVariant === "link";
+  ownerLoading: boolean;
+}>(({ ownerVariant, ownerSize, ownerShape, ownerWidth, ownerIconOnly, ownerTone, ownerLoading }) => {
   const toneColor = ownerTone ? semanticColors[ownerTone] : undefined;
+  const isLink = ownerVariant === "link";
+  const isOutline = ownerVariant === "outline";
+  const solid = isLink || isOutline
+    ? undefined
+    : toneColor
+      ? { bg: toneColor, fg: "#FFFFFF", hover: darken(toneColor, 0.15) }
+      : VARIANT_COLORS[ownerVariant];
+  const linkColor = toneColor ?? brandColors.primary;
+  const sizeStyle = SIZE_STYLE[ownerSize];
 
   return {
     position: "relative",
+    minWidth: 0,
+    border: "none",
+    boxShadow: "none",
+    textTransform: "none",
+    fontFamily: fontFamilies.heading,
+    fontWeight: 700,
+    lineHeight: 1.3,
+    letterSpacing: "normal",
     borderRadius: SHAPE_RADIUS[ownerShape],
     width: ownerWidth === "full" ? "100%" : undefined,
-    ...(ownerIconOnly && { minWidth: 0, paddingLeft: 8, paddingRight: 8, aspectRatio: "1 / 1" }),
-    ...(ownerVariant === "tertiary" && {
-      backgroundColor: theme.palette.grey[100],
-      color: theme.palette.text.primary,
-      "&:hover": { backgroundColor: theme.palette.grey[200] },
+    ...sizeStyle,
+    "&:hover, &:active": { boxShadow: "none" },
+    "&.Mui-focusVisible": { boxShadow: "none", outline: `2px solid ${brandColors.primary}`, outlineOffset: 2 },
+    "&.Mui-disabled": { opacity: 0.45 },
+    ...(solid && {
+      backgroundColor: solid.bg,
+      color: solid.fg,
+      "&:hover": { backgroundColor: solid.hover, boxShadow: "none" },
+      // Carregando: mantém a cor cheia (o spinner já indica o estado), como no catálogo.
+      "&.Mui-disabled": { opacity: ownerLoading ? 1 : 0.45, backgroundColor: solid.bg, color: solid.fg },
     }),
-    ...(ownerVariant === "link" && {
+    ...(isLink && {
       backgroundColor: "transparent",
-      color: theme.palette.primary.main,
+      color: linkColor,
       textDecoration: "underline",
       textUnderlineOffset: "2px",
       padding: 0,
-      minWidth: 0,
-      "&:hover": { backgroundColor: "transparent" },
+      borderRadius: 0,
+      "&:hover": { backgroundColor: "transparent", textDecoration: "underline" },
+      "&.Mui-disabled": { opacity: 0.45, color: linkColor },
     }),
-    ...(toneColor &&
-      !isTextLike && {
-        backgroundColor: toneColor,
-        color: contrastTextFor(toneColor),
-        "&:hover": { backgroundColor: darken(toneColor, 0.15) },
-      }),
-    ...(toneColor &&
-      isTextLike && {
-        color: toneColor,
-      }),
+    ...(isOutline && {
+      backgroundColor: "transparent",
+      color: linkColor,
+      border: `1.5px solid ${linkColor}`,
+      // Compensa a borda para manter a mesma altura das variantes sólidas.
+      padding: sizeStyle.padding
+        .split(" ")
+        .map((value) => `calc(${value} - 1.5px)`)
+        .join(" "),
+      "&:hover": { backgroundColor: alpha(linkColor, 0.06), border: `1.5px solid ${linkColor}` },
+      "&.Mui-disabled": { opacity: ownerLoading ? 1 : 0.45, color: linkColor, border: `1.5px solid ${linkColor}` },
+    }),
+    ...(ownerIconOnly && { padding: 10, aspectRatio: "1 / 1" }),
   };
 });
 
-/**
- * Botão de ação. `variant`/`size`/`isLoading`/`disabled` espelham o que já
- * era usado via `MyconButtons` nos 11 repos auditados; `icon`/`iconPosition`/
- * `iconOnly`/`width`/`shape` cobrem o restante do levantamento de props
- * (ver PROPS-SPEC.md) sem exigir um componente `IconButton` à parte para o
- * caso `iconOnly` (que ainda existe como `IconActionButton` para o caso
- * específico de ícone + tooltip embutido). `tone` sobrepõe a cor semântica
- * (info/success/warning/error) por cima de qualquer `variant`, já que cor
- * (o que o botão significa) e estilo (contained/text/link) são dimensões
- * independentes.
- */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
     variant = "primary",
@@ -106,7 +138,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     iconPosition = "left",
     iconOnly,
     width = "auto",
-    shape = "rounded",
+    shape = "pill",
     children,
     ...rest
   },
@@ -118,11 +150,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   return (
     <StyledButton
       ref={ref}
+      disableRipple
       ownerVariant={variant}
+      ownerSize={size}
       ownerShape={shape}
       ownerWidth={width}
       ownerIconOnly={Boolean(iconOnly)}
       ownerTone={tone}
+      ownerLoading={Boolean(isLoading)}
       variant={muiVariant.variant}
       color={muiVariant.color}
       size={SIZE_TO_MUI[size]}
@@ -136,7 +171,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         sx={{
           display: "inline-flex",
           alignItems: "center",
-          gap: icon && !iconOnly ? 1 : 0,
+          gap: icon && !iconOnly ? 0.75 : 0,
+          "& .MuiSvgIcon-root": { fontSize: 16 },
           flexDirection: iconPosition === "right" ? "row-reverse" : "row",
           visibility: isLoading ? "hidden" : "visible",
         }}
@@ -145,10 +181,21 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         {!iconOnly && children}
       </Box>
       {isLoading && (
-        <CircularProgress
-          size={16}
-          color="inherit"
-          sx={{ position: "absolute", top: "50%", left: "50%", marginTop: "-8px", marginLeft: "-8px" }}
+        <Box
+          component="span"
+          role="progressbar"
+          aria-label="Carregando"
+          sx={{
+            position: "absolute",
+            inset: 0,
+            m: "auto",
+            width: 14,
+            height: 14,
+            border: "2px solid rgba(255,255,255,0.5)",
+            borderTopColor: "#FFFFFF",
+            borderRadius: "50%",
+            animation: `${spin} 0.7s linear infinite`,
+          }}
         />
       )}
     </StyledButton>

@@ -24,8 +24,7 @@ export function DetailsCard({ rows }: DetailsCardProps) {
       sx={{
         border: `1px solid ${surfaceColors.border}`,
         borderRadius: radius.md,
-        px: 2.5,
-        py: 1,
+        px: "18px",
       }}
     >
       {rows.map((row, index) => (
@@ -35,14 +34,14 @@ export function DetailsCard({ rows }: DetailsCardProps) {
             display: "flex",
             justifyContent: "space-between",
             gap: 2,
-            py: 1.25,
+            py: 1.5,
             borderTop: index === 0 ? "none" : `1px solid ${surfaceColors.border}`,
           }}
         >
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary" sx={{ fontSize: "0.85rem" }}>
             {row.label}
           </Typography>
-          <Typography variant="body1" fontWeight={600}>
+          <Typography variant="body1" fontWeight={600} sx={{ fontSize: "0.9rem" }}>
             {row.value}
           </Typography>
         </Box>

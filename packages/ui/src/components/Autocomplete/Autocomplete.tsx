@@ -52,10 +52,10 @@ const VARIANT_TO_MUI: Record<AutocompleteVariant, TextFieldProps["variant"]> = {
   underline: "standard",
 };
 const SIZE_TO_MUI: Record<AutocompleteSize, "small" | "medium"> = { sm: "small", md: "medium", lg: "medium" };
-/** Bump de ~15-20% sobre o padding/fonte padrão do TextField "medium" do MUI, usado quando `size="lg"`. */
+/** `size="lg"` do catálogo: padding 14px 16px e fonte 1.05rem (o label não muda). */
 const LG_SIZE_SX = {
-  "& .MuiInputBase-input": { padding: "19px 14px", fontSize: "1.05rem" },
-  "& .MuiInputLabel-root": { fontSize: "1.05rem" },
+  "& .MuiOutlinedInput-root, & .MuiFilledInput-root": { paddingTop: "7px", paddingBottom: "7px", paddingLeft: "11px" },
+  "& .MuiInputBase-input": { fontSize: "1.05rem" },
 } as const;
 
 /**

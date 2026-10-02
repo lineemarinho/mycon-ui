@@ -94,8 +94,8 @@ export function DataTable<T>({
         </TableBody>
       </Table>
       {pageCount !== undefined && page !== undefined && onPageChange && (
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
-          <Pagination count={pageCount} page={page} onChange={(_, value) => onPageChange(value)} />
+        <Box sx={{ display: "flex", justifyContent: "center", mt: "14px" }}>
+          <Pagination count={pageCount} page={page} onChange={(_, value) => onPageChange(value)} hidePrevButton hideNextButton />
         </Box>
       )}
     </Box>

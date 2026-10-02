@@ -36,7 +36,7 @@ export function CheckboxField({
   return (
     <FormControlLabel
       labelPlacement={labelPosition === "start" ? "start" : "end"}
-      sx={showError ? { color: "error.main" } : undefined}
+      sx={showError ? { "& .MuiFormControlLabel-label": { color: "error.main" } } : undefined}
       control={
         <MuiCheckbox
           checked={checked}

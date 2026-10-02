@@ -24,10 +24,14 @@ const TONE_TO_MUI: Record<SwitchFieldTone, "primary" | "success" | "error"> = {
   success: "success",
   error: "error",
 };
-const SIZE_TO_MUI: Record<SwitchFieldSize, "small" | "medium"> = { sm: "small", md: "medium", lg: "medium" };
+/** Como no catálogo, os tamanhos são o mesmo switch (40×22) em escala. */
+const SIZE_SX: Record<SwitchFieldSize, object | undefined> = {
+  sm: { transform: "scale(0.82)", transformOrigin: "left center" },
+  md: undefined,
+  lg: { transform: "scale(1.15)", transformOrigin: "left center" },
+};
 const SIZE_TO_PROGRESS: Record<SwitchFieldSize, number> = { sm: 16, md: 20, lg: 24 };
 /** MUI Switch não tem tamanho "large" nativo — escala o root em ~15%, ancorado à esquerda. */
-const LG_SWITCH_SX = { transform: "scale(1.15)", transformOrigin: "left center" } as const;
 
 /**
  * Toggle ativo/inativo com label. Padroniza o `Switch` do MUI usado sem
@@ -46,6 +50,7 @@ export function SwitchField({
 }: SwitchFieldProps) {
   return (
     <FormControlLabel
+      sx={{ ml: 0 }}
       labelPlacement={labelPosition === "start" ? "start" : "end"}
       control={
         loading ? (
@@ -56,8 +61,7 @@ export function SwitchField({
             onChange={(event) => onChange(event.target.checked)}
             disabled={disabled}
             color={TONE_TO_MUI[tone]}
-            size={SIZE_TO_MUI[size]}
-            sx={size === "lg" ? LG_SWITCH_SX : undefined}
+            sx={SIZE_SX[size]}
           />
         )
       }

@@ -18,11 +18,11 @@ export function Toast({ open, onClose, message, variant = "default", autoHideDur
       anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
     >
       {variant === "default" ? (
-        <MuiAlert severity="info" variant="filled" onClose={onClose} sx={{ borderRadius: "10px" }}>
+        <MuiAlert severity="info" variant="filled" icon={false}>
           {message}
         </MuiAlert>
       ) : (
-        <MuiAlert severity={variant} variant="filled" onClose={onClose} sx={{ borderRadius: "10px" }}>
+        <MuiAlert severity={variant} variant="filled" icon={false}>
           {message}
         </MuiAlert>
       )}

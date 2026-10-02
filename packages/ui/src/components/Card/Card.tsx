@@ -14,12 +14,14 @@ export function Card({ variant = "outlined", children, onClick }: CardProps) {
     <Box
       onClick={onClick}
       sx={{
-        borderRadius: radius.md,
+        borderRadius: radius.lg,
         p: 2.5,
         cursor: onClick ? "pointer" : "default",
+        fontSize: "0.88rem",
+        color: "text.secondary",
         border: variant === "outlined" ? `1px solid ${surfaceColors.border}` : "none",
-        backgroundColor: variant === "filled" ? surfaceColors.raised : "background.paper",
-        boxShadow: variant === "elevated" ? "0 1px 3px rgba(0,0,0,0.1)" : "none",
+        backgroundColor: variant === "filled" ? surfaceColors.raised : "transparent",
+        boxShadow: variant === "elevated" ? "0 4px 16px rgba(54,52,85,0.14)" : "none",
       }}
     >
       {children}

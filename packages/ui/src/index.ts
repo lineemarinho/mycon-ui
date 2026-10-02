@@ -36,5 +36,6 @@ export * from "./components/Drawer";
 export * from "./components/Toast";
 export * from "./components/Alert";
 export * from "./components/Popover";
+export * from "./components/Logo";
 export * from "./tokens";
 export * from "./theme";

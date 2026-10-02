@@ -16,7 +16,7 @@ export function Popover({ open, anchorEl, onClose, children }: PopoverProps) {
       onClose={onClose}
       anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
     >
-      <Box sx={{ p: 2 }}>{children}</Box>
+      <Box sx={{ px: 2, py: 1.75 }}>{children}</Box>
     </MuiPopover>
   );
 }

@@ -22,11 +22,11 @@ describe("SwitchField", () => {
     expect(screen.getByRole("progressbar")).toBeInTheDocument();
   });
 
-  it("applies the small MUI size by default and medium for size=lg", () => {
+  it("scales the same switch for sm and lg, as in the catalog", () => {
     const { rerender } = render(<SwitchField label="Ativo" checked onChange={() => {}} size="sm" />);
-    expect(document.querySelector(".MuiSwitch-root")).toHaveClass("MuiSwitch-sizeSmall");
+    expect(document.querySelector(".MuiSwitch-root")).toHaveStyle({ transform: "scale(0.82)" });
 
     rerender(<SwitchField label="Ativo" checked onChange={() => {}} size="lg" />);
-    expect(document.querySelector(".MuiSwitch-root")).toHaveClass("MuiSwitch-sizeMedium");
+    expect(document.querySelector(".MuiSwitch-root")).toHaveStyle({ transform: "scale(1.15)" });
   });
 });

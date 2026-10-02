@@ -12,7 +12,6 @@ export function ProgressBar({ value, variant = "determinate", color = "primary" 
       variant={variant}
       value={value}
       color={color}
-      sx={{ borderRadius: 100, height: 8 }}
       aria-valuenow={value}
     />
   );

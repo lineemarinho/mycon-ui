@@ -40,17 +40,17 @@ export function SectionCard({
     <Box
       sx={{
         border: boxed ? `1px solid ${surfaceColors.border}` : "none",
-        borderRadius: boxed ? radius.md : 0,
-        p: boxed ? { xs: 2, sm: 3 } : 0,
+        borderRadius: boxed ? radius.lg : 0,
+        p: boxed ? 2.5 : 0,
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 2 }}>
         <Box>
-          <Typography variant="h6" fontWeight={700}>
+          <Typography variant="h6" fontWeight={700} sx={{ fontSize: "1rem", color: "text.primary", lineHeight: 1.4 }}>
             {title}
           </Typography>
           {subtitle && (
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" color="text.secondary" sx={{ fontSize: "0.8rem", mt: "2px" }}>
               {subtitle}
             </Typography>
           )}
@@ -60,6 +60,15 @@ export function SectionCard({
           {collapsible && (
             <IconButton
               size="small"
+              disableRipple
+              sx={{
+                width: 28,
+                height: 28,
+                border: `1px solid ${surfaceColors.border}`,
+                backgroundColor: "background.paper",
+                color: "text.secondary",
+                "& .MuiSvgIcon-root": { fontSize: 18 },
+              }}
               onClick={() => setExpanded((prev) => !prev)}
               aria-label={expanded ? "Recolher seção" : "Expandir seção"}
               aria-expanded={expanded}
@@ -71,10 +80,10 @@ export function SectionCard({
       </Box>
       {collapsible ? (
         <Collapse in={expanded}>
-          <Box sx={{ pt: 2 }}>{children}</Box>
+          <Box sx={{ pt: "14px", fontSize: "0.88rem", color: "text.secondary" }}>{children}</Box>
         </Collapse>
       ) : (
-        <Box sx={{ pt: 2 }}>{children}</Box>
+        <Box sx={{ pt: "14px", fontSize: "0.88rem", color: "text.secondary" }}>{children}</Box>
       )}
     </Box>
   );

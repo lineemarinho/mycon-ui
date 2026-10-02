@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Typography from "@mui/material/Typography";
 import { Button } from "../Button/Button";
+import { fontFamilies } from "../../tokens/typography";
 
 export type FilterPanelProps = {
   open: boolean;
@@ -32,13 +33,15 @@ export function FilterPanel({
 }: FilterPanelProps) {
   return (
     <Drawer anchor="right" open={open} onClose={onClose}>
-      <Box sx={{ width: 320, p: 3, display: "flex", flexDirection: "column", gap: 2, height: "100%" }}>
-        <Typography variant="h6">{title}</Typography>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2, flex: 1, overflowY: "auto" }}>
+      <Box sx={{ width: "min(320px, 88vw)", p: 3, display: "flex", flexDirection: "column", gap: 2, height: "100%" }}>
+        <Typography variant="h6" sx={{ fontFamily: fontFamilies.heading, fontSize: "1.05rem", fontWeight: 700, color: "text.primary" }}>
+          {title}
+        </Typography>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: "14px", flex: 1, overflowY: "auto" }}>
           {children}
         </Box>
-        <Box sx={{ display: "flex", gap: 1 }}>
-          <Button variant="tertiary" onClick={onClear} sx={{ flex: 1 }}>
+        <Box sx={{ display: "flex", gap: "10px" }}>
+          <Button variant="outline" onClick={onClear} sx={{ flex: 1 }}>
             {clearText}
           </Button>
           <Button variant="primary" onClick={onApply} sx={{ flex: 1 }}>

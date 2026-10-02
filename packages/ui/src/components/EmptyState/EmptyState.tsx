@@ -10,13 +10,23 @@ export type EmptyStateProps = {
 
 export function EmptyState({ title, description, icon, action }: EmptyStateProps) {
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 1.5, py: 6 }}>
+    <Box sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        textAlign: "center",
+        gap: 1,
+        py: 4,
+        px: 1.5,
+        color: "text.secondary",
+        "& .MuiSvgIcon-root": { fontSize: 32, color: "text.secondary" },
+      }}>
       {icon}
-      <Typography variant="h6" fontWeight={700}>
+      <Typography variant="h6" fontWeight={700} sx={{ fontSize: "1rem", color: "text.primary" }}>
         {title}
       </Typography>
       {description && (
-        <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 360 }}>
+        <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 360, fontSize: "0.85rem" }}>
           {description}
         </Typography>
       )}

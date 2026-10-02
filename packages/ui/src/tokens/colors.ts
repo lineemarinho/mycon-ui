@@ -37,9 +37,16 @@ export const alertTintColors = {
   errorText: "#3B0B0B",
 } as const;
 
+/** Superfícies e bordas do catálogo (docs/catalog.html: --surface-raised, --line). */
 export const surfaceColors = {
-  raised: "#F9F9FB",
-  border: "#CFD3D4",
+  raised: "#F5F6FC",
+  border: "#E4E7EC",
+} as const;
+
+/** Cores de texto do catálogo (docs/catalog.html: --ink, --ink-soft). */
+export const textColors = {
+  primary: "#363455",
+  secondary: "#6B6A8A",
 } as const;
 
 export type SemanticColor = keyof typeof semanticColors;

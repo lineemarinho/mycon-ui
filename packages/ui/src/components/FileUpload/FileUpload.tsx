@@ -38,7 +38,7 @@ export function FileUpload({ label, value, onChange, accept = "image/*", error, 
   return (
     <Box>
       {label && (
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
+        <Typography color="text.secondary" sx={{ mb: "6px", fontSize: "0.78rem" }}>
           {label}
         </Typography>
       )}
@@ -57,28 +57,34 @@ export function FileUpload({ label, value, onChange, accept = "image/*", error, 
           border: `1.5px dashed ${error ? semanticColors.error : isDragging ? brandColors.primary : surfaceColors.border}`,
           borderRadius: radius.md,
           p: 3,
+          maxWidth: 280,
           textAlign: "center",
           backgroundColor: isDragging ? "action.hover" : "transparent",
         }}
       >
         {value ? (
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1.5 }}>
-            <Box component="img" src={value} alt="Pré-visualização" sx={{ maxHeight: 120, maxWidth: "100%", borderRadius: radius.sm }} />
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
+            <Box component="img" src={value} alt="Pré-visualização" sx={{ maxHeight: 80, maxWidth: "100%", borderRadius: radius.sm }} />
             <Box sx={{ display: "flex", gap: 1 }}>
-              <Button variant="tertiary" size="sm" onClick={() => inputRef.current?.click()}>
+              <Button variant="outline" size="sm" onClick={() => inputRef.current?.click()}>
                 Substituir
               </Button>
-              <Button variant="tertiary" size="sm" onClick={() => handleFile(null)}>
+              <Button
+                variant="tertiary"
+                size="sm"
+                onClick={() => handleFile(null)}
+                sx={{ border: `1px solid ${surfaceColors.border}`, py: "6px", px: "15px" }}
+              >
                 Remover
               </Button>
             </Box>
           </Box>
         ) : (
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1 }}>
-            <Typography variant="body2" color="text.secondary">
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
+            <Typography color="text.secondary" sx={{ fontSize: "0.85rem" }}>
               Arraste um arquivo aqui ou
             </Typography>
-            <Button variant="tertiary" size="sm" onClick={() => inputRef.current?.click()}>
+            <Button variant="outline" size="sm" onClick={() => inputRef.current?.click()}>
               Selecionar arquivo
             </Button>
           </Box>
@@ -94,7 +100,7 @@ export function FileUpload({ label, value, onChange, accept = "image/*", error, 
         />
       </Box>
       {helperText && (
-        <Typography variant="caption" color={error ? "error" : "text.secondary"} sx={{ mt: 0.5, display: "block" }}>
+        <Typography variant="caption" color={error ? "error" : "text.secondary"} sx={{ mt: "6px", display: "block", fontSize: "0.72rem" }}>
           {helperText}
         </Typography>
       )}

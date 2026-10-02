@@ -1,8 +1,7 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { semanticColors, type SemanticColor } from "../../tokens/colors";
-import { radius } from "../../tokens/radius";
-import { contrastTextFor } from "../../utils/contrastText";
+import { fontFamilies } from "../../tokens/typography";
 
 export type StatusBadgeProps = {
   /** Semântica do status — determina a cor, nunca um hex direto. */
@@ -29,11 +28,12 @@ export function StatusBadge({ status, label, variant = "dot" }: StatusBadgeProps
           alignItems: "center",
           px: 1.5,
           py: 0.5,
-          borderRadius: radius.sm,
+          borderRadius: "100px",
           backgroundColor: color,
-          color: contrastTextFor(color),
-          fontSize: "0.75rem",
-          fontWeight: 600,
+          color: "#FFFFFF",
+          fontFamily: fontFamilies.heading,
+          fontSize: "0.72rem",
+          fontWeight: 700,
           lineHeight: 1.4,
         }}
       >
@@ -43,9 +43,11 @@ export function StatusBadge({ status, label, variant = "dot" }: StatusBadgeProps
   }
 
   return (
-    <Box sx={{ display: "inline-flex", alignItems: "center", gap: 1 }}>
-      <Box sx={{ width: 12, height: 12, borderRadius: "50%", backgroundColor: color, flexShrink: 0 }} />
-      <Typography variant="body2">{label}</Typography>
+    <Box sx={{ display: "inline-flex", alignItems: "center", gap: "7px" }}>
+      <Box sx={{ width: 11, height: 11, borderRadius: "50%", backgroundColor: color, flexShrink: 0 }} />
+      <Typography variant="body2" sx={{ fontSize: "0.85rem" }}>
+        {label}
+      </Typography>
     </Box>
   );
 }

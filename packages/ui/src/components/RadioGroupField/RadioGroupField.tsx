@@ -46,9 +46,10 @@ export function RadioGroupField<T extends string>({
 }: RadioGroupFieldProps<T>) {
   return (
     <FormControl error={error} disabled={disabled}>
-      {label && <FormLabel>{label}</FormLabel>}
+      {label && <FormLabel sx={{ mb: 1 }}>{label}</FormLabel>}
       <MuiRadioGroup
         row={orientation === "horizontal"}
+        sx={{ gap: orientation === "horizontal" ? "20px" : "10px", "& .MuiFormControlLabel-root": { mr: 0 } }}
         value={value}
         onChange={(event) => onChange(event.target.value as T)}
       >

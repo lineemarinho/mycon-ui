@@ -61,12 +61,12 @@ describe("Button", () => {
     expect(screen.getByRole("button", { name: "Atenção" })).toHaveStyle({ color: "#F5A623" });
   });
 
-  it("picks a legible text color for the tone background", () => {
+  it("uses white text on the tone background, as in the catalog", () => {
     render(
       <Button tone="success" variant="primary">
         Aprovar
       </Button>,
     );
-    expect(screen.getByRole("button", { name: "Aprovar" })).toHaveStyle({ color: "rgba(0, 0, 0, 0.87)" });
+    expect(screen.getByRole("button", { name: "Aprovar" })).toHaveStyle({ color: "#FFFFFF" });
   });
 });

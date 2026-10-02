@@ -46,20 +46,21 @@ export type KeyValueItemProps = {
  * `ListInfoItem`/`CardInfoItem`/`DataCell` reimplementado em pelo menos 9
  * dos 11 repos auditados (ver AUDITORIA.md — duplicação #2).
  */
-export function KeyValueItem({ title, value, showBorder = true, minWidth = 160, flex = "1 1 160px" }: KeyValueItemProps) {
+export function KeyValueItem({ title, value, showBorder = true, minWidth = 0, flex = "1 1 140px" }: KeyValueItemProps) {
   return (
     <Box
       sx={{
         flex,
         minWidth,
+        overflow: "hidden",
         borderRight: showBorder ? `1px solid ${surfaceColors.border}` : "none",
         pr: showBorder ? 2 : 0,
       }}
     >
-      <Typography variant="body2" color="text.secondary">
+      <Typography color="text.secondary" noWrap sx={{ fontSize: "0.72rem", mb: "2px" }}>
         {title}
       </Typography>
-      <Typography variant="h6" fontWeight={700} noWrap>
+      <Typography fontWeight={700} noWrap sx={{ fontSize: "0.95rem", color: "text.primary" }}>
         {value}
       </Typography>
     </Box>
@@ -96,15 +97,32 @@ export function ListItemCard({ status, children, actions, expandedContent, menuI
   return (
     <Box
       sx={{
-        backgroundColor: surfaceColors.raised,
-        borderRadius: radius.md,
-        borderLeft: status ? `8px solid ${semanticColors[status]}` : "none",
-        boxShadow: "0 1px 2px rgba(0,0,0,0.08)",
+        backgroundColor: "background.paper",
+        border: `1px solid ${surfaceColors.border}`,
+        borderRadius: radius.lg,
+        borderLeft: status ? `8px solid ${semanticColors[status]}` : `1px solid ${surfaceColors.border}`,
+        boxShadow: "0 1px 2px rgba(54,52,85,0.06)",
+        py: 2,
+        pr: 2.5,
+        pl: status ? 2 : 2.5,
         overflow: "hidden",
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center", gap: 2, p: 2 }}>
-        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2, flex: 1 }}>{children}</Box>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 2.5 }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 2.5,
+            flex: 1,
+            minWidth: 0,
+            py: 0.5,
+            // Como no catálogo: o último item não tem divisória.
+            "& > :last-child": { borderRight: "none", pr: 0 },
+          }}
+        >
+          {children}
+        </Box>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1, flexShrink: 0 }}>
           {actions}
           {expandedContent && (
@@ -122,7 +140,13 @@ export function ListItemCard({ status, children, actions, expandedContent, menuI
                 icon={<MenuIcon fontSize="small" />}
                 onClick={(event) => setMenuAnchor(event.currentTarget)}
               />
-              <Menu anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={() => setMenuAnchor(null)}>
+              <Menu
+                anchorEl={menuAnchor}
+                open={Boolean(menuAnchor)}
+                onClose={() => setMenuAnchor(null)}
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                transformOrigin={{ vertical: "top", horizontal: "right" }}
+              >
                 {menuItems.map((item) => (
                   <MenuItem
                     key={item.label}
@@ -142,7 +166,18 @@ export function ListItemCard({ status, children, actions, expandedContent, menuI
       </Box>
       {expandedContent && (
         <Collapse in={expanded}>
-          <Box sx={{ borderTop: `1px solid ${surfaceColors.border}`, p: 2 }}>{expandedContent}</Box>
+          <Box
+            sx={{
+              borderTop: `1px solid ${surfaceColors.border}`,
+              mt: 1.5,
+              pt: 2,
+              pb: 0.5,
+              fontSize: "0.85rem",
+              color: "text.secondary",
+            }}
+          >
+            {expandedContent}
+          </Box>
         </Collapse>
       )}
     </Box>

@@ -6,6 +6,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import MuiTextField, { type TextFieldProps } from "@mui/material/TextField";
+import { semanticColors } from "../../tokens/colors";
 
 export type NumericMaskType = "currency" | "number" | "percent";
 export type DocumentMaskType =
@@ -40,17 +41,15 @@ const VARIANT_TO_MUI: Record<InputVariant, TextFieldProps["variant"]> = {
 };
 const SIZE_TO_MUI: Record<InputSize, "small" | "medium"> = { sm: "small", md: "medium", lg: "medium" };
 const SIZE_TO_PROGRESS: Record<InputSize, number> = { sm: 16, md: 20, lg: 24 };
-/** Bump de ~15-20% sobre o padding/fonte padrão do TextField "medium" do MUI, usado quando `size="lg"`. */
+/** `size="lg"` do catálogo: padding 14px 16px e fonte 1.05rem (o label não muda). */
 const LG_SIZE_SX = {
-  "& .MuiInputBase-input": { padding: "19px 14px", fontSize: "1.05rem" },
-  "& .MuiInputLabel-root": { fontSize: "1.05rem" },
+  "& .MuiInputBase-input": { padding: "14px 16px", fontSize: "1.05rem" },
 } as const;
-const READONLY_SX = { "& .Mui-disabled": { color: "text.primary", WebkitTextFillColor: "unset" } } as const;
+const READONLY_SX = { "& .MuiInputBase-input.Mui-disabled": { color: "text.primary", WebkitTextFillColor: "unset" } } as const;
 const SUCCESS_SX = {
-  "& .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
-  "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
-  "& .Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "success.main" },
-  "& .MuiInputLabel-root.Mui-focused": { color: "success.main" },
+  "& .MuiOutlinedInput-notchedOutline": { borderColor: `${semanticColors.success} !important` },
+  "& .MuiOutlinedInput-root.Mui-focused": { boxShadow: "0 0 0 3px rgba(15,199,24,0.15)" },
+  "& .MuiFormHelperText-root": { color: "success.main" },
 } as const;
 
 /** Combina os estilos internos com o `sx` do chamador usando a forma de array do MUI (aceita `sx` objeto, array ou função). */

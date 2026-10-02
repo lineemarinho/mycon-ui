@@ -8,7 +8,7 @@ export type AlertProps = {
 
 export function Alert({ variant = "info", children, onClose }: AlertProps) {
   return (
-    <MuiAlert severity={variant} onClose={onClose} sx={{ borderRadius: "10px" }}>
+    <MuiAlert severity={variant} onClose={onClose}>
       {children}
     </MuiAlert>
   );

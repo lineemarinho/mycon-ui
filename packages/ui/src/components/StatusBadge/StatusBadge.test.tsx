@@ -14,8 +14,8 @@ describe("StatusBadge", () => {
     expect(screen.getByText("Cancelado")).toHaveStyle({ backgroundColor: semanticColors.error });
   });
 
-  it("uses dark text on light semantic colors for legible contrast", () => {
+  it("uses white text on the tag, as in the catalog", () => {
     render(<StatusBadge status="warning" label="Pendente" variant="tag" />);
-    expect(screen.getByText("Pendente")).toHaveStyle({ color: "rgba(0, 0, 0, 0.87)" });
+    expect(screen.getByText("Pendente")).toHaveStyle({ color: "#FFFFFF" });
   });
 });

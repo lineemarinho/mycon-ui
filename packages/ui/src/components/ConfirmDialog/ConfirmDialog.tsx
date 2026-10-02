@@ -35,10 +35,15 @@ export function ConfirmDialog({
   error,
 }: ConfirmDialogProps) {
   return (
-    <Dialog open={open} onClose={onCancel} aria-labelledby="confirm-dialog-title">
+    <Dialog
+      open={open}
+      onClose={onCancel}
+      aria-labelledby="confirm-dialog-title"
+      slotProps={{ paper: { sx: { width: "min(400px, 90vw)", m: 2 } } }}
+    >
       <DialogTitle id="confirm-dialog-title">{title}</DialogTitle>
       <DialogContent>
-        <Typography>{message}</Typography>
+        <Typography sx={{ fontSize: "0.9rem", color: "text.secondary" }}>{message}</Typography>
         {error && (
           <Typography color="error" sx={{ mt: 1 }} role="alert">
             {error}
@@ -46,7 +51,7 @@ export function ConfirmDialog({
         )}
       </DialogContent>
       <DialogActions>
-        <Button variant="tertiary" onClick={onCancel} disabled={loading}>
+        <Button variant="outline" onClick={onCancel} disabled={loading}>
           {cancelText}
         </Button>
         <Button variant="primary" onClick={onConfirm} isLoading={loading}>
