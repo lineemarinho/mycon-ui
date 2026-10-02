@@ -30,7 +30,8 @@ jobs:
       - run: npm test
       - uses: changesets/action@v1
         with:
-          version: npx changeset version
+          # Também atualiza o package-lock.json com a nova versão.
+          version: npm run version-packages
           publish: npm run release
           commit: Versionar pacotes
           title: Versionar pacotes

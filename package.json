@@ -16,7 +16,8 @@
     "test:visual": "bash scripts/visual-tests.sh",
     "test:visual:update": "bash scripts/visual-tests.sh --update-snapshots",
     "changeset": "changeset",
-    "release": "npm run build && changeset publish"
+    "release": "npm run build && changeset publish",
+    "version-packages": "changeset version && npm install --package-lock-only --no-audit --no-fund"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.0",
