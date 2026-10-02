@@ -364,6 +364,8 @@
     overflow-x: auto;
     position: relative;
   }
+  /* Preserva quebras de linha e indentação dos exemplos. */
+  .code-content { white-space: pre; padding-right: 64px; }
   .code-block .tag { color: #9BA4FF; }
   .code-block .attr { color: #6FE3C9; }
   .code-block .str { color: #FFC978; }

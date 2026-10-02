@@ -26,7 +26,7 @@ function CodeBlock({ html }: { html: string }) {
     <div className="code-block">
       <CopyButton getText={() => ref.current?.innerText.trim() ?? ""} />
       {/* O HTML vem do conteúdo versionado do catálogo (src/content.ts), não de entrada do usuário. */}
-      <div ref={ref} dangerouslySetInnerHTML={{ __html: html }} />
+      <div ref={ref} className="code-content" dangerouslySetInnerHTML={{ __html: html }} />
     </div>
   );
 }
